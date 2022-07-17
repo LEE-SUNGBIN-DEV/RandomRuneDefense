@@ -2,7 +2,7 @@
 
 개발 엔진: Unity
 
-게임 장르: 2D Defense Multiplayer Online Game
+게임 장르: 2D Multiplayer Online Defense Game
 
 게임 제목: Random Rune Defense
 
