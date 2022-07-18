@@ -4,9 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 
 [System.Serializable]
-public class PlayerSaveData
+public class PlayerDatabase
 {
-    public string nickname;
     public uint level;
     public float experience;
     public uint gold;

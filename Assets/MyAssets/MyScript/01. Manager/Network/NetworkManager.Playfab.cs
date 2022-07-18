@@ -42,10 +42,6 @@ public partial class NetworkManager
         // 엔터티 토큰
         playFabEntityId = loginResult.EntityToken.Entity.Id;
         playFabEntityType = loginResult.EntityToken.Entity.Type;
-
-        LoadPlayerData();
-        GetUserData();
-        UpdateUserData();
     }
 
     // Step 3
@@ -68,6 +64,7 @@ public partial class NetworkManager
     private void OnLogin()
     {
         ConnectionInfomationText.text = "로그인에 성공하였습니다.";
+        UpdatePlayerDatabase("level", 10);
         onLogin(true);
         Connect();
     }
@@ -95,6 +92,7 @@ public partial class NetworkManager
     #region Message
     private void OnPlayFabError(PlayFabError obj)
     {
+        ConnectionInfomationText.text = "오류가 발생하였습니다.";
         LogMessage(obj.GenerateErrorReport());
         onLogin(false);
     }
