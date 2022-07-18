@@ -11,14 +11,16 @@ using Newtonsoft.Json;
 public partial class NetworkManager
 {
     #region Event
-    public static UnityAction<PlayerSaveData> onLoadPlayerData;
-    public static UnityAction<PlayerSaveData> onSavePlayerData;
+    public static UnityAction onLoadDatabase;
+
+    public static UnityAction<PlayerDatabase> onLoadPlayerData;
+    public static UnityAction<PlayerDatabase> onSavePlayerData;
     #endregion
     [Header("PlayFab Entity")]
     private string playFabEntityId;
     private string playFabEntityType;
 
-    private void GetUserData()
+    private void UpdatePlayerDatabase(string key, object value)
     {
         PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest()
         {
@@ -27,10 +29,11 @@ public partial class NetworkManager
                 Id = playFabEntityId, //Get this from when you logged in,
                 Type = playFabEntityType //Get this from when you logged in
             },
-            FunctionName = "GetUserData", //This should be the name of your Azure Function that you created.
-            FunctionParameter = new Dictionary<string, string>()
+            FunctionName = "UpdatePlayerDatabase", //This should be the name of your Azure Function that you created.
+            FunctionParameter = new Dictionary<string, object>()
             {
-                {"key", "gold" }
+                { "key", key },
+                { "value", value }
             },
             GeneratePlayStreamEvent = true
         }, (ExecuteFunctionResult result) =>
@@ -43,43 +46,29 @@ public partial class NetworkManager
             }
             Debug.Log($"The {result.FunctionName} function took {result.ExecutionTimeMilliseconds} to complete");
             Debug.Log($"Result: {result.FunctionResult}");
+
+            ConnectionInfomationText.text = "플레이어 정보를 갱신 중입니다.";
+            GetPlayerDatabase();
         }, (PlayFabError error) =>
         {
             Debug.Log($"Opps Something went wrong: {error.GenerateErrorReport()}");
         });
     }
 
-    private void UpdateUserData()
+    public void GetPlayerDatabase()
     {
-        PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest()
-        {
-            Entity = new PlayFab.CloudScriptModels.EntityKey()
+        ConnectionInfomationText.text = "플레이어 정보를 불러오는 중입니다.";
+
+        var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
+        PlayFabDataAPI.GetObjects(getRequest,
+            result =>
             {
-                Id = playFabEntityId, //Get this from when you logged in,
-                Type = playFabEntityType //Get this from when you logged in
+                PlayerDatabase playerSaveData = JsonConvert.DeserializeObject<PlayerDatabase>(result.Objects["PlayerDatabase"].DataObject.ToString());
+                onLoadPlayerData(playerSaveData);
             },
-            FunctionName = "UpdateUserData", //This should be the name of your Azure Function that you created.
-            FunctionParameter = new Dictionary<string, string>()
-            {
-                {"key", "gold" },
-                {"value", "300" }
-            },
-            GeneratePlayStreamEvent = false
-        }, (ExecuteFunctionResult result) =>
-        {
-            if (result.FunctionResultTooLarge != null && (bool)result.FunctionResultTooLarge)
-            {
-                Debug.Log("This can happen if you exceed the limit that can be returned from an Azure Function," +
-                    " See PlayFab Limits Page for details.");
-                return;
-            }
-            Debug.Log($"The {result.FunctionName} function took {result.ExecutionTimeMilliseconds} to complete");
-            Debug.Log($"Result: {result.FunctionResult}");
-        }, (PlayFabError error) =>
-        {
-            Debug.Log($"Opps Something went wrong: {error.GenerateErrorReport()}");
-        });
+            OnPlayFabError);
     }
+    //
     #region Request Database
     // ! 플레이어 데이터 요청
     public void RequestPlayerData()
@@ -110,52 +99,6 @@ public partial class NetworkManager
     public void RequestPurchase()
     {
 
-    }
-
-    public void SavePlayerData()
-    {
-        PlayerSaveData playerSaveData = new PlayerSaveData();
-        onSavePlayerData(playerSaveData);
-
-        var data = new Dictionary<string, object>()
-        {
-            {"name", playerSaveData.nickname},
-            {"level", playerSaveData.level},
-            {"experience", playerSaveData.experience},
-            {"gold", playerSaveData.gold},
-            {"crystal", playerSaveData.crystal}
-        };
-
-        var dataList = new List<SetObject>()
-        {
-            new SetObject()
-            {
-              ObjectName = "PlayerSaveData",
-              DataObject = data
-            },
-        // A free-tier customer may store up to 3 objects on each entity
-        };
-
-        PlayFabDataAPI.SetObjects(new SetObjectsRequest()
-        {
-            Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType }, // Saved from GetEntityToken, or a specified key created from a titlePlayerId, CharacterId, etc
-            Objects = dataList,
-        }, (setResult) =>
-        {
-            Debug.Log(setResult.ProfileVersion);
-        }, OnPlayFabError);
-    }
-    public void LoadPlayerData()
-    {
-        var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
-        PlayFabDataAPI.GetObjects(getRequest,
-            result =>
-            {
-                PlayerSaveData playerSaveData = JsonConvert.DeserializeObject<PlayerSaveData>(result.Objects["PlayerSaveData"].DataObject.ToString());
-                onLoadPlayerData(playerSaveData);
-
-            },
-            OnPlayFabError);
     }
     #endregion
 }

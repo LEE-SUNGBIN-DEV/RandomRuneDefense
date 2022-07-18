@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class LobbyScenePanel : Panel
 {
@@ -46,7 +47,7 @@ public class LobbyScenePanel : Panel
 
     private void UpdateUGUI(PlayerData playerData)
     {
-        topUserNicknameText.text = "닉네임: " + playerData.Nickname;
+        topUserNicknameText.text = "닉네임: " + PhotonNetwork.LocalPlayer.NickName;
         topUserGoldText.text = "골드: " + playerData.Gold;
         topUserCrystalText.text = "크리스탈: " + playerData.Crystal;
     }

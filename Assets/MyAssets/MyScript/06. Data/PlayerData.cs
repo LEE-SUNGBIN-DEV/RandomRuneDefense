@@ -9,13 +9,11 @@ public class PlayerData : MonoBehaviour
     public static event UnityAction<PlayerData> onPlayerDataChanged;
     #endregion
 
-    [SerializeField] private string nickname;
     [SerializeField] private uint level;
     [SerializeField] private float experience;
     [SerializeField] private uint gold;
     [SerializeField] private uint crystal;
 
-    // 
 
     private void Awake()
     {
@@ -35,18 +33,16 @@ public class PlayerData : MonoBehaviour
         GameManager.onSceneLoaded -= UpdatePlayerData;
     }
 
-    public void LoadPlayerData(PlayerSaveData playerSaveData)
+    public void LoadPlayerData(PlayerDatabase playerSaveData)
     {
-        Nickname = playerSaveData.nickname;
         Level = playerSaveData.level;
         Experience = playerSaveData.experience;
         Gold = playerSaveData.gold;
         Crystal = playerSaveData.crystal;
     }
 
-    public void SavePlayerData(PlayerSaveData playerSaveData)
+    public void SavePlayerData(PlayerDatabase playerSaveData)
     {
-        playerSaveData.nickname = nickname;
         playerSaveData.level = level;
         playerSaveData.experience = experience;
         playerSaveData.gold = gold;
@@ -62,15 +58,6 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public string Nickname
-    {
-        get => nickname;
-        set
-        {
-            nickname = value;
-            UpdatePlayerData(GameManager.Instance.CurrentSceneName);
-        }
-    }
     public uint Level
     {
         get => level;
