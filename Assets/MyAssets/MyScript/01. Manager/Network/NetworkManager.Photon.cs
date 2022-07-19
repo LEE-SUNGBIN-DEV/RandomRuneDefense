@@ -56,6 +56,7 @@ public partial class NetworkManager : MonoBehaviourPunCallbacks
         {
             onConnect(true);
         }
+
         PhotonNetwork.JoinLobby();
     }
     public override void OnJoinedLobby()
