@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private LobbyScenePanel lobbyScenePanel;
     [SerializeField] private GameScenePanel gameScenePanel;
     [SerializeField] private SystemNoticePanel systemNoticePanel;
+    [SerializeField] private CardInformationPanel cardInformationPanel;
 
     public override void Initialize()
     {
@@ -67,6 +68,10 @@ public class UIManager : Singleton<UIManager>
     public SystemNoticePanel SystemNoticePanel
     {
         get => systemNoticePanel;
+    }
+    public CardInformationPanel CardInformationPanel
+    {
+        get => cardInformationPanel;
     }
     #endregion
 }
