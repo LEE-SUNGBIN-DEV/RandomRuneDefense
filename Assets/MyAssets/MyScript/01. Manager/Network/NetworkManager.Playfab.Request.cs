@@ -7,6 +7,7 @@ using PlayFab;
 using PlayFab.DataModels;
 using PlayFab.CloudScriptModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public partial class NetworkManager
 {
@@ -20,7 +21,7 @@ public partial class NetworkManager
     private string playFabEntityId;
     private string playFabEntityType;
 
-    private void UpdatePlayerDatabase(string key, object value)
+    private void UpdatePlayerDatabase(string requestKey, object requestValue)
     {
         PlayFabCloudScriptAPI.ExecuteFunction(new ExecuteFunctionRequest()
         {
@@ -29,11 +30,11 @@ public partial class NetworkManager
                 Id = playFabEntityId, //Get this from when you logged in,
                 Type = playFabEntityType //Get this from when you logged in
             },
-            FunctionName = "UpdatePlayerDatabase", //This should be the name of your Azure Function that you created.
-            FunctionParameter = new Dictionary<string, object>()
+            FunctionName = Constant.SERVER_REQUEST_UPDATE_PLAYER_DATABASE, //This should be the name of your Azure Function that you created.
+            FunctionParameter = new Dictionary<string, object>
             {
-                { "key", key },
-                { "value", value }
+                {"key", requestKey },
+                {"value", requestValue}
             },
             GeneratePlayStreamEvent = true
         }, (ExecuteFunctionResult result) =>
@@ -51,7 +52,7 @@ public partial class NetworkManager
             GetPlayerDatabase();
         }, (PlayFabError error) =>
         {
-            Debug.Log($"Opps Something went wrong: {error.GenerateErrorReport()}");
+            Debug.Log($"ExecuteFunction Error: {error.GenerateErrorReport()}");
         });
     }
 

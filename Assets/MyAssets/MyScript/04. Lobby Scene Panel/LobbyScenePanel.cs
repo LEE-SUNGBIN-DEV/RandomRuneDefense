@@ -21,6 +21,7 @@ public class LobbyScenePanel : Panel
     [SerializeField] private TextMeshProUGUI topUserNicknameText;
     [SerializeField] private TextMeshProUGUI topUserGoldText;
     [SerializeField] private TextMeshProUGUI topUserCrystalText;
+    [SerializeField] private TextMeshProUGUI topUserLevelText;
 
     private void Awake()
     {
@@ -47,9 +48,10 @@ public class LobbyScenePanel : Panel
 
     private void UpdateUGUI(PlayerData playerData)
     {
-        topUserNicknameText.text = "´Ð³×ÀÓ: " + PhotonNetwork.LocalPlayer.NickName;
-        topUserGoldText.text = "°ñµå: " + playerData.Gold;
-        topUserCrystalText.text = "Å©¸®½ºÅ»: " + playerData.Crystal;
+        topUserNicknameText.text = PhotonNetwork.LocalPlayer.NickName;
+        topUserGoldText.text = playerData.Gold.ToString();
+        topUserCrystalText.text = playerData.Crystal.ToString();
+        topUserLevelText.text = playerData.Level.ToString();
     }
 
     public void OnClickBottomPanelButton(Panel selectPanel)

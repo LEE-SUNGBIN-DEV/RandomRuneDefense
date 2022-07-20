@@ -31,6 +31,10 @@ public partial class NetworkManager
     {
         ConnectionInfomationText.text = "네트워크에 인증 토큰을 요청합니다.";
 
+        // 엔터티 토큰
+        playFabEntityId = loginResult.EntityToken.Entity.Id;
+        playFabEntityType = loginResult.EntityToken.Entity.Type;
+
         // 포톤 토큰
         playFabUserId = loginResult.PlayFabId;
 
@@ -39,9 +43,7 @@ public partial class NetworkManager
             PhotonApplicationId = PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime
         }, AuthenticateWithPhoton, OnPlayFabError);
 
-        // 엔터티 토큰
-        playFabEntityId = loginResult.EntityToken.Entity.Id;
-        playFabEntityType = loginResult.EntityToken.Entity.Type;
+        
     }
 
     // Step 3
@@ -64,7 +66,7 @@ public partial class NetworkManager
     private void OnLogin()
     {
         ConnectionInfomationText.text = "로그인에 성공하였습니다.";
-        UpdatePlayerDatabase("level", 10);
+        UpdatePlayerDatabase("gold", 999);
         onLogin(true);
         Connect();
     }
