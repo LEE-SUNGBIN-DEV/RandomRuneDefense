@@ -22,21 +22,25 @@ namespace PlayFab.Internal
 
         public void OnDestroy() { }
 
+        [Obsolete]
         public void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("get", fullUrl, null, successCallback, errorCallback));
         }
 
+        [Obsolete]
         public void SimplePutCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("put", fullUrl, payload, successCallback, errorCallback));
         }
 
+        [Obsolete]
         public void SimplePostCall(string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             PlayFabHttp.instance.StartCoroutine(SimpleCallCoroutine("post", fullUrl, payload, successCallback, errorCallback));
         }
 
+        [Obsolete]
         private static IEnumerator SimpleCallCoroutine(string method, string fullUrl, byte[] payload, Action<byte[]> successCallback, Action<string> errorCallback)
         {
             if (payload == null)
