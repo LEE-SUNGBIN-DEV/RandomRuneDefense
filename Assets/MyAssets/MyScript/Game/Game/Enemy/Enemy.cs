@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
         if(Health <= 0 && gameObject.activeSelf)
         {
-            OnGameScene.Inst.Total_SP += 10;
+            OnGameScene.Inst.TotalSP += 10;
             gameObject.SetActive(false);
         }
     }    

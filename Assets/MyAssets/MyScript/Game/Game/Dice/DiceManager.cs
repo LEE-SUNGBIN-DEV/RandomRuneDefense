@@ -39,26 +39,39 @@ public class DiceManager : MonoBehaviour
 
     void Update()
     {
-        if(isPointDown)
-        OnPointerDown();       
+        if(isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
+        {
+            DiceSumValue = 0;           
+
+            inputTime += Time.deltaTime * 2;
+
+            slider.value = inputTime;
+
+            if (inputTime >= 1)
+            {
+                inputTime = 0;
+            }
+        }       
+
+        // ÅäÅ» sp ½ºÆù sp 
+        if(ongameScene.TotalSP < ongameScene.SpawnSP)
+        {
+            eventTrigger.enabled = false;
+        }   
+        else
+        {
+            eventTrigger.enabled = true;
+        }
     }  
     public void OnPointerDown()
-    {
+    {       
         isPointDown = true;
-
-        DiceSumValue = 0;
-
-        inputTime += Time.deltaTime * 2;
-
-        slider.value = inputTime;
-
-        if (inputTime >= 1)
-        {
-            inputTime = 0;
-        }
     }
     public void OnPointerUp()
     {
+        ongameScene.TotalSP -= ongameScene.SpawnSP;
+        ongameScene.SpawnSP += 10;
+
         eventTrigger.enabled = false;
         isPointDown = false;        
         DicePercentage();

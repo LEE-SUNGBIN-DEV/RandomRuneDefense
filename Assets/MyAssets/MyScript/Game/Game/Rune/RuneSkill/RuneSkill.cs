@@ -8,9 +8,9 @@ public class RuneSkill : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().Health -= damage;
         }
-    }   
+    }     
 }
