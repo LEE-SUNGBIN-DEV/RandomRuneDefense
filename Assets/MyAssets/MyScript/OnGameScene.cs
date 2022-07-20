@@ -16,13 +16,13 @@ public class OnGameScene : MonoBehaviour
     int spawnSP;
 
     #region 프로퍼티
-    public int Total_SP
+    public int TotalSP
     {
         get => totalSp;
         set
         {
-            total_SP_TMP.text = value.ToString();
             totalSp = value;
+            total_SP_TMP.text = value.ToString();           
         }
     }
     public int SpawnSP
@@ -30,12 +30,11 @@ public class OnGameScene : MonoBehaviour
         get => spawnSP;
         set
         {
-            spawn_SP_TMP.text = value.ToString();
-            totalSp = value;
+            spawnSP = value;
+            spawn_SP_TMP.text = value.ToString();          
         }
     }
     #endregion
-
 
     void Start()
     {
@@ -52,6 +51,11 @@ public class OnGameScene : MonoBehaviour
                 HeartImages[i].SetActive(true);
             }         
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            TotalSP -= SpawnSP;
+        }
+
     }
 
     private void OnEnable()
@@ -80,7 +84,7 @@ public class OnGameScene : MonoBehaviour
 
     public void GameStart()
     {
-        Total_SP = 100;
+        TotalSP = 10;
         SpawnSP = 10;
     }
        

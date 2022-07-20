@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 2855624391
+    locked: 0
+  - name: Bullet
+    uniqueID: 3896346691
+    locked: 0
+  - name: DamageUi
+    uniqueID: 4272446747
     locked: 0
