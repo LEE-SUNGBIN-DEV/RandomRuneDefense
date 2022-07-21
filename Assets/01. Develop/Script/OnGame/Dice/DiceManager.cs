@@ -39,7 +39,7 @@ public class DiceManager : MonoBehaviour
     {
         if(isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
         {
-            DiceSumValue = 0;           
+            diceText.text = null;                      
 
             inputTime += Time.deltaTime * 2;
 
@@ -64,6 +64,7 @@ public class DiceManager : MonoBehaviour
     public void OnPointerDown()
     {       
         isPointDown = true;
+        diceSumValue = 0;
     }
     public void OnPointerUp()
     {
@@ -120,14 +121,16 @@ public class DiceManager : MonoBehaviour
     }
 
     public IEnumerator LateCall()
-    {       
-        
+    {        
         yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
 
-        DiceSumValue = diceSumValue;
-        Board.Inst.SendMessage("AddTower");     
-        
-        eventTrigger.enabled = true;        
+        DiceSumValue = diceSumValue;        
+        Board.Inst.SendMessage("AddTower");
+
+        yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
+
+        diceText.text = null;
+        eventTrigger.enabled = true;
     }
 
     public int DiceSumValue
