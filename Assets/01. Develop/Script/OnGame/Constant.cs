@@ -5,12 +5,11 @@ using UnityEngine;
 
 public static partial class Constant
 {
+
+  // DICE--------------------------------------------------------------------------------
     public static readonly int DICE_MAX_VALUE = 6;
     public static readonly float DICE_ROLL_TIME = 2f;
     public static readonly int RUNE_RANDOM_MAX_VALUE = 5;
-
-    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.5f;
-    public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
 
 
     public static readonly Vector3 DICE_SIDE_ONE = new Vector3(0, 0, -180);
@@ -33,11 +32,27 @@ public static partial class Constant
         new Vector2(5.3f, -2.5f)
     };
 
-    
+    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.5f;
+    public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
+
     public const int MAX_RUNE_LEVEL = 4;
 
     public const float SLOW_TIME = 0.5f;
     public const float SKILL_COOL_TIME = 2f;
+
+  //-------------------------------------------------------------------------------
+    public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
+    {
+        Vector3 offset;
+        for (float time = 0; time < shakeTime; time += Time.deltaTime)
+        {
+            offset = Random.insideUnitSphere * shakeIntensity;
+
+            shakecamera.transform.position += offset;
+            yield return null;
+            shakecamera.transform.position -= offset;
+        }
+    }
 
 
 }

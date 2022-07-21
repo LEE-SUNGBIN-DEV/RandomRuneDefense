@@ -9,11 +9,18 @@ public class OnGameScene : MonoBehaviour
     public static OnGameScene Inst { get; private set; }
     private void Awake() => Inst = this;
 
-    public GameObject[] HeartImages;
-    [SerializeField] TMP_Text total_SP_TMP;
-    [SerializeField] TMP_Text spawn_SP_TMP;
-    int totalSp;
-    int spawnSP;
+    [SerializeField] GameObject[] HeartImages;
+    [SerializeField] TMP_Text total_SP_TMP; // 글씨 표시
+    [SerializeField] TMP_Text spawn_SP_TMP; // 글자 표시
+    int totalSp; // 전체 sp
+    int spawnSP; // 스폰 sp
+
+    bool isDie; // 죽음
+
+    //-----------CAMERA SHAKE--------------//
+    [Header("※ CAMERA_SHAKE")]
+    [SerializeField] float shakeTime;
+    [SerializeField] float shakeIntensity;
 
     #region 프로퍼티
     public int TotalSP
@@ -79,7 +86,26 @@ public class OnGameScene : MonoBehaviour
 
     public void DecreaseHeart()
     {
+        if(isDie)
+        {
+            return;
+        }
 
+        for (int i = 0; i < HeartImages.Length; i++)
+        {
+            if(HeartImages[i].activeSelf) // 켜있으면 하나를 종료하고 브레이크
+            {
+                HeartImages[i].SetActive(false);
+                StartCoroutine(Camera.main.ShakeCamera(shakeTime, shakeIntensity));
+                break;
+            }
+        }
+
+        if (System.Array.TrueForAll(HeartImages, x => x.activeSelf == false))
+        {
+            isDie = true;
+            print("게임 오바");
+        }
     }
 
     public void GameStart()

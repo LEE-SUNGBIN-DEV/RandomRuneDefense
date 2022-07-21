@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3512475945141589413}
   - component: {fileID: 3512475945141589416}
   m_Layer: 0
-  m_Name: Nomal_Rune
+  m_Name: Wind_Rune
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

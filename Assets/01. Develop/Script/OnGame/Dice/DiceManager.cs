@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -10,22 +9,21 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager Inst { get; private set; }
 
-
+    [Header("※ DICE")]
     [SerializeField] private DiceScript[] dices;
     [SerializeField] private int diceMaxNumber;
+    public int diceSumValue;
     [SerializeField] TextMeshProUGUI diceText;
     [SerializeField] Slider slider;
+    [SerializeField] EventTrigger eventTrigger;
+
+    [Header("※ PERCENTAGE")]
     [SerializeField] float percentage;
-
-    public int diceSumValue;  
-    public EventTrigger eventTrigger;
-
 
     OnGameScene ongameScene;
 
     // 누르는 시간
     float inputTime;   
-
     private bool isPointDown = false;
 
     private void Awake()

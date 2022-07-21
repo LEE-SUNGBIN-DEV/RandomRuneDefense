@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+using UnityEngine; 
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -53,7 +52,7 @@ public class Enemy : MonoBehaviour
         HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
 
         if(Health <= 0 && gameObject.activeSelf)
-        {
+        {        
             OnGameScene.Inst.TotalSP += 10;
             gameObject.SetActive(false);
         }
@@ -75,8 +74,8 @@ public class Enemy : MonoBehaviour
                wayNum++;
            
            if (wayNum == Constant.ENEMY_WAYS.Length)
-           {
-                print("µµÂø");
+           {              
+                OnGameScene.Inst.DecreaseHeart();
                 gameObject.SetActive(false);
                 yield break;
            }
