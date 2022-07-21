@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] TMP_Text healthTMP;
-    [SerializeField] float health;
-    [SerializeField] float maxHealth;
+    [SerializeField] protected float health;
+    [SerializeField] protected float maxHealth;
+
     public float moveSpeed;
     public int wayNum;
     public float distance;
@@ -16,6 +16,12 @@ public class Enemy : MonoBehaviour
     public GameObject HealthBar;
 
 
+    private void Start()
+    {
+        health = 100;
+        maxHealth = 100;
+        moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+    }
     private void Update()
     {
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
@@ -27,8 +33,15 @@ public class Enemy : MonoBehaviour
         get => health;
         set
         {
-            health = value;
-            //healthTMP.text = value.ToString();
+            health = value;            
+        }
+    }
+    public float MaxHealth
+    {
+        get => maxHealth;
+        set
+        {
+            maxHealth = value;
         }
     }
     #endregion
@@ -37,7 +50,7 @@ public class Enemy : MonoBehaviour
     {
         Health -= damage;
         Health = Mathf.Max(0, Health);
-        HealthBar.GetComponent<Image>().fillAmount = Health / maxHealth;
+        HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
 
         if(Health <= 0 && gameObject.activeSelf)
         {
@@ -47,20 +60,21 @@ public class Enemy : MonoBehaviour
     }    
     private void OnEnable()
     {
-        wayNum = 0;
+        wayNum = 0;       
+        HealthBar.GetComponent<Image>().fillAmount = 1;
         StartCoroutine(MovePath());
     }
     IEnumerator MovePath()
     {
         while(true)
         {        
-           transform.position = Vector2.MoveTowards(transform.position, Constant.enemyWays[wayNum], moveSpeed * Time.deltaTime);
+           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], moveSpeed * Time.deltaTime);
            distance += moveSpeed * Time.deltaTime;
 
-           if ((Vector2)transform.position == Constant.enemyWays[wayNum])
+           if ((Vector2)transform.position == Constant.ENEMY_WAYS[wayNum])
                wayNum++;
            
-           if (wayNum == Constant.enemyWays.Length)
+           if (wayNum == Constant.ENEMY_WAYS.Length)
            {
                 print("µµÂø");
                 gameObject.SetActive(false);
@@ -71,10 +85,10 @@ public class Enemy : MonoBehaviour
         }
     }
     private void OnDisable()
-    {     
-        Health = maxHealth;
+    {             
         distance = 0;
-        moveSpeed = 0.5f;
+        Health = MaxHealth;
+        moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }

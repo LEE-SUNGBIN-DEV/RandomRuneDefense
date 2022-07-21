@@ -81,7 +81,15 @@ public class Rune : MonoBehaviour
 
             switch (runeType)
             {
-                case RUNE_TYPE.WIND:                               
+                case RUNE_TYPE.WIND:
+                    AttackEnemy = EnemyObjectPool.Instance.GetFirstEnemy();
+                    if (skillCount == 5)
+                    {
+                        StartCoroutine(Wind());                       
+                    }
+                    else
+                        skillCount += 1;
+                    break;
                 case RUNE_TYPE.ICE:
                 case RUNE_TYPE.FIRE:                  
                 case RUNE_TYPE.LIGHTNING:
@@ -91,7 +99,8 @@ public class Rune : MonoBehaviour
                     {
                         skillCount = 0;
                     }
-                    skillCount += 1;
+                    else
+                        skillCount += 1;
 
                     break;
                 case RUNE_TYPE.POISON:
@@ -101,9 +110,11 @@ public class Rune : MonoBehaviour
                     {
                         skillCount = 0;
                     }
-                    skillCount += 1;
+                    else
+                        skillCount += 1;
                     break;
             }
+
             if (AttackEnemy != null)
             {
                 GameObject bulletObj = BulletObjetPool.Instance.GetQueue();
@@ -112,5 +123,16 @@ public class Rune : MonoBehaviour
             }
             yield return new WaitForSeconds(runeAttackSpeed);
         }
+    }
+
+    IEnumerator Wind()
+    {
+        runeAttackSpeed = 0.3f;
+
+        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
+
+        runeAttackSpeed = 0.5f;
+        skillCount = 0;
+
     }
 }

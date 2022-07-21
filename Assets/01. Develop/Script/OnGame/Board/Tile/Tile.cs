@@ -30,7 +30,7 @@ public class Tile : MonoBehaviour
     {
         if (IsEmpty())
         {
-            int random = Random.Range(0,Constant.TOWER_RANDOM_MAX_VALUE);
+            int random = Random.Range(0,Constant.RUNE_RANDOM_MAX_VALUE);
             _rune = RuneManager.Instance.FindRuneFromList(random);
             rune = Instantiate(_rune, transform.position, Quaternion.identity);
             rune.transform.parent = transform;

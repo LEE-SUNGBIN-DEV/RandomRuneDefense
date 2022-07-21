@@ -7,7 +7,7 @@ public class EnemyObjectPool : MonoBehaviour
 {
     public static EnemyObjectPool Instance;
 
-    [SerializeField] GameObject poolingPrefab;
+    [SerializeField] GameObject[] poolingPrefab;
     [SerializeField] int size;
     public List<Enemy> enemys;  
 
@@ -35,7 +35,7 @@ public class EnemyObjectPool : MonoBehaviour
     {        
         GameObject enemyObject = queue.Dequeue();
         enemys.Add(enemyObject.GetComponent<Enemy>());
-        enemyObject.transform.position = Constant.enemyWays[0];
+        enemyObject.transform.position = Constant.ENEMY_WAYS[0];
         enemyObject.SetActive(true);
         
         return enemyObject;
@@ -47,7 +47,7 @@ public class EnemyObjectPool : MonoBehaviour
         {
             for (int i = 0; i < size; i++)
             {
-                GameObject enemy = Instantiate(poolingPrefab, Constant.enemyWays[0], Quaternion.identity);
+                GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
                 enemys.Add(enemy.GetComponent<Enemy>());
                 queue.Enqueue(enemy);
                 enemy.transform.parent = this.transform;

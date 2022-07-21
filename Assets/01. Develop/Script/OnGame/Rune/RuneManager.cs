@@ -29,7 +29,7 @@ public class RuneManager : Singleton<RuneManager>
     }
     public Rune RuneTypeChange(Rune rune , int level)
     {
-        int randomType = Random.Range(0, Constant.TOWER_RANDOM_MAX_VALUE);              
+        int randomType = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);              
         if (RuneDictionary.ContainsKey(randomType))
         {
             Debug.Log("¹Ù²ñ");

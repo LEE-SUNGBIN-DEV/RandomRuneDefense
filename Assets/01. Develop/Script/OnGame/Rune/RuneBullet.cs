@@ -58,15 +58,9 @@ public class RuneBullet : MonoBehaviour
         switch (runeType)
         {
             case RUNE_TYPE.WIND:
-                if(skillCount == 3)
-                {
-                    StartCoroutine(Wind());                  
-                }
-                else
-                {
-                    StartCoroutine(NomalAttack(0));
-                }
+                StartCoroutine(NomalAttack(0));
                 break;
+
             case RUNE_TYPE.POISON:
                 if (skillCount == 3)
                 {
@@ -77,16 +71,11 @@ public class RuneBullet : MonoBehaviour
                     StartCoroutine(NomalAttack(1));
                 }
                 break;
-            case RUNE_TYPE.ICE:
-                if (skillCount == 3)
-                {
-                    StartCoroutine(Slow());
-                }
-                else
-                {
-                    StartCoroutine(NomalAttack(2));
-                }                             
+
+            case RUNE_TYPE.ICE:             
+                    StartCoroutine(Slow());                                         
                 break;
+
             case RUNE_TYPE.FIRE:
                 if (skillCount == 3)
                 {
@@ -97,6 +86,7 @@ public class RuneBullet : MonoBehaviour
                     StartCoroutine(NomalAttack(3));
                 }
                 break;
+
             case RUNE_TYPE.LIGHTNING:
                 if(skillCount == 3)
                 {
@@ -109,7 +99,6 @@ public class RuneBullet : MonoBehaviour
                 break;
         }   
     }
-
     #region Skill Set
 
     IEnumerator NomalAttack(int effectNumber)
@@ -122,9 +111,9 @@ public class RuneBullet : MonoBehaviour
             case 1:
                 effect[1].SetActive(true);
                 break;
-            case 2:
-                effect[2].SetActive(true);
-                break;
+            //case 2:
+            //    effect[2].SetActive(true);
+            //    break;
             case 3:
                 effect[3].SetActive(true);
                 break;
@@ -132,21 +121,16 @@ public class RuneBullet : MonoBehaviour
                 effect[4].SetActive(true);
                 break;
         }       
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(1f);
+
         for (int i = 0; i < effect.Length; ++i)
         {
             effect[i].SetActive(false);
         }
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
-    IEnumerator Wind()
-    {
-        bulletSpeed += 20;
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
-        bulletSpeed -= 20;
-        BulletObjetPool.Instance.InsertQueue(gameObject);
-    }
-
+    
     IEnumerator Poison()
     {
         typeSkill[2].SetActive(true);
@@ -156,9 +140,11 @@ public class RuneBullet : MonoBehaviour
     }
     IEnumerator Slow()
     {
+        effect[2].SetActive(true);
+
         targetEnemy.moveSpeed = 0.2f;
         yield return new WaitForSeconds(Constant.SLOW_TIME);
-        targetEnemy.moveSpeed = 0.5f;
+        targetEnemy.moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Fire()

@@ -6,9 +6,10 @@ public class RuneSkill : MonoBehaviour
 {
     [SerializeField] int damage;
 
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().Health -= damage;
         }

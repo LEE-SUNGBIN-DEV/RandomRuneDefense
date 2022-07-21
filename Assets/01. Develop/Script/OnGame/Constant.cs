@@ -7,7 +7,10 @@ public static partial class Constant
 {
     public static readonly int DICE_MAX_VALUE = 6;
     public static readonly float DICE_ROLL_TIME = 2f;
-    public static readonly int TOWER_RANDOM_MAX_VALUE = 5; 
+    public static readonly int RUNE_RANDOM_MAX_VALUE = 5;
+
+    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.5f;
+    public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
 
 
     public static readonly Vector3 DICE_SIDE_ONE = new Vector3(0, 0, -180);
@@ -21,7 +24,7 @@ public static partial class Constant
 
     public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);
 
-    public static readonly Vector2[] enemyWays = new Vector2[]
+    public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {
         new Vector2(-4.7f, -2.5f),
         new Vector2(-4.7f, -0.9f),
@@ -31,7 +34,7 @@ public static partial class Constant
     };
 
     
-    public const int MAX_TOWER_LEVEL = 4;
+    public const int MAX_RUNE_LEVEL = 4;
 
     public const float SLOW_TIME = 0.5f;
     public const float SKILL_COOL_TIME = 2f;

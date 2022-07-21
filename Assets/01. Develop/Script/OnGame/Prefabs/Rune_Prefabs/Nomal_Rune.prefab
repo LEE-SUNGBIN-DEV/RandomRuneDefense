@@ -184,7 +184,7 @@ MonoBehaviour:
   runeNumber: 0
   runeType: 0
   runeRenderer: {fileID: 3512475945141589413}
-  runeDamage: 10
+  runeDamage: 5
   runeAttackSpeed: 0.5
   runeColor: {r: 0.11888218, g: 1, b: 0, a: 1}
   level:
@@ -193,7 +193,6 @@ MonoBehaviour:
   - {fileID: 3512475945289504919}
   - {fileID: 3512475945894734815}
   skillCount: 0
-  attackEffect: {fileID: 3064243439297390604, guid: 89b0e6235d6c9d448a55721533f278ed, type: 3}
 --- !u!1 &3512475945289504919
 GameObject:
   m_ObjectHideFlags: 0
