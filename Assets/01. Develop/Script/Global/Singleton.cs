@@ -21,7 +21,7 @@ public class Singleton<T> : MonoBehaviour where T: Singleton<T>
         }
     }
 
-    public virtual void Initialize() {}
+    public virtual void Initialize(){}
 
     public static T Instance
     {

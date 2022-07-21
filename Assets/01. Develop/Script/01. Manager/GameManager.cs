@@ -10,8 +10,8 @@ public class GameManager : Singleton<GameManager>
     public static UnityAction<string> onSceneLoaded;
     #endregion
 
+    [SerializeField] private NetworkManager networkManager;
     [SerializeField] private string currentSceneName = null;
-    [SerializeField] private PlayerData playerData = null;
 
     public override void Initialize()
     {
@@ -46,14 +46,21 @@ public class GameManager : Singleton<GameManager>
     private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
+        if(scene.name == Constant.NAME_GAME_SCENE)
+        {
+            Screen.SetResolution(Constant.SCREEN_RESOLUTION_HEIGHT, Constant.SCREEN_RESOLUTION_WIDTH, false);
+        }
+        else
+        {
+            Screen.SetResolution(Constant.SCREEN_RESOLUTION_WIDTH, Constant.SCREEN_RESOLUTION_HEIGHT, false);
+        }
         onSceneLoaded(currentSceneName);
     }
 
     #region Property
-    public PlayerData PlayerData
+    public NetworkManager NetworkManager
     {
-        get => playerData;
-        set => playerData = value;
+        get => networkManager;
     }
     public string CurrentSceneName
     {

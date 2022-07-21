@@ -12,6 +12,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameScenePanel gameScenePanel;
     [SerializeField] private SystemNoticePanel systemNoticePanel;
     [SerializeField] private CardInformationPanel cardInformationPanel;
+    [SerializeField] private NetworkStatePanel networkStatePanel;
 
     public override void Initialize()
     {
@@ -26,11 +27,6 @@ public class UIManager : Singleton<UIManager>
         };
     }
 
-    private void Start()
-    {
-        Function.OpenPanel(TitleScenePanel);
-    }
-
     private void OnDestroy()
     {
         GameManager.onSceneLoaded -= SceneLoaded;
@@ -38,7 +34,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SceneLoaded(string sceneName)
     {
-        Function.SetPanelsActivation(scenePanels, false);
+        Function.SetAllPanelActivation(ScenePanels, false);
         Function.OpenPanel(scenePanelDictionary[sceneName]);
     }
 
@@ -46,6 +42,12 @@ public class UIManager : Singleton<UIManager>
     {
         SystemNoticePanel.SystemNoticeContent.text = content;
         Function.OpenPanel(SystemNoticePanel);
+    }
+
+    public void ShowNetworkState(string content)
+    {
+        Function.OpenPanel(NetworkStatePanel);
+        networkStatePanel.ShowNetworkStateMessage(content);
     }
 
     #region Property
@@ -72,6 +74,10 @@ public class UIManager : Singleton<UIManager>
     public CardInformationPanel CardInformationPanel
     {
         get => cardInformationPanel;
+    }
+    public NetworkStatePanel NetworkStatePanel
+    {
+        get => networkStatePanel;
     }
     #endregion
 }

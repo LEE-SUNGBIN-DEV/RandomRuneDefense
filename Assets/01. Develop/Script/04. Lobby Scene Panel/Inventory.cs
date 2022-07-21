@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class Inventory : Panel
 {
+    [SerializeField] private List<CardSlot> inventorySlotList;
 }

@@ -7,10 +7,16 @@ public class Card : MonoBehaviour
     [SerializeField] private string cardName;
     [SerializeField] private string cardDescription;
 
-    private bool isActive;
-
-    private void Awake()
+    #region Property
+    public string CardName
     {
-        isActive = false;
+        get => cardName;
+        set => cardName = value;
     }
+    public string CardDescription
+    {
+        get => cardDescription;
+        set => cardDescription = value;
+    }
+    #endregion
 }
