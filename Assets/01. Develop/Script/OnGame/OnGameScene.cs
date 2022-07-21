@@ -48,23 +48,6 @@ public class OnGameScene : MonoBehaviour
         GameStart();
     }
 
-    private void Update()
-    { 
-        // hp Å×½ºÆ®
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            for (int i = 0; i < HeartImages.Length; i++)
-            {
-                HeartImages[i].SetActive(true);
-            }         
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            TotalSP -= SpawnSP;
-        }
-
-    }
-
     private void OnEnable()
     {
         GameManager.onSceneLoaded -= CreatePlayer;

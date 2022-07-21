@@ -6,7 +6,6 @@ public class RuneSkill : MonoBehaviour
 {
     [SerializeField] int damage;
 
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")

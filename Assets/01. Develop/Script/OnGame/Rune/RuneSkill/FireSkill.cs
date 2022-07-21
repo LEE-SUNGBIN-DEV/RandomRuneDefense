@@ -5,14 +5,4 @@ using UnityEngine;
 public class FireSkill : RuneSkill
 {
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            
-
-        }
-    }
- 
 }

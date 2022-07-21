@@ -5,12 +5,13 @@ using UnityEngine;
 
 public static partial class Constant
 {
+    public static readonly float DICE_Y_VALUE = -5;
 
-  // DICE--------------------------------------------------------------------------------
+    // DICE--------------------------------------------------------------------------------
     public static readonly int DICE_MAX_VALUE = 6;
     public static readonly float DICE_ROLL_TIME = 2f;
     public static readonly int RUNE_RANDOM_MAX_VALUE = 5;
-
+  
 
     public static readonly Vector3 DICE_SIDE_ONE = new Vector3(0, 0, -180);
     public static readonly Vector3 DICE_SIDE_TWO = new Vector3(0, 90, 0);
