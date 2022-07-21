@@ -32,7 +32,7 @@ public static partial class Function
         currentPanel = null;
     }
 
-    public static void SetPanelsActivation(Panel[] panels, bool isActive)
+    public static void SetAllPanelActivation(Panel[] panels, bool isActive)
     {
         for (int i = 0; i < panels.Length; ++i)
         {

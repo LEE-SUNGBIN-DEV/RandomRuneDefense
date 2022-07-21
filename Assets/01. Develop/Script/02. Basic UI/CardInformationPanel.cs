@@ -13,6 +13,24 @@ public class CardInformationPanel : Panel
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
     [SerializeField] private TextMeshProUGUI cardEffectText;
 
+    private void Awake()
+    {
+        CardSlot.onClickCardSlot -= SetCardInformation;
+        CardSlot.onClickCardSlot += SetCardInformation;
+    }
+
+    private void OnDestroy()
+    {
+        CardSlot.onClickCardSlot -= SetCardInformation;
+    }
+
+    public void SetCardInformation(CardSlot cardSlot)
+    {
+        Card card = cardSlot.Card;
+        cardNameText.text = card.name;
+        cardDescriptionText.text = card.CardDescription;
+    }
+
     public void OnClickCloseButton()
     {
         cardNameText.text = null;

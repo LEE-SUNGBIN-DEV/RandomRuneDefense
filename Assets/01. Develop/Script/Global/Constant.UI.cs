@@ -14,5 +14,5 @@ public static partial class Constant
     public const string NAME_LOBBY_SCENE = "02_Lobby";
     public const string NAME_GAME_SCENE = "03_Game";
 
-    public const string SERVER_REQUEST_UPDATE_PLAYER_DATABASE = "UpdatePlayerDatabase";
+    public static readonly float TIME_NETWORK_NOTICE = 2.0f;
 }

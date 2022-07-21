@@ -31,14 +31,14 @@ public class LobbyScenePanel : Panel
 
     private void OnEnable()
     {
-        Function.SetPanelsActivation(lobbyScenePanels, false);
+        Function.SetAllPanelActivation(lobbyScenePanels, false);
         Function.OpenPanel(lobbyPanel);
         currentPanel = lobbyPanel;
     }
 
     private void OnDisable()
     {
-        Function.SetPanelsActivation(lobbyScenePanels, false);
+        Function.SetAllPanelActivation(lobbyScenePanels, false);
     }
 
     private void OnDestroy()

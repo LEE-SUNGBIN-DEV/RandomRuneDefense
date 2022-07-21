@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -330}
+  m_AnchoredPosition: {x: 0, y: -430}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7486559858557493749
@@ -169,7 +169,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 320, y: 320}
+  m_SizeDelta: {x: 300, y: 400}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7486559859126303986
 CanvasRenderer:
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 7486559860063952327}
   - component: {fileID: 7094717474472124513}
   m_Layer: 5
-  m_Name: Cardl Slot
+  m_Name: Card Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 160, y: -200}
-  m_SizeDelta: {x: 320, y: 400}
+  m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7486559860063952324
 CanvasRenderer:
@@ -344,3 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5a580f8f21f6049a5ece5f5aa90eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotImage: {fileID: 0}
+  card: {fileID: 0}
+  cardButton: {fileID: 0}

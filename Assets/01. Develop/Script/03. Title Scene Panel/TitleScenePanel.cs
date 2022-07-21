@@ -36,13 +36,13 @@ public class TitleScenePanel : Panel
 
     private void OnEnable()
     {
-        Function.SetPanelsActivation(titleScenePanels, false);
+        Function.SetAllPanelActivation(titleScenePanels, false);
         Function.OpenPanel(loginPanel);
     }
 
     private void OnDisable()
     {
-        Function.SetPanelsActivation(titleScenePanels, false);
+        Function.SetAllPanelActivation(titleScenePanels, false);
     }
 
     private void OnDestroy()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class PlayerData : MonoBehaviour
 {
     #region Event
@@ -17,36 +18,24 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
-        NetworkManager.onLoadPlayerData -= LoadPlayerData;
-        NetworkManager.onLoadPlayerData += LoadPlayerData;
-
-        NetworkManager.onSavePlayerData -= SavePlayerData;
-        NetworkManager.onSavePlayerData += SavePlayerData;
+        DataManager.onLoadPlayerData -= LoadPlayerData;
+        DataManager.onLoadPlayerData += LoadPlayerData;
 
         GameManager.onSceneLoaded -= UpdatePlayerData;
         GameManager.onSceneLoaded += UpdatePlayerData;
     }
     private void OnDestroy()
     {
-        NetworkManager.onLoadPlayerData -= LoadPlayerData;
-        NetworkManager.onSavePlayerData -= SavePlayerData;
+        DataManager.onLoadPlayerData -= LoadPlayerData;
         GameManager.onSceneLoaded -= UpdatePlayerData;
     }
 
-    public void LoadPlayerData(PlayerDatabase playerSaveData)
+    public void LoadPlayerData()
     {
-        Level = playerSaveData.level;
-        Experience = playerSaveData.experience;
-        Gold = playerSaveData.gold;
-        Crystal = playerSaveData.crystal;
-    }
-
-    public void SavePlayerData(PlayerDatabase playerSaveData)
-    {
-        playerSaveData.level = level;
-        playerSaveData.experience = experience;
-        playerSaveData.gold = gold;
-        playerSaveData.crystal = crystal;
+        Level = level;
+        Experience = experience;
+        Gold = gold;
+        Crystal = crystal;
     }
 
     public void UpdatePlayerData(string sceneName)
