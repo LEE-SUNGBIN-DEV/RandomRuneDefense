@@ -113,7 +113,7 @@ public class RuneBullet : MonoBehaviour
                 effect[1].SetActive(true);
                 break;
             //case 2:
-            //    effect[2].SetActive(true);
+            //    effect[2].SetActive(true); // 얼음 이펙트 넣을 예정
             //    break;
             case 3:
                 effect[3].SetActive(true);
@@ -144,14 +144,14 @@ public class RuneBullet : MonoBehaviour
     {
         effect[2].SetActive(true);
 
-        targetEnemy.moveSpeed -= 0.2f;
+        targetEnemy.moveSpeed -= 0.3f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
         effect[2].SetActive(false);
 
-        targetEnemy.moveSpeed += 0.2f;
+        targetEnemy.moveSpeed += 0.3f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);

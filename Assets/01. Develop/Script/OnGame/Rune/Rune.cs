@@ -13,14 +13,15 @@ public enum RUNE_TYPE
 
 public class Rune : MonoBehaviour
 {
-    [SerializeField] private int runeNumber;   
-    [SerializeField] private RUNE_TYPE runeType;
-    [SerializeField] private SpriteRenderer runeRenderer;
-    [SerializeField] private int runeDamage;
-    [SerializeField] private float runeAttackSpeed;
-    [SerializeField] private Color runeColor;
-    [SerializeField] private GameObject[] level;
-    [SerializeField] private int skillCount;   
+    [SerializeField] protected int runeNumber;   
+    [SerializeField] protected RUNE_TYPE runeType;
+    [SerializeField] protected SpriteRenderer runeRenderer;
+    [SerializeField] protected int runeDamage;
+    [SerializeField] protected float runeAttackSpeed;
+    [SerializeField] protected Color runeColor;
+    [SerializeField] protected GameObject[] level;
+    [SerializeField] protected GameObject skillEffect;
+    [SerializeField] protected int skillCount;   
 
     #region Property
     public int RuneNumber
@@ -69,70 +70,5 @@ public class Rune : MonoBehaviour
         level[_level].SetActive(true);
     }
 
-    public void OnEnable()
-    {
-        StartCoroutine(AttackCo());
-    }
-    IEnumerator AttackCo()
-    {
-        while (true)
-        {
-            Enemy AttackEnemy = null;
-
-            switch (runeType)
-            {
-                case RUNE_TYPE.WIND:
-                    AttackEnemy = EnemyObjectPool.Instance.GetFirstEnemy();
-                    if (skillCount == 5)
-                    {
-                        StartCoroutine(Wind());                       
-                    }
-                    else
-                        skillCount += 1;
-                    break;
-                case RUNE_TYPE.ICE:
-                case RUNE_TYPE.FIRE:                  
-                case RUNE_TYPE.LIGHTNING:
-                    AttackEnemy = EnemyObjectPool.Instance.GetFirstEnemy();
-                    
-                    if(skillCount == 3)
-                    {
-                        skillCount = 0;
-                    }
-                    else
-                        skillCount += 1;
-
-                    break;
-                case RUNE_TYPE.POISON:
-                    AttackEnemy = EnemyObjectPool.Instance.GetRandomEnemy();
-
-                    if (skillCount == 3)
-                    {
-                        skillCount = 0;
-                    }
-                    else
-                        skillCount += 1;
-                    break;
-            }
-
-            if (AttackEnemy != null)
-            {
-                GameObject bulletObj = BulletObjetPool.Instance.GetQueue();
-                bulletObj.transform.position = this.transform.position;
-                bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType , skillCount);              
-            }
-            yield return new WaitForSeconds(runeAttackSpeed);
-        }
-    }
-
-    IEnumerator Wind()
-    {
-        runeAttackSpeed = 0.3f;
-
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
-
-        runeAttackSpeed = 0.5f;
-        skillCount = 0;
-
-    }
+    public virtual void OnEnable() {}  
 }

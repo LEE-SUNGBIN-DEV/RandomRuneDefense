@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3512475945141589412}
   - component: {fileID: 3512475945141589413}
-  - component: {fileID: 3512475945141589416}
+  - component: {fileID: 2379411917224239299}
   m_Layer: 0
   m_Name: Wind_Rune
   m_TagString: Enemy
@@ -115,6 +115,7 @@ Transform:
   - {fileID: 3512475944701235997}
   - {fileID: 3512475945289504918}
   - {fileID: 3512475945894734814}
+  - {fileID: 496553785436908984}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -169,7 +170,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3512475945141589416
+--- !u!114 &2379411917224239299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,7 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3512475945141589415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 415b5fe9a9fccb14897bde98984fb0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ef7d8472521fce49ae10ed47752f59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   runeNumber: 0
@@ -186,12 +187,13 @@ MonoBehaviour:
   runeRenderer: {fileID: 3512475945141589413}
   runeDamage: 5
   runeAttackSpeed: 0.5
-  runeColor: {r: 0.11888218, g: 1, b: 0, a: 1}
+  runeColor: {r: 0.19416976, g: 1, b: 0, a: 1}
   level:
   - {fileID: 3512475946129074141}
   - {fileID: 3512475944701235998}
   - {fileID: 3512475945289504919}
   - {fileID: 3512475945894734815}
+  skillEffect: {fileID: 5980966932684250503}
   skillCount: 0
 --- !u!1 &3512475945289504919
 GameObject:
@@ -439,3 +441,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5980966932684250503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 496553785436908984}
+  m_Layer: 0
+  m_Name: Wind_Skill_Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &496553785436908984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5980966932684250503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3512475945141589412}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

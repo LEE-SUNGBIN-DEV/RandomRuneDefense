@@ -13,8 +13,9 @@ public class PoisonSkill : RuneSkill
     }
     IEnumerator OnPoison(Collider2D collision)
     {
+        
         collision.GetComponent<Enemy>().HealthBar.GetComponent<UnityEngine.UI.Image>().color = Color.green;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < Constant.POISON_TIME ; i++)
         {
             collision.GetComponent<Enemy>().Health -= damage;
             yield return new WaitForSeconds(0.5f);

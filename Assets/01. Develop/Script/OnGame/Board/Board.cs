@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
     }
     public void AddTower()
     {       
-        lines[diceValue.diceSumValue- 2].AddTower(rune);
+        lines[diceValue.diceSumValue - 2].AddTower(rune);
 
     }
 }

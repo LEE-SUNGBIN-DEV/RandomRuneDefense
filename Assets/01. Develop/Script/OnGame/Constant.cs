@@ -23,6 +23,8 @@ public static partial class Constant
 
     public static readonly Vector2 TILE_CENTER_OFFSET = new Vector2(0.25f, 0.25f);
 
+    // ENEMY--------------------------------------------------------------------------------
+
     public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
@@ -37,14 +39,16 @@ public static partial class Constant
     public static readonly float BIG_ENEMY_MOVE_SPEED = 0.5f;
     public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
 
+    // RUNE--------------------------------------------------------------------------------
+
     public const int MAX_RUNE_LEVEL = 4;
 
-    public const float SLOW_TIME = 0.8f;
-    public const float POISON_TIME = 2f;
+    public const float SLOW_TIME = 0.8f;   
     public const float SKILL_COOL_TIME = 2f;
 
+    public static readonly int POISON_TIME = 3;
 
-  //-------------------------------------------------------------------------------
+    // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
     {
         Vector3 offset;

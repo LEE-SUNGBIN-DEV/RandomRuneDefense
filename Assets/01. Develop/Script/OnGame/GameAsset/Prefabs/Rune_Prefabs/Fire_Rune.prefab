@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1849496702494464071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6616953052637505211}
+  m_Layer: 0
+  m_Name: Fire_Skill_Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6616953052637505211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849496702494464071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2336498702989323656}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2336498701292983283
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2336498702989323656}
   - component: {fileID: 2336498702989323657}
-  - component: {fileID: -7727163298422947225}
+  - component: {fileID: -6527942815423661772}
   m_Layer: 0
   m_Name: Fire_Rune
   m_TagString: Enemy
@@ -361,6 +391,7 @@ Transform:
   - {fileID: 2336498702548970289}
   - {fileID: 2336498702833148090}
   - {fileID: 2336498701292983282}
+  - {fileID: 6616953052637505211}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -415,7 +446,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7727163298422947225
+--- !u!114 &-6527942815423661772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -424,7 +455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2336498702989323659}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 415b5fe9a9fccb14897bde98984fb0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d71aec4ca4a28241b013f1b158f40f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   runeNumber: 3
@@ -438,4 +469,5 @@ MonoBehaviour:
   - {fileID: 2336498702548970290}
   - {fileID: 2336498702833148091}
   - {fileID: 2336498701292983283}
+  skillEffect: {fileID: 1849496702494464071}
   skillCount: 0

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1122926509997173820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5637806200825731037}
+  m_Layer: 0
+  m_Name: Poison_Skill_Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5637806200825731037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122926509997173820}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3512475945141589412}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3512475944701235998
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3512475945141589412}
   - component: {fileID: 3512475945141589413}
-  - component: {fileID: 3512475945141589416}
+  - component: {fileID: 6826634792382109149}
   m_Layer: 0
   m_Name: Poison_Rune
   m_TagString: Enemy
@@ -115,6 +145,7 @@ Transform:
   - {fileID: 3512475944701235997}
   - {fileID: 3512475945289504918}
   - {fileID: 3512475945894734814}
+  - {fileID: 5637806200825731037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -169,7 +200,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3512475945141589416
+--- !u!114 &6826634792382109149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,20 +209,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3512475945141589415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 415b5fe9a9fccb14897bde98984fb0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 92af35ab2a257b34b95e31d6f958b7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   runeNumber: 4
   runeType: 4
   runeRenderer: {fileID: 3512475945141589413}
   runeDamage: 10
-  runeAttackSpeed: 0.5
-  runeColor: {r: 1, g: 0, b: 0.9815202, a: 1}
+  runeAttackSpeed: 1
+  runeColor: {r: 0.9928546, g: 0, b: 1, a: 1}
   level:
   - {fileID: 3512475946129074141}
   - {fileID: 3512475944701235998}
   - {fileID: 3512475945289504919}
   - {fileID: 3512475945894734815}
+  skillEffect: {fileID: 1122926509997173820}
   skillCount: 0
 --- !u!1 &3512475945289504919
 GameObject:

@@ -11,6 +11,6 @@ public class RuneSkill : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().Health -= damage;
-        }
-    }
+        }      
+    }   
 }

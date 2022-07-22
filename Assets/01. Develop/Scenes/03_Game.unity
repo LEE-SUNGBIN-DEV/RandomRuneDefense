@@ -3024,11 +3024,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runeList:
-  - {fileID: 3512475945141589416, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
-  - {fileID: 759289332579012777, guid: 970f3e03a4e84d141b1324accecfa296, type: 3}
-  - {fileID: 2078465390838602836, guid: a37b3f0749bc494448a6adca5bdc129f, type: 3}
-  - {fileID: -7727163298422947225, guid: da89f8b07296feb46ba0a9d03bfa87af, type: 3}
-  - {fileID: 3512475945141589416, guid: 017ecc65c161d6f47ae34db5ce636b15, type: 3}
+  - {fileID: 2379411917224239299, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
+  - {fileID: 8442821750072116522, guid: 970f3e03a4e84d141b1324accecfa296, type: 3}
+  - {fileID: 1688431215337428730, guid: a37b3f0749bc494448a6adca5bdc129f, type: 3}
+  - {fileID: -6527942815423661772, guid: da89f8b07296feb46ba0a9d03bfa87af, type: 3}
+  - {fileID: 6826634792382109149, guid: 017ecc65c161d6f47ae34db5ce636b15, type: 3}
 --- !u!4 &1596424141
 Transform:
   m_ObjectHideFlags: 0
@@ -4095,7 +4095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282648037400033255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.76, z: 0}
+  m_LocalPosition: {x: 5.12, y: 0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4418026836697324676}
@@ -5237,7 +5237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines: []
   diceValue: {fileID: 1282648037400033272}
-  rune: {fileID: 3512475945141589416, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
+  rune: {fileID: 2379411917224239299, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
 --- !u!1 &2036588159810287474
 GameObject:
   m_ObjectHideFlags: 0

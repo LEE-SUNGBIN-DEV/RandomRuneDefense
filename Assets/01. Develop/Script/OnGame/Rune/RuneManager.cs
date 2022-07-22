@@ -27,32 +27,6 @@ public class RuneManager : Singleton<RuneManager>
             return null;
         }
     }
-    public Rune RuneTypeChange(Rune rune , int level)
-    {
-        int randomType = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);              
-        if (RuneDictionary.ContainsKey(randomType))
-        {
-            Debug.Log("¹Ù²ñ");
-            
-            var _rune = RuneDictionary[randomType].GetComponent<Rune>();            
-
-            rune.RuneNumber = _rune.RuneNumber;
-            rune.RuneType = _rune.RuneType;
-            rune.RuneRenderer.sprite = _rune.RuneRenderer.sprite;
-            rune.RuneDamage += _rune.RuneDamage;
-            rune.RuneAttackSpeed = _rune.RuneAttackSpeed;
-            rune.RuneColor = _rune.RuneColor;          
-            rune.RuneLevelUP(level); 
-          
-            return rune;       
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-
     #region Property
     public List<Rune> RuneList
     {
