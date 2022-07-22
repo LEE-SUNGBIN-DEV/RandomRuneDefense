@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RuneSkill : MonoBehaviour
 {
-    [SerializeField] int damage;
+    [SerializeField] protected float damage;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             collision.GetComponent<Enemy>().Health -= damage;
         }
-    }     
+    }
 }

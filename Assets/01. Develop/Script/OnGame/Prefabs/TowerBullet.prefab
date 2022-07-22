@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad68829e0d04139479eb32e9effab6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
 --- !u!199 &6485776593517300779
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5127,7 +5127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad68829e0d04139479eb32e9effab6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 1
 --- !u!199 &1175870290872072383
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9981,9 +9981,9 @@ GameObject:
   - component: {fileID: 1965134039190525349}
   - component: {fileID: 4323922027469130348}
   - component: {fileID: 2392794675897834403}
-  - component: {fileID: 3794146267995157695}
   - component: {fileID: 8914282696705300582}
   - component: {fileID: 4340853151659084712}
+  - component: {fileID: 3125811318090261024}
   m_Layer: 0
   m_Name: Posion
   m_TagString: Untagged
@@ -10041,20 +10041,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
---- !u!114 &3794146267995157695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7675328722799944096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad68829e0d04139479eb32e9effab6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
+  m_Radius: 3
 --- !u!199 &8914282696705300582
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -14897,6 +14884,19 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &3125811318090261024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7675328722799944096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7680e7ef58cf744b8876b477be9b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0.5
 --- !u!1001 &1227640860567019517
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ public class SpeedEnemy : Enemy
 {
     void Start()
     {
-        health = 50;
-        maxHealth = 50;
+        health = 100;
+        maxHealth = 100;
         moveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
     }
 }

@@ -1,33 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Playables;
 
 public class DiceScript : MonoBehaviour
 {
-    [SerializeField] private int diceValue;
-    // 주사위 면
-    private float dirX, dirY, dirZ;
+    [SerializeField] private int diceValue;    
 
     [SerializeField] PlayableDirector playableDirector;
 
-    private void Update()
-    {             
-        transform.Rotate(dirX, dirY, dirZ);
+    private void Start()
+    {
+        gameObject.SetActive(false);
     }
 
     public IEnumerator StartRotate()
     {
-        //dirX = Time.deltaTime * 1000;
-        //dirY = Time.deltaTime * 1000;
-        //dirZ = Time.deltaTime * 1000;
+        gameObject.SetActive(true);
 
         playableDirector.Play();
-        
-        yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
-      
-        //dirX = 0; dirY = 0; dirZ = 0;
+
+        yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);   
 
         #region 주사위 값에 따른 회전
         if (diceValue == 1)
@@ -53,8 +46,12 @@ public class DiceScript : MonoBehaviour
         if (diceValue == 6)
         {
             transform.rotation = Quaternion.LookRotation(Constant.DICE_SIDE_SIX);
-        }
+        }       
         #endregion
+
+        yield return new WaitForSeconds(Constant.DICE_ROLL_END_TIME);
+
+        gameObject.SetActive(false);
     }
 
     public int DiceValue

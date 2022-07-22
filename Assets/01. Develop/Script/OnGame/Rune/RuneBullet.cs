@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RuneBullet : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class RuneBullet : MonoBehaviour
             spriteRenderer.enabled = false;
             targetEnemy.Damage(BulletDamage);
             GameObject damageTMP = DamageObjectPool.Instance.GetQueue();
-            damageTMP.GetComponent<DamageUI>().Setup(targetEnemy.transform, BulletDamage);                      
+            damageTMP.GetComponent<DamageUI>().Setup(targetEnemy.transform , BulletDamage);                      
         }
 
         Die();
@@ -133,18 +134,26 @@ public class RuneBullet : MonoBehaviour
     
     IEnumerator Poison()
     {
-        typeSkill[2].SetActive(true);
+        typeSkill[2].SetActive(true);    
         yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
         typeSkill[2].SetActive(false);
+
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Slow()
     {
         effect[2].SetActive(true);
 
-        targetEnemy.moveSpeed = 0.2f;
+        targetEnemy.moveSpeed -= 0.2f;
+        targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
+
         yield return new WaitForSeconds(Constant.SLOW_TIME);
-        targetEnemy.moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+
+        effect[2].SetActive(false);
+
+        targetEnemy.moveSpeed += 0.2f;
+        targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
+
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Fire()

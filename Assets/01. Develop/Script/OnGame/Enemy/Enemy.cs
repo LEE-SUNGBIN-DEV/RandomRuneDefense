@@ -17,8 +17,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        health = 100;
-        maxHealth = 100;
+        health = 300;
+        maxHealth = 300;
         moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
@@ -32,7 +32,12 @@ public class Enemy : MonoBehaviour
         get => health;
         set
         {
-            health = value;            
+            health = value;
+            HealthBar.GetComponent<Image>().fillAmount = health / MaxHealth;
+            if(Health <= 0 && gameObject.activeSelf)
+            {
+                Die();
+            }
         }
     }
     public float MaxHealth
@@ -50,12 +55,6 @@ public class Enemy : MonoBehaviour
         Health -= damage;
         Health = Mathf.Max(0, Health);
         HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
-
-        if(Health <= 0 && gameObject.activeSelf)
-        {        
-            OnGameScene.Inst.TotalSP += 10;
-            gameObject.SetActive(false);
-        }
     }    
     private void OnEnable()
     {
@@ -83,11 +82,17 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
-    private void OnDisable()
+
+    void Die()
+    {
+        OnGameScene.Inst.TotalSP += 10;
+        gameObject.SetActive(false);
+    }
+    public void OnDisable()
     {             
         distance = 0;
         Health = MaxHealth;
-        moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        //moveSpeed = moveSpeed;
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }
