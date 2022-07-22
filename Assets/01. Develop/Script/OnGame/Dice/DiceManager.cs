@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -10,23 +9,24 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager Inst { get; private set; }
 
-
+    [Header("※ DICE")]
     [SerializeField] private DiceScript[] dices;
     [SerializeField] private int diceMaxNumber;
+    public int diceSumValue;
     [SerializeField] TextMeshProUGUI diceText;
     [SerializeField] Slider slider;
+    [SerializeField] EventTrigger eventTrigger;
+    [SerializeField] Button button;
+
+    [Header("※ PERCENTAGE")]
     [SerializeField] float percentage;
-
-    public int diceSumValue;  
-    public EventTrigger eventTrigger;
-
 
     OnGameScene ongameScene;
 
     // 누르는 시간
     float inputTime;   
-
     private bool isPointDown = false;
+    private bool isRoll;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class DiceManager : MonoBehaviour
     {
         if(isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
         {
-            DiceSumValue = 0;           
+            diceText.text = null;                      
 
             inputTime += Time.deltaTime * 2;
 
@@ -55,26 +55,33 @@ public class DiceManager : MonoBehaviour
 
         // 토탈 sp 스폰 sp 
         if(ongameScene.TotalSP < ongameScene.SpawnSP)
-        {
+        {           
             eventTrigger.enabled = false;
         }   
         else
-        {
+        {          
             eventTrigger.enabled = true;
         }
     }  
     public void OnPointerDown()
-    {       
-        isPointDown = true;
+    {
+        if (!isRoll)
+        {
+            isPointDown = true;          
+        }
     }
     public void OnPointerUp()
     {
-        ongameScene.TotalSP -= ongameScene.SpawnSP;
-        ongameScene.SpawnSP += 10;
+        if (!isRoll)
+        {
+            ongameScene.TotalSP -= ongameScene.SpawnSP;
+            ongameScene.SpawnSP += 10;
 
-        eventTrigger.enabled = false;
-        isPointDown = false;        
-        DicePercentage();
+            eventTrigger.enabled = false;
+            isPointDown = false;      
+            
+            DicePercentage();
+        }        
     }
 
     void DicePercentage()
@@ -122,14 +129,24 @@ public class DiceManager : MonoBehaviour
     }
 
     public IEnumerator LateCall()
-    {       
-        
+    {
+        isRoll = true;
+        button.interactable = false;
+
         yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
 
-        DiceSumValue = diceSumValue;
-        Board.Inst.SendMessage("AddTower");     
-        
-        eventTrigger.enabled = true;        
+        DiceSumValue = diceSumValue;        
+        Board.Inst.SendMessage("AddTower");
+
+        yield return new WaitForSeconds(Constant.DICE_ROLL_END_TIME);
+
+        diceSumValue = 0;
+
+        isRoll = false;
+        button.interactable = true;
+
+        diceText.text = null;
+        eventTrigger.enabled = true;
     }
 
     public int DiceSumValue

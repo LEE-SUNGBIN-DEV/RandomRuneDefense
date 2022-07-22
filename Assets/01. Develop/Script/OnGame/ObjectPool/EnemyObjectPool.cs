@@ -7,7 +7,7 @@ public class EnemyObjectPool : MonoBehaviour
 {
     public static EnemyObjectPool Instance;
 
-    [SerializeField] GameObject poolingPrefab;
+    [SerializeField] GameObject[] poolingPrefab;
     [SerializeField] int size;
     public List<Enemy> enemys;  
 
@@ -33,12 +33,26 @@ public class EnemyObjectPool : MonoBehaviour
 
     public GameObject GetQueue()
     {        
-        GameObject enemyObject = queue.Dequeue();
-        enemys.Add(enemyObject.GetComponent<Enemy>());
-        enemyObject.transform.position = Constant.enemyWays[0];
-        enemyObject.SetActive(true);
-        
-        return enemyObject;
+        // 풀링에 Enemy가 있다면 있는걸 리턴
+        foreach(GameObject Enemys in queue)
+        {
+            if(!Enemys.activeInHierarchy)
+            {
+                enemys.Add(Enemys.GetComponent<Enemy>());
+                Enemys.transform.position = Constant.ENEMY_WAYS[0];
+                Enemys.SetActive(true);
+
+                return Enemys;                
+            }    
+        }
+
+        //  풀링이 꽉찼으면 새로 만들어서 리턴.
+        GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
+        enemys.Add(enemy.GetComponent<Enemy>());
+        queue.Enqueue(enemy);
+        enemy.transform.parent = this.transform;
+        enemy.SetActive(true);
+        return enemy;
     }
 
     IEnumerator EnemySpawn()
@@ -47,7 +61,7 @@ public class EnemyObjectPool : MonoBehaviour
         {
             for (int i = 0; i < size; i++)
             {
-                GameObject enemy = Instantiate(poolingPrefab, Constant.enemyWays[0], Quaternion.identity);
+                GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
                 enemys.Add(enemy.GetComponent<Enemy>());
                 queue.Enqueue(enemy);
                 enemy.transform.parent = this.transform;
@@ -60,7 +74,7 @@ public class EnemyObjectPool : MonoBehaviour
         {
             for (int i = 0; i < size; i++)
             {
-                GetQueue();
+                GetQueue();                
 
                 yield return new WaitForSeconds(1f);
             }       
