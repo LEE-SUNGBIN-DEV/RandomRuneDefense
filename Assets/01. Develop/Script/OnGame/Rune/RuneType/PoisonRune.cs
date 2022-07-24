@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PoisonRune : Rune
 {
+    private void Start()
+    {
+        runeDamage = 20;
+    }
     public override void OnEnable()
     {
         StartCoroutine(AttackCo());
@@ -12,12 +16,12 @@ public class PoisonRune : Rune
     {
         while (true)
         {
-            Enemy AttackEnemy = null;
+            Enemy AttackEnemy;
 
             AttackEnemy = EnemyObjectPool.Instance.GetRandomEnemy();
             if (skillCount == 3)
             {
-                skillCount = 0;
+                skillCount = 0;                
             }           
 
             if (AttackEnemy != null)
@@ -25,7 +29,11 @@ public class PoisonRune : Rune
                 skillCount += 1;
                 GameObject bulletObj = BulletObjetPool.Instance.GetQueue();
                 bulletObj.transform.position = this.transform.position;
-                bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount);
+                bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount , 1);
+                if (skillCount == 3)
+                {
+                    skillEffect.Play();
+                }
             }
             yield return new WaitForSeconds(runeAttackSpeed);
         }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FireRune : Rune
 {
+    private void Start()
+    {
+        runeDamage = 20;
+    }
     public override void OnEnable()
     {
         StartCoroutine(AttackCo());
@@ -12,13 +16,13 @@ public class FireRune : Rune
     {
         while (true)
         {
-            Enemy AttackEnemy = null;
+            Enemy AttackEnemy;
 
             AttackEnemy = EnemyObjectPool.Instance.GetFirstEnemy();
 
             if (skillCount == 3)
             {
-                skillCount = 0;
+                skillCount = 0;                
             }
 
            if (AttackEnemy != null)
@@ -26,8 +30,12 @@ public class FireRune : Rune
                skillCount += 1;
                GameObject bulletObj = BulletObjetPool.Instance.GetQueue();
                bulletObj.transform.position = this.transform.position;
-               bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount);
-           }
+               bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount , 3);
+               if (skillCount == 3)
+               {
+                   skillEffect.Play();
+               }
+            }
            yield return new WaitForSeconds(runeAttackSpeed);
         }
     }

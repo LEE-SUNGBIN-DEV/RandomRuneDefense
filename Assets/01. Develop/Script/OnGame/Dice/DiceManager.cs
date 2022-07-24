@@ -27,6 +27,7 @@ public class DiceManager : MonoBehaviour
     float inputTime;   
     private bool isPointDown = false;
     private bool isRoll;
+    private bool isSliderTime;
 
     private void Awake()
     {
@@ -39,18 +40,28 @@ public class DiceManager : MonoBehaviour
 
     void Update()
     {
-        if(isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
+        if (slider.value <= 0)
+            slider.gameObject.SetActive(false);
+        else
+            slider.gameObject.SetActive(true);
+
+        if (isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
         {
             diceText.text = null;                      
 
-            inputTime += Time.deltaTime * 2;
+            if(!isSliderTime)
+                inputTime += Time.deltaTime;           
+            else
+                inputTime -= Time.deltaTime;
+
+            if (inputTime >= 1)
+                isSliderTime = true;
+
+            if (inputTime <= 0)
+                isSliderTime = false;
 
             slider.value = inputTime;
 
-            if (inputTime >= 1)
-            {
-                inputTime = 0;
-            }
         }       
 
         // ÅäÅ» sp ½ºÆù sp 

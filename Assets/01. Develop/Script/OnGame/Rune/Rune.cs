@@ -20,7 +20,7 @@ public class Rune : MonoBehaviour
     [SerializeField] protected float runeAttackSpeed;
     [SerializeField] protected Color runeColor;
     [SerializeField] protected GameObject[] level;
-    [SerializeField] protected GameObject skillEffect;
+    [SerializeField] protected ParticleSystem skillEffect;
     [SerializeField] protected int skillCount;   
 
     #region Property

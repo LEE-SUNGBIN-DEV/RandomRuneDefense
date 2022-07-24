@@ -17,8 +17,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        health = 300;
-        maxHealth = 300;
+        health = 200;
+        maxHealth = 200;
         moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()

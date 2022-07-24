@@ -13,24 +13,29 @@ public class RuneBullet : MonoBehaviour
     RUNE_TYPE runeType;
     Enemy targetEnemy;
     int skillCount;
+    int bulletEffectNum;
 
     [SerializeField] GameObject[] effect;
-   
-    public void SetUpBullet(Color color ,Enemy _targetEnemy ,int TowerDamage , RUNE_TYPE _runeType , int _skillCount)
+    [SerializeField] GameObject[] bulletEffcet;
+    
+    public void SetUpBullet(Color color ,Enemy _targetEnemy ,int TowerDamage , RUNE_TYPE _runeType , int _skillCount , int _bulletEffectNum)
     {
         spriteRenderer.enabled = true;
         spriteRenderer.color = color;       
         targetEnemy = _targetEnemy;
         BulletDamage = TowerDamage;
         runeType = _runeType;
-        skillCount = _skillCount;        
+        skillCount = _skillCount;
+        bulletEffectNum = _bulletEffectNum;
 
         StartCoroutine(AttackCo());
     }
 
     IEnumerator AttackCo()
-    {    
-        while(true)
+    {
+        bulletEffcet[bulletEffectNum].SetActive(true);
+
+        while (true)
         {           
             transform.position = Vector2.MoveTowards(transform.position, targetEnemy.transform.position,
                                                      bulletSpeed * Time.deltaTime);          
@@ -44,7 +49,7 @@ public class RuneBullet : MonoBehaviour
         }        
         //데미지를 입힌다..        
         if (targetEnemy != null)       
-        {
+        {           
             spriteRenderer.enabled = false;
             targetEnemy.Damage(BulletDamage);
             GameObject damageTMP = DamageObjectPool.Instance.GetQueue();
@@ -56,6 +61,8 @@ public class RuneBullet : MonoBehaviour
 
     void Die()
     {
+        bulletEffcet[bulletEffectNum].SetActive(false);
+        
         switch (runeType)
         {
             case RUNE_TYPE.WIND:
@@ -110,16 +117,16 @@ public class RuneBullet : MonoBehaviour
                 effect[0].SetActive(true);
                 break;
             case 1:
-                effect[1].SetActive(true);
+                effect[1].SetActive(true);               
                 break;
-            //case 2:
-            //    effect[2].SetActive(true); // 얼음 이펙트 넣을 예정
-            //    break;
+            case 2:
+                //; ; // 얼음 이펙트 넣을 예정
+                break;
             case 3:
-                effect[3].SetActive(true);
+                effect[3].SetActive(true);                
                 break;
             case 4:
-                effect[4].SetActive(true);
+                effect[4].SetActive(true);                
                 break;
         }       
 
@@ -127,14 +134,14 @@ public class RuneBullet : MonoBehaviour
 
         for (int i = 0; i < effect.Length; ++i)
         {
-            effect[i].SetActive(false);
+            effect[i].SetActive(false);            
         }
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     
     IEnumerator Poison()
     {
-        typeSkill[2].SetActive(true);    
+        typeSkill[2].SetActive(true); 
         yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
         typeSkill[2].SetActive(false);
 

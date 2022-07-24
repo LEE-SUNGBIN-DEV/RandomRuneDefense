@@ -25,21 +25,30 @@ public static partial class Constant
 
     // ENEMY--------------------------------------------------------------------------------
 
-    public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);
+    // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {
-        new Vector2(-4.7f, -2.5f),
-        new Vector2(-4.7f, -0.9f),
-        new Vector2(0, 4),
-        new Vector2(5.4f, -1f), 
-        new Vector2(5.3f, -2.5f)
+        new Vector2(-2.54f, -1.5f),
+        new Vector2(-2.54f, -0.5f),
+        new Vector2(-0.05f, 2),
+        new Vector2(2.46f, -0.5f), 
+        new Vector2(2.46f, -1.5f)
     };
 
-    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.5f;
+    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.7f;
     public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
 
     // RUNE--------------------------------------------------------------------------------
+
+    public static readonly int WIND_RUNE = 0;
+    public static readonly int ICE_RUNE = 1;
+    public static readonly int LIGHTNING_RUNE = 2;
+    public static readonly int FIRE_RUNE = 3;
+    public static readonly int POISON_RUNE = 4;
+
+    public static readonly int POWER_UP_DAMAGE = 10;
+    public static readonly int POWER_UP_COST = 10;
 
     public const int MAX_RUNE_LEVEL = 4;
 

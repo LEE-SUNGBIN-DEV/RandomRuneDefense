@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LightningRune : Rune
 {
+    private void Start()
+    {
+        runeDamage = 20;
+    }
     public override void OnEnable()
     {
         StartCoroutine(AttackCo());
@@ -12,12 +16,12 @@ public class LightningRune : Rune
     {
         while (true)
         {
-            Enemy AttackEnemy = null;
+            Enemy AttackEnemy;
 
             AttackEnemy = EnemyObjectPool.Instance.GetFirstEnemy();
             if (skillCount == 3)
             {
-                skillCount = 0;
+                skillCount = 0;               
             }
 
             if (AttackEnemy != null)
@@ -25,9 +29,14 @@ public class LightningRune : Rune
                 skillCount += 1;
                 GameObject bulletObj = BulletObjetPool.Instance.GetQueue();
                 bulletObj.transform.position = this.transform.position;
-                bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount);
+                bulletObj.GetComponent<RuneBullet>().SetUpBullet(runeColor, AttackEnemy, runeDamage, runeType, skillCount , 4);
+                if (skillCount == 3)
+                {
+                    skillEffect.Play();
+                }
             }
-            yield return new WaitForSeconds(runeAttackSpeed);
+                yield return new WaitForSeconds(runeAttackSpeed);
+            
         }
     }
 }
