@@ -10,8 +10,10 @@ public class EnemyObjectPool : MonoBehaviour
     [SerializeField] GameObject[] poolingPrefab;
     [SerializeField] int size;
     public List<Enemy> enemys;  
-
     public Queue<GameObject> queue = new Queue<GameObject>();
+
+    [SerializeField] private int stage;
+    [SerializeField] private float stageTime;
 
     void Awake()
     {
@@ -19,6 +21,8 @@ public class EnemyObjectPool : MonoBehaviour
     }
     private void Update()
     {
+        //stageTime += Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             StartCoroutine(EnemySpawn());
@@ -69,6 +73,8 @@ public class EnemyObjectPool : MonoBehaviour
 
                 yield return new WaitForSeconds(1f);
             }
+            stage += 1;
+            // 시간을 줘서 다음 라운드.
         }
         else
         {

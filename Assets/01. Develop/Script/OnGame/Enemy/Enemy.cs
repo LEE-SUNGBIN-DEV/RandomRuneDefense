@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    #region SINGLETON
+    public static Enemy Inst { get; private set; }
+    private void Awake() => Inst = this;
+    #endregion
+
     [SerializeField] protected float health;
     [SerializeField] protected float maxHealth;
 
@@ -89,10 +94,9 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
     public void OnDisable()
-    {             
+    {                   
         distance = 0;
-        Health = MaxHealth;
-        //moveSpeed = moveSpeed;
+        Health = MaxHealth;       
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }
