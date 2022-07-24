@@ -25,8 +25,10 @@ public class LobbyScenePanel : Panel
 
     private void Awake()
     {
-        PlayerData.onPlayerDataChanged -= UpdateUGUI;
-        PlayerData.onPlayerDataChanged += UpdateUGUI;
+        PlayerStats.onPlayerStatsChanged -= UpdateStatsUI;
+        PlayerStats.onPlayerStatsChanged += UpdateStatsUI;
+        PlayerCurrency.onPlayerCurrencyChanged -= UpdateCurrencyUI;
+        PlayerCurrency.onPlayerCurrencyChanged += UpdateCurrencyUI;
     }
 
     private void OnEnable()
@@ -43,15 +45,19 @@ public class LobbyScenePanel : Panel
 
     private void OnDestroy()
     {
-        PlayerData.onPlayerDataChanged -= UpdateUGUI;
+        PlayerStats.onPlayerStatsChanged -= UpdateStatsUI;
+        PlayerCurrency.onPlayerCurrencyChanged -= UpdateCurrencyUI;
     }
 
-    private void UpdateUGUI(PlayerData playerData)
+    private void UpdateCurrencyUI(PlayerCurrency playerCurrency)
+    {
+        topUserGoldText.text = playerCurrency.Gold.ToString();
+        topUserCrystalText.text = playerCurrency.Crystal.ToString();
+    }
+    private void UpdateStatsUI(PlayerStats playerStats)
     {
         topUserNicknameText.text = PhotonNetwork.LocalPlayer.NickName;
-        topUserGoldText.text = playerData.Gold.ToString();
-        topUserCrystalText.text = playerData.Crystal.ToString();
-        topUserLevelText.text = playerData.Level.ToString();
+        topUserLevelText.text = playerStats.Level.ToString();
     }
 
     public void OnClickBottomPanelButton(Panel selectPanel)

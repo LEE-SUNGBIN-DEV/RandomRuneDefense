@@ -39,14 +39,14 @@ public class GameManager : Singleton<GameManager>
     {
         if(isConnect)
         {
-            SceneManager.LoadScene(Constant.NAME_LOBBY_SCENE);
+            SceneManager.LoadScene(Constant.NAME_SCENE_LOBBY);
         }
     }
 
     private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
-        if(scene.name == Constant.NAME_GAME_SCENE)
+        if(scene.name == Constant.NAME_SCENE_GAME_)
         {
             Screen.SetResolution(Constant.SCREEN_RESOLUTION_HEIGHT, Constant.SCREEN_RESOLUTION_WIDTH, false);
         }

@@ -21,9 +21,9 @@ public class UIManager : Singleton<UIManager>
 
         scenePanelDictionary = new Dictionary<string, Panel>
         {
-            {Constant.NAME_TITLE_SCENE, titleScenePanel },
-            {Constant.NAME_LOBBY_SCENE, lobbyScenePanel },
-            {Constant.NAME_GAME_SCENE, gameScenePanel }
+            {Constant.NAME_SCENE_TITLE_, titleScenePanel },
+            {Constant.NAME_SCENE_LOBBY, lobbyScenePanel },
+            {Constant.NAME_SCENE_GAME_, gameScenePanel }
         };
     }
 
