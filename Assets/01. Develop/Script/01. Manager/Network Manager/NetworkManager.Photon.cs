@@ -94,7 +94,7 @@ public partial class NetworkManager
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
                 onMatch(true);
-                PhotonNetwork.LoadLevel(Constant.NAME_SCENE_GAME_);
+                PhotonNetwork.LoadLevel(Constant.NAME_SCENE_GAME);
             }
         }
     }
