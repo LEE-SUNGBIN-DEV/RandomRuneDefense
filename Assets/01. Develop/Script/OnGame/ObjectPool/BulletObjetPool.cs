@@ -9,7 +9,6 @@ public class BulletObjetPool : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] int size;
     public List<RuneBullet> bullets;
-
     public Queue<GameObject> queue = new Queue<GameObject>();
 
     private void Awake()

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -10,23 +9,26 @@ public class DiceManager : MonoBehaviour
 {
     public static DiceManager Inst { get; private set; }
 
-
+    [Header("※ DICE")]
     [SerializeField] private DiceScript[] dices;
     [SerializeField] private int diceMaxNumber;
+    public int diceSumValue;
     [SerializeField] TextMeshProUGUI diceText;
     [SerializeField] Slider slider;
+    [SerializeField] EventTrigger eventTrigger;
+    [SerializeField] Button button;
+    [SerializeField] GameObject DiceValueBackGround;
+ 
+    [Header("※ PERCENTAGE")]
     [SerializeField] float percentage;
-
-    public int diceSumValue;  
-    public EventTrigger eventTrigger;
-
 
     OnGameScene ongameScene;
 
     // 누르는 시간
     float inputTime;   
-
     private bool isPointDown = false;
+    private bool isRoll;
+    private bool isSliderTime;
 
     private void Awake()
     {
@@ -35,46 +37,64 @@ public class DiceManager : MonoBehaviour
         diceMaxNumber = dices.Length;
         diceSumValue = 0;
         ongameScene = OnGameScene.Inst;
+        DiceValueBackGround.SetActive(false);
     }
 
     void Update()
     {
-        if(isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
-        {
-            DiceSumValue = 0;           
+        if (slider.value <= 0)
+            slider.gameObject.SetActive(false);
+        else
+            slider.gameObject.SetActive(true);
 
-            inputTime += Time.deltaTime * 2;
+        if (isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
+        {
+            diceText.text = null;                      
+
+            if(!isSliderTime)
+                inputTime += Time.deltaTime;           
+            else
+                inputTime -= Time.deltaTime;
+
+            if (inputTime >= 1)
+                isSliderTime = true;
+
+            if (inputTime <= 0)
+                isSliderTime = false;
 
             slider.value = inputTime;
 
-            if (inputTime >= 1)
-            {
-                inputTime = 0;
-            }
         }       
 
         // 토탈 sp 스폰 sp 
         if(ongameScene.TotalSP < ongameScene.SpawnSP)
-        {
+        {           
             eventTrigger.enabled = false;
         }   
         else
-        {
+        {          
             eventTrigger.enabled = true;
         }
     }  
     public void OnPointerDown()
-    {       
-        isPointDown = true;
+    {
+        if (!isRoll)
+        {
+            isPointDown = true;          
+        }
     }
     public void OnPointerUp()
     {
-        ongameScene.TotalSP -= ongameScene.SpawnSP;
-        ongameScene.SpawnSP += 10;
+        if (!isRoll)
+        {
+            ongameScene.TotalSP -= ongameScene.SpawnSP;
+            ongameScene.SpawnSP += 10;
 
-        eventTrigger.enabled = false;
-        isPointDown = false;        
-        DicePercentage();
+            eventTrigger.enabled = false;
+            isPointDown = false;      
+            
+            DicePercentage();
+        }        
     }
 
     void DicePercentage()
@@ -122,14 +142,26 @@ public class DiceManager : MonoBehaviour
     }
 
     public IEnumerator LateCall()
-    {       
-        
+    {
+        isRoll = true;
+        button.interactable = false;
+
         yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
 
         DiceSumValue = diceSumValue;
-        Board.Inst.SendMessage("AddTower");     
-        
-        eventTrigger.enabled = true;        
+        DiceValueBackGround.SetActive(true);
+        Board.Inst.SendMessage("AddTower");
+
+        yield return new WaitForSeconds(Constant.DICE_ROLL_END_TIME);
+
+        diceSumValue = 0;
+
+        isRoll = false;
+        button.interactable = true;
+
+        diceText.text = null;
+        DiceValueBackGround.SetActive(false);
+        eventTrigger.enabled = true;
     }
 
     public int DiceSumValue
