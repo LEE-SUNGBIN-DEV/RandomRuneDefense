@@ -10,7 +10,7 @@ public static partial class Constant
     // DICE--------------------------------------------------------------------------------
     public static readonly int DICE_MAX_VALUE = 6;
     public static readonly float DICE_ROLL_TIME = 0.7f;
-    public static readonly float DICE_ROLL_END_TIME = 3f;
+    public static readonly float DICE_ROLL_END_TIME = 1f;
     public static readonly int RUNE_RANDOM_MAX_VALUE = 5;
   
 
@@ -55,7 +55,7 @@ public static partial class Constant
     public const float SLOW_TIME = 0.8f;   
     public const float SKILL_COOL_TIME = 2f;
 
-    public static readonly int POISON_TIME = 3;
+    public static readonly int POISON_TIME = 3; 
 
     // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)

@@ -52,3 +52,6 @@ TagManager:
   - name: DamageUi
     uniqueID: 4272446747
     locked: 0
+  - name: GUI
+    uniqueID: 593974999
+    locked: 0

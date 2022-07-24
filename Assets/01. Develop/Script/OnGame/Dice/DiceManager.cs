@@ -18,6 +18,8 @@ public class DiceManager : MonoBehaviour
     [SerializeField] EventTrigger eventTrigger;
     [SerializeField] Button button;
     [SerializeField] GameObject DiceValueBackGround;
+    [SerializeField] GameObject DiceDoble;
+    
  
     [Header("¡Ø PERCENTAGE")]
     [SerializeField] float percentage;
@@ -142,11 +144,20 @@ public class DiceManager : MonoBehaviour
     }
 
     public IEnumerator LateCall()
-    {
+    {     
         isRoll = true;
         button.interactable = false;
 
         yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
+
+        if (dices[0].DiceValue == dices[1].DiceValue)
+        {
+            DiceDoble.SetActive(true);
+        }
+        else
+        {
+            DiceDoble.SetActive(false);
+        }
 
         DiceSumValue = diceSumValue;
         DiceValueBackGround.SetActive(true);

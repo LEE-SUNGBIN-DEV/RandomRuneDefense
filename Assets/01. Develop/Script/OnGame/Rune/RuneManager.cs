@@ -141,7 +141,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             iceRuneCost = value;
-            value_Sp_Text[Constant.ICE_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.ICE_RUNE].text = iceRuneCost.ToString();
         }
     }
     public int LightningRuneCost
@@ -150,7 +150,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             lightningRuneCost = value;
-            value_Sp_Text[Constant.LIGHTNING_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.LIGHTNING_RUNE].text = lightningRuneCost.ToString();
         }
     }
     public int FireRuneCost
@@ -159,7 +159,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             fireRuneCost = value;
-            value_Sp_Text[Constant.FIRE_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.FIRE_RUNE].text = fireRuneCost.ToString();
         }
     }
     public int PoisonRuneCost
@@ -168,7 +168,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             poisonRuneCost = value;
-            value_Sp_Text[Constant.POISON_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.POISON_RUNE].text = poisonRuneCost.ToString();
         }
     }
 
