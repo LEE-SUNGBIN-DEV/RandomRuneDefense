@@ -10,30 +10,30 @@ public class CardSlot : Slot
     public static event UnityAction<CardSlot> onClickCardSlot;
     #endregion
     [SerializeField] private Card card;
+    [SerializeField] private Image cardImage;
     [SerializeField] private Button cardButton;
 
-    private void Start()
+    public bool IsEmpty()
     {
-        cardButton = GetComponent<Button>();
-/*
-        if (card == null)
-        {
-            cardButton.interactable = false;
-        }
-
-        else
-        {
-            cardButton.interactable = true;
-        }
-*/
-        cardButton.onClick.AddListener(OnClickCardSlot);
+        return card == null;
+    }
+    public void RegisterCardToSlot(Card requestCard)
+    {
+        Card = requestCard;
+        CardImage.sprite = Card.ItemSprite;
     }
 
-    private void OnClickCardSlot()
+    public override void ClearSlot()
     {
-        Function.OpenPanel(UIManager.Instance.CardInformationPanel);
+        Card = null;
+        CardImage.sprite = null;
+    }
+
+    public void OnClickCardSlot()
+    {
         if (card != null)
         {
+            Function.OpenPanel(UIManager.Instance.CardInformationPanel);
             onClickCardSlot(this);
         }
     }
@@ -43,6 +43,10 @@ public class CardSlot : Slot
     {
         get => card;
         set => card = value;
+    }
+    public Image CardImage
+    {
+        get => cardImage;
     }
     #endregion
 }

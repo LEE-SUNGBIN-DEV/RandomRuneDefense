@@ -5,13 +5,6 @@ using UnityEngine.Events;
 
 public static partial class Function
 {
-    //! 함수를 지연 호출한다.
-    public static IEnumerator DoLateCall(UnityAction<object[]> callback, float delay, object[] parameters)
-    {
-        yield return new WaitForSeconds(delay);
-        callback?.Invoke(parameters);
-    }
-
     public static void OpenPanel(Panel targetPanel)
     {
         targetPanel.gameObject.SetActive(true);
