@@ -17,7 +17,8 @@ public class DiceManager : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] EventTrigger eventTrigger;
     [SerializeField] Button button;
-
+    [SerializeField] GameObject DiceValueBackGround;
+ 
     [Header("¡Ø PERCENTAGE")]
     [SerializeField] float percentage;
 
@@ -36,6 +37,7 @@ public class DiceManager : MonoBehaviour
         diceMaxNumber = dices.Length;
         diceSumValue = 0;
         ongameScene = OnGameScene.Inst;
+        DiceValueBackGround.SetActive(false);
     }
 
     void Update()
@@ -146,7 +148,8 @@ public class DiceManager : MonoBehaviour
 
         yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
 
-        DiceSumValue = diceSumValue;        
+        DiceSumValue = diceSumValue;
+        DiceValueBackGround.SetActive(true);
         Board.Inst.SendMessage("AddTower");
 
         yield return new WaitForSeconds(Constant.DICE_ROLL_END_TIME);
@@ -157,6 +160,7 @@ public class DiceManager : MonoBehaviour
         button.interactable = true;
 
         diceText.text = null;
+        DiceValueBackGround.SetActive(false);
         eventTrigger.enabled = true;
     }
 
