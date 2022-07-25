@@ -7,16 +7,30 @@ public class BossEnemy : Enemy
 
     public override void Start()
     {
-        health = 500;
-        maxHealth = 500;
+        Health = 500;
+        MaxHealth = 500;
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
     }
 
     public override void Die()
     {
-        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
-        MaxHealth += 100; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.
         OnGameScene.Inst.TotalSP += 100;
+        EnemyObjectPool.Instance.bossStage = false;
         gameObject.SetActive(false);
+    }
+
+    public override void OnDisable()
+    {
+        MaxHealth += 100;       
+        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
+
+        EnemyObjectPool.Instance.bossStage = false;
+
+        distance = 0;
+        Health = MaxHealth;
+
+        gameObject.SetActive(false);
+        EnemyObjectPool.Instance.enemys.Remove(this);
+        BossObjectPool.Instance.InsertQueue(gameObject);
     }
 }

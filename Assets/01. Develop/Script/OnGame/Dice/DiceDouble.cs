@@ -13,9 +13,9 @@ public class DiceDouble : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
+        time += Time.deltaTime * 1.5f;
 
-        transform.localScale = new Vector3(2, 1, 0) * (time + 3);
+        transform.localScale = new Vector3(2, 1, 0) * (time + 2);
 
         if (time > 1f)
         {

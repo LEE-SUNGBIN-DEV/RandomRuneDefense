@@ -19,11 +19,10 @@ public class Enemy : MonoBehaviour
     
     public GameObject HealthBar;
 
-
     public virtual void Start()
     {
-        health = 200;
-        maxHealth = 200;
+        Health = 200;
+        MaxHealth = 200;
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
@@ -31,7 +30,7 @@ public class Enemy : MonoBehaviour
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
-    #region HP Property
+    #region Property
     public float Health 
     {
         get => health;
@@ -59,12 +58,17 @@ public class Enemy : MonoBehaviour
         get => moveSpeed;
         set
         {
+            moveSpeed = value;
             if (moveSpeed <= 0)
             {
                 moveSpeed = 0;
                 return;
+            }     
+            else
+            {
+                moveSpeed = value;
             }
-            moveSpeed = value;            
+
         }
     }
     #endregion
@@ -75,7 +79,7 @@ public class Enemy : MonoBehaviour
         Health = Mathf.Max(0, Health);
         HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
     }    
-    private void OnEnable()
+    public void OnEnable()
     {
         wayNum = 0;       
         HealthBar.GetComponent<Image>().fillAmount = 1;
@@ -103,16 +107,20 @@ public class Enemy : MonoBehaviour
     }
 
     public virtual void Die()
-    {
-        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
-        MaxHealth += 10; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.
+    {       
         OnGameScene.Inst.TotalSP += 10;
         gameObject.SetActive(false);
     }
-    public void OnDisable()
+
+    public virtual void OnDisable()
     {
-        distance = 0;      
-        Health = MaxHealth;       
+        MaxHealth += 10;       
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+
+        distance = 0;         
+        Health = MaxHealth;
+        
+        gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }

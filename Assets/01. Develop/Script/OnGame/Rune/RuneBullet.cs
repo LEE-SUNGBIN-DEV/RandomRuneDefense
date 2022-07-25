@@ -180,20 +180,20 @@ public class RuneBullet : MonoBehaviour
 
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
+    IEnumerator Lightning()
+    {
+        typeSkill[Constant.LIGHTNING_RUNE].SetActive(true);
+        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
+        typeSkill[Constant.LIGHTNING_RUNE].SetActive(false);
+        BulletObjetPool.Instance.InsertQueue(gameObject);
+    }
     IEnumerator Fire()
     {
         typeSkill[Constant.FIRE_RUNE].SetActive(true);     
         yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
         typeSkill[Constant.FIRE_RUNE].SetActive(false);
         BulletObjetPool.Instance.InsertQueue(gameObject);
-    }
-    IEnumerator Lightning()
-    {
-        typeSkill[Constant.LIGHTNING_RUNE].SetActive(true);        
-        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
-        typeSkill[Constant.LIGHTNING_RUNE].SetActive(false);
-        BulletObjetPool.Instance.InsertQueue(gameObject);
-    }
+    }  
     IEnumerator Poison()
     {
         typeSkill[Constant.POISON_RUNE].SetActive(true);

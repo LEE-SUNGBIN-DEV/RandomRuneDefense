@@ -6,16 +6,21 @@ public class SpeedEnemy : Enemy
 {
     public override void Start()
     {
-        health = 100;
-        maxHealth = 100;
+        Health = 100;
+        MaxHealth = 100;
         MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
     }
 
-    public override void Die()
-    {
+    public override void OnDisable()
+    {       
+        MaxHealth += 10; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.      
         MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
-        MaxHealth += 10; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.
-        OnGameScene.Inst.TotalSP += 10;
+
+        distance = 0;
+        Health = MaxHealth;
+
         gameObject.SetActive(false);
+        EnemyObjectPool.Instance.enemys.Remove(this);
+        EnemyObjectPool.Instance.InsertQueue(gameObject);
     }
 }

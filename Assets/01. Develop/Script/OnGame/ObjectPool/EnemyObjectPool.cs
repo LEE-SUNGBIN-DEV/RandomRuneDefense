@@ -15,14 +15,35 @@ public class EnemyObjectPool : MonoBehaviour
     [SerializeField] private int stage;
     [SerializeField] private float stageTime;
 
+    [HideInInspector] public bool bossStage;
+
     void Awake()
     {
         Instance = this;
     }
+    private void Start()
+    {
+        // 미리생성
+        for (int i = 0; i < size; i++)
+        {
+            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
+            enemys.Add(enemy.GetComponent<Enemy>());
+            queue.Enqueue(enemy);
+            enemy.transform.parent = this.transform;
+            enemy.SetActive(false);
+        }
+    }
     private void Update()
     {
-        stageTime += Time.deltaTime;
-
+        if(bossStage)
+        {
+            stageTime = 0;           
+        }
+        if(!bossStage)
+        {
+            stageTime += Time.deltaTime;
+        }       
+              
         if(stageTime >= 10)
         {
             StartCoroutine(EnemySpawn());
@@ -30,10 +51,10 @@ public class EnemyObjectPool : MonoBehaviour
         }
         ArrangeEnemies();
 
-        // if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
-        // {
-        //     StartCoroutine(EnemySpawn());
-        // }
+        if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
+        {
+            StartCoroutine(EnemySpawn());
+        }
     }
     public void InsertQueue(GameObject p_object)
     {      
@@ -46,15 +67,14 @@ public class EnemyObjectPool : MonoBehaviour
         foreach(GameObject Enemys in queue)
         {
             if(!Enemys.activeInHierarchy)
-            {
+            {               
                 enemys.Add(Enemys.GetComponent<Enemy>());
                 Enemys.transform.position = Constant.ENEMY_WAYS[0];
                 Enemys.SetActive(true);
 
                 return Enemys;                
             }    
-        }
-
+        }       
         //  풀링이 꽉찼으면 새로 만들어서 리턴.
         GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
         enemys.Add(enemy.GetComponent<Enemy>());
@@ -71,29 +91,25 @@ public class EnemyObjectPool : MonoBehaviour
 
         if(stage % 2 == 0 ) // 보스 
         {
-            GameObject enemy = Instantiate(poolingPrefab[2], Constant.ENEMY_WAYS[0], Quaternion.identity);
-            enemys.Add(enemy.GetComponent<Enemy>());
-            queue.Enqueue(enemy);
-            enemy.transform.parent = this.transform;
-            enemy.SetActive(true);
+            bossStage = true;
+            BossObjectPool.Instance.EnemySpawn();
 
             yield break; // 보스 나오면 스탑
         }
 
-
-        if (queue.Count == 0)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
-                enemys.Add(enemy.GetComponent<Enemy>());
-                queue.Enqueue(enemy);
-                enemy.transform.parent = this.transform;
-                enemy.SetActive(true);
-
-                yield return new WaitForSeconds(1f);
-            }                      
-        }
+        //if (queue.Count == 0)
+        //{
+        //    for (int i = 0; i < size; i++)
+        //    {
+        //        GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
+        //        enemys.Add(enemy.GetComponent<Enemy>());
+        //        queue.Enqueue(enemy);
+        //        enemy.transform.parent = this.transform;
+        //        enemy.SetActive(true);
+        //
+        //        yield return new WaitForSeconds(1f);
+        //    }                      
+        //}
         else
         {
             for (int i = 0; i < size; i++)
