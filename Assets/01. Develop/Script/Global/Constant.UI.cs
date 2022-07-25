@@ -12,9 +12,13 @@ public static partial class Constant
     public static readonly int SCREEN_RESOLUTION_HEIGHT_ONGAME = 1080;
 
     // SCENE NAME
-    public const string NAME_SCENE_TITLE_ = "01_Title";
+    public const string NAME_SCENE_TITLE = "01_Title";
     public const string NAME_SCENE_LOBBY = "02_Lobby";
-    public const string NAME_SCENE_GAME_ = "03_Game";
+    public const string NAME_SCENE_GAME = "03_Game";
 
     public static readonly float TIME_NETWORK_NOTICE = 2.0f;
+    public static readonly float TIME_SCROLL = 0.8f;
+
+    public static readonly float COLOR_ALPHA_OPACITY = 1f;
+    public static readonly float COLOR_ALPHA_TRANSLUCENT = 0.5f;
 }

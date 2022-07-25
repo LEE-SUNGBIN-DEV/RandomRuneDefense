@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 
-public class Lobby : Panel
+public class LobbyPanel : ScrollPanel
 {
     [SerializeField] private GameObject quickMatchingPanel;
     [SerializeField] private TextMeshProUGUI quickMatchingText;

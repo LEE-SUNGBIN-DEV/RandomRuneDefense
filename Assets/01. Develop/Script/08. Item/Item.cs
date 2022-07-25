@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class Item<T> where T : Item<T>
 {
@@ -12,7 +12,9 @@ public class Item<T> where T : Item<T>
 
     public virtual void LoadItem(string jsonString)
     {
-        JsonConvert.PopulateObject(jsonString, this);
+        JObject jObject = JObject.Parse(jsonString);
+        ItemName = jObject["itemName"].ToString();
+        ItemDescription = jObject["itemDescription"].ToString();
         itemSprite = ResourceManager.Instance.CardResourceDictionary[ItemName].itemSprite;
     }
 

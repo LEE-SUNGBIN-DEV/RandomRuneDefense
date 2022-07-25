@@ -1,12 +1,11 @@
+#define DEBUG_MODE
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using Photon.Pun;
 using Photon.Realtime;
-
-using TMPro;
 
 public partial class NetworkManager
 {
@@ -32,14 +31,23 @@ public partial class NetworkManager
             // Try Connect to Master Server
             PhotonNetwork.ConnectUsingSettings();
             UIManager.Instance.ShowNetworkState("서버에 연결을 시도합니다.");
+#if DEBUG_MODE
+            Debug.Log("서버에 연결을 시도합니다.");
+#endif
         }
         else
         {
             UIManager.Instance.ShowNetworkState("이미 서버와 연결되어있습니다.");
+#if DEBUG_MODE
+            Debug.Log("이미 서버와 연결되어있습니다.");
+#endif
         }
     }
     public override void OnDisconnected(DisconnectCause cause)
     {
+#if DEBUG_MODE
+        Debug.Log("서버와 연결이 끊겼습니다.");
+#endif
         UIManager.Instance.ShowNetworkState("서버와 연결이 끊겼습니다.");
         if (onConnect != null)
         {
@@ -48,6 +56,9 @@ public partial class NetworkManager
     }
     public override void OnConnectedToMaster()
     {
+#if DEBUG_MODE
+        Debug.Log("서버와 연결되었습니다.");
+#endif
         UIManager.Instance.ShowNetworkState("서버와 연결되었습니다.");
         if (onConnect != null)
         {
@@ -58,16 +69,25 @@ public partial class NetworkManager
     }
     public override void OnJoinedLobby()
     {
+#if DEBUG_MODE
+        Debug.Log("로비에 입장하였습니다.");
+#endif
         UIManager.Instance.ShowNetworkState("로비에 입장하였습니다.");
         onJoinLobby(true);
     }
 
     public override void OnJoinedRoom()
     {
+#if DEBUG_MODE
+        Debug.Log("플레이어를 기다리는 중입니다.");
+#endif
         UIManager.Instance.ShowNetworkState("플레이어를 기다리는 중입니다.");
     }
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
+#if DEBUG_MODE
+        Debug.Log("대기중인 플레이어가 없습니다.");
+#endif
         UIManager.Instance.ShowNetworkState("대기중인 플레이어가 없습니다.");
         onJoinLobby(false);
     }
@@ -79,9 +99,15 @@ public partial class NetworkManager
     {
         onPlayerEnteredRoom();
         UIManager.Instance.ShowNetworkState("호스트입니다.");
+#if DEBUG_MODE
+        Debug.Log("호스트입니다.");
+#endif
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
+#if DEBUG_MODE
+        Debug.Log("매칭에 실패하였습니다.");
+#endif
         Debug.LogError(message);
         UIManager.Instance.ShowNetworkState("매칭에 실패하였습니다.");
         onMatch(false);
@@ -94,7 +120,7 @@ public partial class NetworkManager
             if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
             {
                 onMatch(true);
-                PhotonNetwork.LoadLevel(Constant.NAME_SCENE_GAME_);
+                PhotonNetwork.LoadLevel(Constant.NAME_SCENE_GAME);
             }
         }
     }

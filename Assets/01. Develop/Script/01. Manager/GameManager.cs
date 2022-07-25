@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
     private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
-        if(scene.name == Constant.NAME_SCENE_GAME_)
+        if(scene.name == Constant.NAME_SCENE_GAME)
         {
             Screen.SetResolution(Constant.SCREEN_RESOLUTION_HEIGHT, Constant.SCREEN_RESOLUTION_WIDTH, false);
         }

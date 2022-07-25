@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Inventory : Panel
+public class InventoryPanel : ScrollPanel
 {
     [SerializeField] private EquipCardSlot equipCardSlot;
     [SerializeField] private CardSlot[] inventorySlots;
-    private PlayerInventory playerInventory;
 
     private void Awake()
     {
@@ -15,19 +14,14 @@ public class Inventory : Panel
         CardInformationPanel.onEquipCard += EquipCard;
 
         CardInformationPanel.onReleaseCard -= ReleaseCard;
-        CardInformationPanel.onReleaseCard += ReleaseCard;
-
-        playerInventory = DataManager.Instance.PlayerData.PlayerInventory;        
+        CardInformationPanel.onReleaseCard += ReleaseCard;     
     }
 
     private void OnEnable()
     {
+        PlayerInventory playerInventory = DataManager.Instance.PlayerData.PlayerInventory;
         if (playerInventory.EquipCardName != null)
         {
-            if(equipCardSlot.IsEmpty() == false)
-            {
-                equipCardSlot.ReleaseCard();
-            }
             EquipCard(DataManager.Instance.CardDatabaseDictionary[playerInventory.EquipCardName]);
         }
 
@@ -62,6 +56,10 @@ public class Inventory : Panel
 
     public void EquipCard(Card requestCard)
     {
+        if (equipCardSlot.IsEmpty() == false)
+        {
+            ReleaseCard();
+        }
         equipCardSlot.EquipCard(requestCard);
     }
 

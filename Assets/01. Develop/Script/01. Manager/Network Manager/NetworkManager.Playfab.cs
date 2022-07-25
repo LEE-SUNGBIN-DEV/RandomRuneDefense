@@ -59,7 +59,6 @@ public partial class NetworkManager
     {
         UIManager.Instance.ShowNetworkState("로그인에 성공하였습니다.");
         DataManager.Instance.RequestAllDatabase();
-        DataManager.Instance.GetPlayerData();
         onLogin(true);
         Connect();
     }

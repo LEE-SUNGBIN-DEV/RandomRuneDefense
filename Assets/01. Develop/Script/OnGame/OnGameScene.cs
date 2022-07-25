@@ -61,7 +61,7 @@ public class OnGameScene : MonoBehaviour
 
     private void CreatePlayer(string sceneName)
     {
-        if (sceneName == Constant.NAME_GAME_SCENE)
+        if (sceneName == Constant.NAME_SCENE_GAME)
         {
             PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
         }

@@ -76,6 +76,7 @@ public class CardInformationPanel : Panel
         if(card != null)
         {
             onEquipCard(card);
+            gameObject.SetActive(false);
         }
     }
 
@@ -85,6 +86,7 @@ public class CardInformationPanel : Panel
         {
             ClearSlot();
             onReleaseCard();
+            gameObject.SetActive(false);
         }
     }
 }
