@@ -18,7 +18,7 @@ public class Line : MonoBehaviour
         }        
     }
 
-    public void AddTower(Rune rune)
+    public void AddRune(Rune rune)
     {
         if (currentIndex == tiles.Length)
         {
@@ -29,12 +29,18 @@ public class Line : MonoBehaviour
 
         if (isFull)
         {
-            tiles[CurrentIndex].UpgradeTower();           
+            tiles[CurrentIndex].UpgradeRune();           
         }
         else
         {
-            tiles[CurrentIndex].AddTower(rune);         
+            tiles[CurrentIndex].AddRune(rune);         
         }
+    }
+
+    public void DestroyRune()
+    {
+        CurrentIndex -= 1;
+        tiles[CurrentIndex].DestroyRune();
     }
 
     public uint CurrentIndex

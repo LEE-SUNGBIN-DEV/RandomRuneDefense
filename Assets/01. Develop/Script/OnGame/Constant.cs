@@ -36,8 +36,9 @@ public static partial class Constant
         new Vector2(2.46f, -1.5f)
     };
 
-    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.7f;
-    public static readonly float SPEED_ENEMY_MOVE_SPEED = 1f;
+    public static readonly float BIG_ENEMY_MOVE_SPEED = 0.6f;
+    public static readonly float SPEED_ENEMY_MOVE_SPEED = 0.9f;
+    public static readonly float BOSS_ENEMY_MOVE_SPEED = 0.4f;
 
     // RUNE--------------------------------------------------------------------------------
 
@@ -53,9 +54,10 @@ public static partial class Constant
     public const int MAX_RUNE_LEVEL = 4;
 
     public const float SLOW_TIME = 0.8f;   
-    public const float SKILL_COOL_TIME = 2f;
+    public const float SKILL_ON_TIME = 2f;
 
-    public static readonly int POISON_TIME = 3; 
+    public static readonly int POISON_TIME = 5;
+    public static readonly int SKILL_TIME = 5;
 
     // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)

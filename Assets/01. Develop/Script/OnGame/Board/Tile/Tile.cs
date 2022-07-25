@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void AddTower(Rune _rune)
+    public void AddRune(Rune _rune)
     {
         if (IsEmpty())
         {
@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void UpgradeTower()
+    public void UpgradeRune()
     {
         runeLevel += 1;
         Debug.Log("업그레이드 호출");
@@ -52,5 +52,10 @@ public class Tile : MonoBehaviour
         rune.RuneLevelUP(runeLevel);
         rune.RuneDamage = rune.RuneDamage + (runeLevel * 10);
         rune.transform.parent = transform;       
+    }
+
+    public void DestroyRune()
+    {
+        Destroy(rune.gameObject);
     }
 }

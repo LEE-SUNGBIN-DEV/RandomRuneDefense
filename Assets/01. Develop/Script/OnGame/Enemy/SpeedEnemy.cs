@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SpeedEnemy : Enemy
 {
-    void Start()
+    public override void Start()
     {
         health = 100;
         maxHealth = 100;
-        moveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
+        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
+    }
+
+    public override void Die()
+    {
+        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
+        MaxHealth += 10; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.
+        OnGameScene.Inst.TotalSP += 10;
+        gameObject.SetActive(false);
     }
 }

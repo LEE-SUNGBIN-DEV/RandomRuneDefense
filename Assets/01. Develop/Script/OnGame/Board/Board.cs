@@ -9,15 +9,33 @@ public class Board : MonoBehaviour
     [SerializeField] Line[] lines;
     [SerializeField] DiceManager diceValue;
     [SerializeField] Rune rune;
-    
+
     private void Awake()
     {
         Inst = this;
         lines = GetComponentsInChildren<Line>();
     }
-    public void AddTower()
-    {       
-        lines[diceValue.diceSumValue - 2].AddTower(rune);
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            DestroyRune();
+        }
+    }
+    public void AddRune()
+    {       
+        lines[diceValue.diceSumValue - 2].AddRune(rune);
+    }
+
+    public void DestroyRune()
+    {
+        for (int i = 0; i < lines.Length; i++)
+        {           
+            if (lines[i].CurrentIndex > 0)
+            {
+                lines[i].DestroyRune();               
+            }            
+        }
     }
 }

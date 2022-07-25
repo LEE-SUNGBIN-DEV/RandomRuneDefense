@@ -12,19 +12,19 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected float health;
     [SerializeField] protected float maxHealth;
+    [SerializeField] protected float moveSpeed;
 
-    public float moveSpeed;
-    public int wayNum;
-    public float distance;
+     public int wayNum;
+     public float distance;
     
     public GameObject HealthBar;
 
 
-    private void Start()
+    public virtual void Start()
     {
         health = 200;
         maxHealth = 200;
-        moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
     {
@@ -53,6 +53,20 @@ public class Enemy : MonoBehaviour
             maxHealth = value;
         }
     }
+    
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set
+        {
+            if (moveSpeed <= 0)
+            {
+                moveSpeed = 0;
+                return;
+            }
+            moveSpeed = value;            
+        }
+    }
     #endregion
 
     public void Damage(int damage)
@@ -71,8 +85,8 @@ public class Enemy : MonoBehaviour
     {
         while(true)
         {        
-           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], moveSpeed * Time.deltaTime);
-           distance += moveSpeed * Time.deltaTime;
+           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], MoveSpeed * Time.deltaTime);
+           distance += MoveSpeed * Time.deltaTime;
 
            if ((Vector2)transform.position == Constant.ENEMY_WAYS[wayNum])
                wayNum++;
@@ -88,14 +102,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
+    public virtual void Die()
     {
+        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
+        MaxHealth += 10; // Á×À»¶§ ¸¶´Ù °­ÇØÁü.
         OnGameScene.Inst.TotalSP += 10;
         gameObject.SetActive(false);
     }
     public void OnDisable()
-    {                   
-        distance = 0;
+    {
+        distance = 0;      
         Health = MaxHealth;       
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        

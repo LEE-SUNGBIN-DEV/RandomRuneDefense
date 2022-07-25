@@ -21,14 +21,19 @@ public class EnemyObjectPool : MonoBehaviour
     }
     private void Update()
     {
-        //stageTime += Time.deltaTime;
+        stageTime += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if(stageTime >= 10)
         {
             StartCoroutine(EnemySpawn());
+            stageTime = 0;
         }
-
         ArrangeEnemies();
+
+        // if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
+        // {
+        //     StartCoroutine(EnemySpawn());
+        // }
     }
     public void InsertQueue(GameObject p_object)
     {      
@@ -61,7 +66,22 @@ public class EnemyObjectPool : MonoBehaviour
 
     IEnumerator EnemySpawn()
     {
-        if(queue.Count == 0)
+        Debug.Log("스테이지 시작");
+        stage += 1;
+
+        if(stage % 2 == 0 ) // 보스 
+        {
+            GameObject enemy = Instantiate(poolingPrefab[2], Constant.ENEMY_WAYS[0], Quaternion.identity);
+            enemys.Add(enemy.GetComponent<Enemy>());
+            queue.Enqueue(enemy);
+            enemy.transform.parent = this.transform;
+            enemy.SetActive(true);
+
+            yield break; // 보스 나오면 스탑
+        }
+
+
+        if (queue.Count == 0)
         {
             for (int i = 0; i < size; i++)
             {
@@ -72,9 +92,7 @@ public class EnemyObjectPool : MonoBehaviour
                 enemy.SetActive(true);
 
                 yield return new WaitForSeconds(1f);
-            }
-            stage += 1;
-            // 시간을 줘서 다음 라운드.
+            }                      
         }
         else
         {

@@ -80,8 +80,15 @@ public class RuneBullet : MonoBehaviour
                 }
                 break;
 
-            case RUNE_TYPE.ICE:             
-                    StartCoroutine(Slow());                                         
+            case RUNE_TYPE.ICE:   
+                if(skillCount == 3)
+                {
+                   StartCoroutine(PowerSlow());
+                }
+                else
+                {
+                    StartCoroutine(Slow());
+                }                                                        
                 break;
 
             case RUNE_TYPE.FIRE:
@@ -107,7 +114,8 @@ public class RuneBullet : MonoBehaviour
                 break;
         }   
     }
-    #region Skill Set
+
+    #region Nomal Attack Effect Set
 
     IEnumerator NomalAttack(int effectNumber)
     {       
@@ -120,7 +128,7 @@ public class RuneBullet : MonoBehaviour
                 effect[1].SetActive(true);               
                 break;
             case 2:
-                //; ; // 얼음 이펙트 넣을 예정
+                StartCoroutine(Slow());
                 break;
             case 3:
                 effect[3].SetActive(true);                
@@ -139,43 +147,61 @@ public class RuneBullet : MonoBehaviour
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     
-    IEnumerator Poison()
-    {
-        typeSkill[2].SetActive(true); 
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
-        typeSkill[2].SetActive(false);
-
-        BulletObjetPool.Instance.InsertQueue(gameObject);
-    }
     IEnumerator Slow()
     {
         effect[2].SetActive(true);
 
-        targetEnemy.moveSpeed -= 0.3f;
+        targetEnemy.MoveSpeed -= 0.2f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
         effect[2].SetActive(false);
 
-        targetEnemy.moveSpeed += 0.3f;
+        targetEnemy.MoveSpeed += 0.2f;
+        targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
+
+        BulletObjetPool.Instance.InsertQueue(gameObject);
+    }
+    #endregion
+
+    #region Skill Set
+    IEnumerator PowerSlow()
+    {
+        // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트
+
+        targetEnemy.MoveSpeed -= 0.5f;
+        targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
+
+        yield return new WaitForSeconds(Constant.SLOW_TIME);
+
+        targetEnemy.MoveSpeed += 0.5f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Fire()
     {
-        typeSkill[0].SetActive(true);     
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
-        typeSkill[0].SetActive(false);
+        typeSkill[Constant.FIRE_RUNE].SetActive(true);     
+        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
+        typeSkill[Constant.FIRE_RUNE].SetActive(false);
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Lightning()
     {
-        typeSkill[1].SetActive(true);        
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
-        typeSkill[1].SetActive(false);
+        typeSkill[Constant.LIGHTNING_RUNE].SetActive(true);        
+        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
+        typeSkill[Constant.LIGHTNING_RUNE].SetActive(false);
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
+    IEnumerator Poison()
+    {
+        typeSkill[Constant.POISON_RUNE].SetActive(true);
+        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
+        typeSkill[Constant.POISON_RUNE].SetActive(false);
+
+        BulletObjetPool.Instance.InsertQueue(gameObject);
+    }
+
     #endregion
 }

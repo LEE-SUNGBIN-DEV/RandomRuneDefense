@@ -161,7 +161,7 @@ public class DiceManager : MonoBehaviour
 
         DiceSumValue = diceSumValue;
         DiceValueBackGround.SetActive(true);
-        Board.Inst.SendMessage("AddTower");
+        Board.Inst.SendMessage("AddRune");
 
         yield return new WaitForSeconds(Constant.DICE_ROLL_END_TIME);
 
