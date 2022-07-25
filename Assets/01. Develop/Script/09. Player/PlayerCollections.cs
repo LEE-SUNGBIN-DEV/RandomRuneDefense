@@ -10,19 +10,19 @@ public class PlayerCollections
     public static event UnityAction<PlayerCollections> onPlayerCollectionsChanged;
     #endregion
 
-    [SerializeField] private Card[] collectedCards;
+    [SerializeField] List<string> collectedCardNames;
 
     public void OnLoadPlayerCollections()
     {
     }
 
     #region Property
-    public Card[] CollectedCards
+    public List<string> CollectedCardNames
     {
-        get => collectedCards;
+        get => collectedCardNames;
         set
         {
-            collectedCards = value;
+            collectedCardNames = value;
             if (onPlayerCollectionsChanged != null)
             {
                 onPlayerCollectionsChanged(this);

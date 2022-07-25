@@ -27,19 +27,19 @@ public class NetworkStatePanel : Panel
     {
         networkInformationText.text = textContent;
         Color color = networkInformationText.color;
-        color.a = 1f;
+        color.a = Constant.COLOR_ALPHA_OPACITY;
         networkInformationText.color = color;
 
         float noticeTime = 0f;
         while (noticeTime < Constant.TIME_NETWORK_NOTICE)
         {
             noticeTime += Time.deltaTime;
-            color.a = 1f - (noticeTime / Constant.TIME_NETWORK_NOTICE);
+            color.a = Constant.COLOR_ALPHA_OPACITY - (noticeTime / Constant.TIME_NETWORK_NOTICE);
             networkInformationText.color = color;
             yield return null;
         }
 
-        color.a = 0f;
+        color.a = Constant.COLOR_ALPHA_TRANSLUCENT;
         networkInformationText.color = color;
         Function.ClosePanel(this);
     }

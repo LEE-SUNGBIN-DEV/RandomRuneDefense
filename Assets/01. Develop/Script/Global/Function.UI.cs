@@ -14,7 +14,6 @@ public static partial class Function
         OpenPanel(targetPanel);
         currentPanel = targetPanel;
     }
-
     public static void ClosePanel(Panel targetPanel)
     {
         targetPanel.gameObject.SetActive(false);

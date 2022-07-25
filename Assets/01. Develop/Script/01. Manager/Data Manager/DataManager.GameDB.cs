@@ -1,14 +1,12 @@
+#define DEBUG_MODE
+
 using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using PlayFab;
-using PlayFab.DataModels;
 using PlayFab.ClientModels;
-using PlayFab.CloudScriptModels;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 public partial class DataManager
 {
@@ -29,11 +27,20 @@ public partial class DataManager
     #region Game Database
     public void RequestAllDatabase()
     {
+#if DEBUG_MODE
+        Debug.Log("게임 데이터를 요청합니다.");
+#endif
         UIManager.Instance.ShowNetworkState("게임 데이터를 요청합니다.");
         RequestCardDatabase();
+        RequestRuneDatabase();
+        GetPlayerData();
     }
     public void RequestCardDatabase()
     {
+#if DEBUG_MODE
+        Debug.Log("카드 데이터를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("카드 데이터를 요청합니다.");
         GetCatalogItemsRequest request = new GetCatalogItemsRequest()
         {
             CatalogVersion = Constant.SERVER_CATALOG_VERSION_CARD
@@ -43,28 +50,30 @@ public partial class DataManager
     }
     public void UpdateCardDatabase(GetCatalogItemsResult result)
     {
-        UIManager.Instance.ShowNetworkState("카드 데이터를 불러오고 있습니다.");
-
         for (int i = 0; i < result.Catalog.Count; ++i)
         {
+            string jsonString = result.Catalog[i].CustomData;
+
             Card newCard = new Card();
-            newCard.LoadItem(result.Catalog[i].CustomData);
+            newCard.LoadItem(jsonString);
             cardDatabase.Add(newCard);
             cardDatabaseDictionary.Add(newCard.ItemName, newCard);
         }
 
-        if (onLoadDatabase != null)
-        {
-            onLoadDatabase();
-        }
+#if DEBUG_MODE
+        Debug.Log("카드 데이터를 불러왔습니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("카드 데이터를 불러왔습니다.");
     }
     #endregion
 
 
     // ! 룬 정보 요청
-    public void RequestRuneInformation()
+    public void RequestRuneDatabase()
     {
-
+#if DEBUG_MODE
+        Debug.Log("룬 데이터를 요청합니다.");
+#endif
     }
 
     #region Property

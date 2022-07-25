@@ -1,3 +1,5 @@
+#define DEBUG_MODE
+
 using System.Collections;
 using System;
 using System.Collections.Generic;
@@ -22,7 +24,10 @@ public partial class DataManager
     #region Get Player Data
     public void GetPlayerData()
     {
-        UIManager.Instance.ShowNetworkState("플레이어 정보를 불러오는 중입니다.");
+#if DEBUG_MODE
+        Debug.Log("플레이어 정보를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("플레이어 정보를 요청합니다.");
 
         GetPlayerStats();
         GetPlayerCurrency();
@@ -37,6 +42,9 @@ public partial class DataManager
             {
                 JsonConvert.PopulateObject(result.Objects[Constant.SERVER_NAME_FILE_PLAYER_STATS].DataObject.ToString(), PlayerData.PlayerStats);
                 onLoadPlayerData();
+#if DEBUG_MODE
+                Debug.Log("플레이어 스탯을 불러왔습니다.");
+#endif
             },
             OnDataRequestError);
     }
@@ -48,6 +56,9 @@ public partial class DataManager
             {
                 JsonConvert.PopulateObject(result.Objects[Constant.SERVER_NAME_FILE_PLAYER_CURRENCY].DataObject.ToString(), PlayerData.PlayerCurrency);
                 onLoadPlayerData();
+#if DEBUG_MODE
+                Debug.Log("플레이어 화폐를 불러왔습니다.");
+#endif
             },
             OnDataRequestError);
     }
@@ -60,6 +71,9 @@ public partial class DataManager
                 PlayerData.PlayerInventory.ClearPlayerInventory();
                 JsonConvert.PopulateObject(result.Objects[Constant.SERVER_NAME_FILE_PLAYER_INVENTORY].DataObject.ToString(), PlayerData.PlayerInventory);
                 onLoadPlayerData();
+#if DEBUG_MODE
+                Debug.Log("플레이어 인벤토리를 불러왔습니다.");
+#endif
             },
             OnDataRequestError);
     }
@@ -71,6 +85,9 @@ public partial class DataManager
             {
                 JsonConvert.PopulateObject(result.Objects[Constant.SERVER_NAME_FILE_PLAYER_COLLECTIONS].DataObject.ToString(), PlayerData.PlayerCollections);
                 onLoadPlayerData();
+#if DEBUG_MODE
+                Debug.Log("플레이어 도감을 불러왔습니다.");
+#endif
             },
             OnDataRequestError);
     }

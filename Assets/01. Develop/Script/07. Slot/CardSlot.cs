@@ -38,6 +38,22 @@ public class CardSlot : Slot
         }
     }
 
+    public void ActiveCardSlot()
+    {
+        Color color = CardImage.color;
+        color.a = Constant.COLOR_ALPHA_OPACITY;
+        cardImage.color = color;
+        cardButton.interactable = true;
+    }
+
+    public void InactiveCardSlot()
+    {
+        Color color = CardImage.color;
+        color.a = Constant.COLOR_ALPHA_TRANSLUCENT;
+        cardImage.color = color;
+        cardButton.interactable = false;
+    }
+
     #region Property
     public Card Card
     {

@@ -13,6 +13,7 @@ public partial class DataManager : Singleton<DataManager>
     private string playFabEntityId;
     private string playFabEntityType;
 
+
     public override void Initialize()
     {
         cardDatabase = new List<Card>();
