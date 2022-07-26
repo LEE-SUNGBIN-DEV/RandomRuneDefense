@@ -12,26 +12,25 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] protected float health;
     [SerializeField] protected float maxHealth;
+    [SerializeField] protected float moveSpeed;
 
-    public float moveSpeed;
-    public int wayNum;
-    public float distance;
+     public int wayNum;
+     public float distance;
     
     public GameObject HealthBar;
 
-
-    private void Start()
+    public virtual void Start()
     {
-        health = 200;
-        maxHealth = 200;
-        moveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        Health = 200;
+        MaxHealth = 200;
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
     {
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-    }
+    }             
 
-    #region HP Property
+    #region Property
     public float Health 
     {
         get => health;
@@ -53,6 +52,20 @@ public class Enemy : MonoBehaviour
             maxHealth = value;
         }
     }
+    
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set
+        {
+            moveSpeed = value;
+            if (moveSpeed <= 0)
+            {
+                moveSpeed = 0;
+                return;
+            }                
+        }
+    }
     #endregion
 
     public void Damage(int damage)
@@ -61,18 +74,24 @@ public class Enemy : MonoBehaviour
         Health = Mathf.Max(0, Health);
         HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
     }    
-    private void OnEnable()
+    public virtual void OnEnable()
     {
-        wayNum = 0;       
+        wayNum = 0;
+        Health = MaxHealth;
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<Image>().fillAmount = 1;
-        StartCoroutine(MovePath());
+
+        if(gameObject.activeInHierarchy)
+        {
+            StartCoroutine(MovePath());
+        }
     }
-    IEnumerator MovePath()
+    public IEnumerator MovePath()
     {
         while(true)
         {        
-           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], moveSpeed * Time.deltaTime);
-           distance += moveSpeed * Time.deltaTime;
+           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], MoveSpeed * Time.deltaTime);
+           distance += MoveSpeed * Time.deltaTime;
 
            if ((Vector2)transform.position == Constant.ENEMY_WAYS[wayNum])
                wayNum++;
@@ -88,15 +107,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
-    {
+    public virtual void Die()
+    {       
         OnGameScene.Inst.TotalSP += 10;
+        
         gameObject.SetActive(false);
     }
-    public void OnDisable()
-    {                   
-        distance = 0;
-        Health = MaxHealth;       
+
+    public virtual void OnDisable()
+    {
+        MaxHealth += 10;
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        HealthBar.GetComponent<Image>().color = Color.red;
+
+        distance = 0;                
+        
+        gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }

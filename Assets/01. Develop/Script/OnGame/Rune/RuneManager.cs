@@ -10,11 +10,13 @@ public class RuneManager : Singleton<RuneManager>
 
     [SerializeField] TMP_Text[] value_Sp_Text;
 
-    private int windRuneCost;
-    private int iceRuneCost;
-    private int lightningRuneCost;
-    private int fireRuneCost;
-    private int poisonRuneCost; 
+
+    // 룬 업그레이드에 들어가는 비용
+    [SerializeField] private int windRuneCost;
+    [SerializeField] private int iceRuneCost;
+    [SerializeField] private int lightningRuneCost;
+    [SerializeField] private int fireRuneCost;
+    [SerializeField] private int poisonRuneCost; 
 
     private void Start()
     {       
@@ -141,7 +143,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             iceRuneCost = value;
-            value_Sp_Text[Constant.ICE_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.ICE_RUNE].text = iceRuneCost.ToString();
         }
     }
     public int LightningRuneCost
@@ -150,7 +152,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             lightningRuneCost = value;
-            value_Sp_Text[Constant.LIGHTNING_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.LIGHTNING_RUNE].text = lightningRuneCost.ToString();
         }
     }
     public int FireRuneCost
@@ -159,7 +161,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             fireRuneCost = value;
-            value_Sp_Text[Constant.FIRE_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.FIRE_RUNE].text = fireRuneCost.ToString();
         }
     }
     public int PoisonRuneCost
@@ -168,7 +170,7 @@ public class RuneManager : Singleton<RuneManager>
         set
         {
             poisonRuneCost = value;
-            value_Sp_Text[Constant.POISON_RUNE].text = value.ToString();
+            value_Sp_Text[Constant.POISON_RUNE].text = poisonRuneCost.ToString();
         }
     }
 

@@ -431,7 +431,7 @@ MonoBehaviour:
   runeNumber: 3
   runeType: 3
   runeRenderer: {fileID: 2336498702989323657}
-  runeDamage: 40
+  runeDamage: 20
   runeAttackSpeed: 1.5
   runeColor: {r: 1, g: 0, b: 0, a: 1}
   level:

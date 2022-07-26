@@ -267,7 +267,7 @@ MonoBehaviour:
   runeNumber: 2
   runeType: 2
   runeRenderer: {fileID: 2078465390838602841}
-  runeDamage: 40
+  runeDamage: 20
   runeAttackSpeed: 2
   runeColor: {r: 0.9963192, g: 1, b: 0, a: 1}
   level:

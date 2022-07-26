@@ -28,7 +28,14 @@ public class OnGameScene : MonoBehaviour
         get => totalSp;
         set
         {
-            totalSp = value;
+            if(totalSp < 0)
+            {
+                totalSp = 0;
+            }
+            else
+            {
+                totalSp = value;
+            }            
             total_SP_TMP.text = value.ToString();           
         }
     }

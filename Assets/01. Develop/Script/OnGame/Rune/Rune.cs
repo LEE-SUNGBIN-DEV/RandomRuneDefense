@@ -16,7 +16,7 @@ public class Rune : MonoBehaviour
     [SerializeField] protected int runeNumber;   
     [SerializeField] protected RUNE_TYPE runeType;
     [SerializeField] protected SpriteRenderer runeRenderer;
-    [SerializeField] protected int runeDamage;
+    [SerializeField] public int runeDamage;
     [SerializeField] protected float runeAttackSpeed;
     [SerializeField] protected Color runeColor;
     [SerializeField] protected GameObject[] level;

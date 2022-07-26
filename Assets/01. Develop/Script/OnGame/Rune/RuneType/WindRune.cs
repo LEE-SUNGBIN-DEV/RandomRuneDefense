@@ -6,7 +6,7 @@ public class WindRune : Rune
 {
     private void Start()
     {
-        runeDamage = 5;
+        RuneDamage = RuneDamage;
     }
     public override void OnEnable()
     {
@@ -42,7 +42,7 @@ public class WindRune : Rune
     {
         runeAttackSpeed = 0.3f;
         
-        yield return new WaitForSeconds(Constant.SKILL_COOL_TIME);
+        yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
 
         runeAttackSpeed = 0.5f;
 

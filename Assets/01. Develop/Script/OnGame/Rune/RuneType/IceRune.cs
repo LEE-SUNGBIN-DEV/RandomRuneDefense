@@ -6,7 +6,7 @@ public class IceRune : Rune
 {
     private void Start()
     {
-        runeDamage = 20;
+        RuneDamage = RuneDamage;
     }
     public override void OnEnable()
     {

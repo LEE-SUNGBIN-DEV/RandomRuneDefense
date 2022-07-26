@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
         }
     }
 
-    public void AddTower(Rune _rune)
+    public void AddRune(Rune _rune)
     {
         if (IsEmpty())
         {
@@ -35,22 +35,31 @@ public class Tile : MonoBehaviour
             rune = Instantiate(_rune, transform.position, Quaternion.identity);
             rune.transform.parent = transform;
             owner.CurrentIndex += 1;
+            owner.DestroyIndex += 1;
         }
     }
 
-    public void UpgradeTower()
+    public void UpgradeRune()
     {
         runeLevel += 1;
         Debug.Log("업그레이드 호출");
         owner.CurrentIndex += 1;
+        owner.DestroyIndex += 1;      
         
         Destroy(rune.gameObject);
 
         int random = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);
-        var runes = RuneManager.Instance.FindRuneFromList(random);
+        Rune runes = RuneManager.Instance.FindRuneFromList(random);
+
         rune = Instantiate(runes, transform.position, Quaternion.identity);
+        rune.RuneDamage = runes.RuneDamage + (runeLevel * 10);
         rune.RuneLevelUP(runeLevel);
-        rune.RuneDamage = rune.RuneDamage + (runeLevel * 10);
+        
         rune.transform.parent = transform;       
+    }
+
+    public void DestroyRune()
+    {      
+        Destroy(rune.gameObject);       
     }
 }

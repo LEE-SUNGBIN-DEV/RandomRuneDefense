@@ -22,7 +22,7 @@ public class DamageUI : MonoBehaviour
 
     IEnumerator DamageTMP(int damage)
     {
-        while (totalTime <= 0.3f)
+        while (totalTime <= 0.4f)
         {
             if (target != null)
             {              
@@ -36,9 +36,10 @@ public class DamageUI : MonoBehaviour
             totalTime += Time.deltaTime;
             yield return null;
         }
+
         // 점점 올라가며 페이드 아웃
         totalTime = 0;
-        while (totalTime <= 0.2f)
+        while (totalTime <= 0.8f)
         {
             if (target != null)
             {
