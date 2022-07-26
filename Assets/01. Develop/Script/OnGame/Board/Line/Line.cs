@@ -9,6 +9,8 @@ public class Line : MonoBehaviour
     [SerializeField] uint destroyIndex;
     public bool isFull;
 
+    [SerializeField] GameObject LineEffect;
+
     private void Start()
     {
         tiles = GetComponentsInChildren<Tile>();
@@ -18,18 +20,29 @@ public class Line : MonoBehaviour
             tiles[i].owner = this;
         }        
     }
-
-    public void AddRune(Rune rune)
+    private void Update()
     {
         if (currentIndex == tiles.Length)
         {
-            isFull = true;
+            isFull = true;           
+            LineEffect.SetActive(true); // ∂Û¿Œ ∞≠»≠ ¿Ã∆Â∆Æ           
+        }
+        if (DestroyIndex != tiles.Length)
+        {
+            isFull = false;
+            LineEffect.SetActive(false);
+        }
+    }
+
+    public void AddRune(Rune rune)
+    {
+        if (CurrentIndex == tiles.Length)
+        {           
             CurrentIndex = 0;
             Debug.Log("≤À√°Ω¿¥œ¥Ÿ.");
         }
         if(DestroyIndex != tiles.Length)
-        {
-            isFull = false;
+        {            
             CurrentIndex = DestroyIndex;
         }
         if(DestroyIndex == tiles.Length)
@@ -42,7 +55,7 @@ public class Line : MonoBehaviour
             tiles[CurrentIndex].UpgradeRune();           
         }
         else
-        {
+        {            
             tiles[CurrentIndex].AddRune(rune);         
         }
     }
