@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
 
     public virtual void Start()
     {
-
         Health = 200;
         MaxHealth = 200;
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
@@ -64,12 +63,7 @@ public class Enemy : MonoBehaviour
             {
                 moveSpeed = 0;
                 return;
-            }     
-            else
-            {
-                moveSpeed = value;
-            }
-
+            }                
         }
     }
     #endregion
@@ -83,9 +77,14 @@ public class Enemy : MonoBehaviour
     public virtual void OnEnable()
     {
         wayNum = 0;
-        //Health = MaxHealth;
+        Health = MaxHealth;
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<Image>().fillAmount = 1;
-        StartCoroutine(MovePath());
+
+        if(gameObject.activeInHierarchy)
+        {
+            StartCoroutine(MovePath());
+        }
     }
     public IEnumerator MovePath()
     {
@@ -111,13 +110,15 @@ public class Enemy : MonoBehaviour
     public virtual void Die()
     {       
         OnGameScene.Inst.TotalSP += 10;
-        Health = MaxHealth;
+        
         gameObject.SetActive(false);
     }
 
     public virtual void OnDisable()
-    {  
+    {
+        MaxHealth += 10;
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        HealthBar.GetComponent<Image>().color = Color.red;
 
         distance = 0;                
         

@@ -6,7 +6,7 @@ public class LightningRune : Rune
 {
     private void Start()
     {
-        runeDamage = 20;
+        RuneDamage = RuneDamage;
     }
     public override void OnEnable()
     {

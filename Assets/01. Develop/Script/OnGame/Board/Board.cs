@@ -38,7 +38,7 @@ public class Board : MonoBehaviour
             {
                 // 50 ÆÛ È®·ü·Î ·é ÆÄ±« (0 , 1)
                 int onDestroy = Random.Range(0 , 2);
-               
+
                 if (onDestroy == 0)
                 {
                     Debug.Log(lines[i].name + "ÆÄ±«");
@@ -47,9 +47,8 @@ public class Board : MonoBehaviour
                     //ÇØ´ç Å¸ÀÏ À§Ä¡¿¡ ·é Æ÷Áö¼Ç
                     var RuneIndex = lines[i].DestroyIndex;
                     RunePosition = lines[i].tiles[RuneIndex].rune.transform.position;
-                                                
                     break;
-                }                             
+                }               
             }    
         }
     }

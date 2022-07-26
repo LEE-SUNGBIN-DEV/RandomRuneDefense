@@ -9,14 +9,13 @@ public class BossEnemy : Enemy
     public override void Start()
     {
         Health = 500;
-        //MaxHealth = 500;
+        MaxHealth = 500;
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
     }
 
     public override void Die()
     {
-        OnGameScene.Inst.TotalSP += 100;
-        Health = MaxHealth;
+        OnGameScene.Inst.TotalSP += 100;       
         EnemyObjectPool.Instance.bossStage = false;
         gameObject.SetActive(false);
     }
@@ -24,6 +23,8 @@ public class BossEnemy : Enemy
     public override void OnEnable()
     {
         wayNum = 0;
+        Health = MaxHealth;
+        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 1;
         StartCoroutine(MovePath());
         StartCoroutine(DestroyRuneSkill());
@@ -36,26 +37,32 @@ public class BossEnemy : Enemy
 
             for (int i = 0; i < Constant.BOSS_SKILL_COUNT; ++i)
             {
-                Board.Inst.DestroyRune();
-                               
-                 var bulletEffect = Instantiate(bossBullet, Board.Inst.RunePosition, Quaternion.identity);
-                 Destroy(bulletEffect, 2f);
+                 Board.Inst.DestroyRune();
 
-                 yield return new WaitForEndOfFrame();                         
+                 if (Board.Inst.RunePosition != Vector3.zero)
+                 {
+                     var bulletEffect = Instantiate(bossBullet, Board.Inst.RunePosition, Quaternion.identity);
+                     Destroy(bulletEffect, 2f);
+                     yield return new WaitForEndOfFrame();
+                 }
+                 else
+                 {
+                     yield break;
+                 }
+
             }      
     }
 
 
     public override void OnDisable()
     {
-        MaxHealth += EnemyObjectPool.Instance.stage * 100;       
+        MaxHealth += 100;        
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
 
         EnemyObjectPool.Instance.bossStage = false;
         EnemyObjectPool.Instance.endStage = true;
 
-        distance = 0;
-        Health = MaxHealth;
+        distance = 0;        
 
         gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);

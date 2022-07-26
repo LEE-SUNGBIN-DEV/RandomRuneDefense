@@ -28,8 +28,7 @@ public class EnemyObjectPool : MonoBehaviour
         // 미리생성
         for (int i = 0; i < size; i++)
         {
-            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
-            enemys.Add(enemy.GetComponent<Enemy>());
+            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);                       
             queue.Enqueue(enemy);
             enemy.transform.parent = this.transform;
             enemy.SetActive(false);
@@ -46,7 +45,7 @@ public class EnemyObjectPool : MonoBehaviour
             stageTime += Time.deltaTime;
         }       
               
-        if(stageTime >= 5 && endStage)
+        if(stageTime >= 3 && endStage)
         {          
             StartCoroutine(EnemySpawn());
             endStage = false;
@@ -70,7 +69,7 @@ public class EnemyObjectPool : MonoBehaviour
         foreach(GameObject Enemys in queue)
         {
             if(!Enemys.activeInHierarchy)
-            {
+            {                
                 enemys.Add(Enemys.GetComponent<Enemy>());
                 Enemys.transform.position = Constant.ENEMY_WAYS[0];
                 Enemys.SetActive(true);

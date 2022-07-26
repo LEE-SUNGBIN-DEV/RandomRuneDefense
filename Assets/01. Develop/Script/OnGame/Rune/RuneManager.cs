@@ -10,11 +10,13 @@ public class RuneManager : Singleton<RuneManager>
 
     [SerializeField] TMP_Text[] value_Sp_Text;
 
-    private int windRuneCost;
-    private int iceRuneCost;
-    private int lightningRuneCost;
-    private int fireRuneCost;
-    private int poisonRuneCost; 
+
+    // 룬 업그레이드에 들어가는 비용
+    [SerializeField] private int windRuneCost;
+    [SerializeField] private int iceRuneCost;
+    [SerializeField] private int lightningRuneCost;
+    [SerializeField] private int fireRuneCost;
+    [SerializeField] private int poisonRuneCost; 
 
     private void Start()
     {       

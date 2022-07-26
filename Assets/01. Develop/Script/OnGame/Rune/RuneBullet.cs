@@ -14,6 +14,7 @@ public class RuneBullet : MonoBehaviour
     Enemy targetEnemy;
     int skillCount;
     int bulletEffectNum;
+    float EnemyCurrentSpeed; // 현재 적의 스피드
 
     [SerializeField] GameObject[] effect;
     [SerializeField] GameObject[] bulletEffcet;
@@ -33,7 +34,7 @@ public class RuneBullet : MonoBehaviour
 
     IEnumerator AttackCo()
     {
-        bulletEffcet[bulletEffectNum].SetActive(true);
+        bulletEffcet[bulletEffectNum].SetActive(true);        
 
         while (true)
         {           
@@ -83,7 +84,7 @@ public class RuneBullet : MonoBehaviour
             case RUNE_TYPE.ICE:   
                 if(skillCount == 3)
                 {
-                   StartCoroutine(PowerSlow());
+                    StartCoroutine(PowerSlow());
                 }
                 else
                 {
@@ -150,6 +151,7 @@ public class RuneBullet : MonoBehaviour
     IEnumerator Slow()
     {
         effect[2].SetActive(true);
+        EnemyCurrentSpeed = targetEnemy.MoveSpeed;
 
         targetEnemy.MoveSpeed -= 0.2f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
@@ -158,7 +160,7 @@ public class RuneBullet : MonoBehaviour
 
         effect[2].SetActive(false);
 
-        targetEnemy.MoveSpeed += 0.2f;
+        targetEnemy.MoveSpeed = EnemyCurrentSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);
@@ -169,13 +171,14 @@ public class RuneBullet : MonoBehaviour
     IEnumerator PowerSlow()
     {
         // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트
+        EnemyCurrentSpeed = targetEnemy.MoveSpeed;
 
         targetEnemy.MoveSpeed -= 0.5f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
-        targetEnemy.MoveSpeed += 0.5f;
+        targetEnemy.MoveSpeed = EnemyCurrentSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);

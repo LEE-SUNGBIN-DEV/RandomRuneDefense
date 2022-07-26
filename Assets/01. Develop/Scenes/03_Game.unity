@@ -3778,6 +3778,11 @@ MonoBehaviour:
   - {fileID: 1827715654}
   - {fileID: 832210981}
   - {fileID: 1734354877}
+  windRuneCost: 10
+  iceRuneCost: 10
+  lightningRuneCost: 10
+  fireRuneCost: 10
+  poisonRuneCost: 10
 --- !u!4 &1596424141
 Transform:
   m_ObjectHideFlags: 0
@@ -5278,7 +5283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 561913781240187090, guid: 2a43274e823f50b438e4a213b83523cb, type: 3}
-  size: 5
+  size: 100
   bullets: []
 --- !u!1 &2025681438
 GameObject:

@@ -6,7 +6,7 @@ public class WindRune : Rune
 {
     private void Start()
     {
-        runeDamage = 5;
+        RuneDamage = RuneDamage;
     }
     public override void OnEnable()
     {

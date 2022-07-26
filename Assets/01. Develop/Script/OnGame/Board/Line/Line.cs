@@ -6,7 +6,7 @@ public class Line : MonoBehaviour
 {
     public Tile[] tiles;
     [SerializeField] uint currentIndex;
-    [SerializeField] int destroyIndex;
+    [SerializeField] uint destroyIndex;
     public bool isFull;
 
     private void Start()
@@ -26,10 +26,15 @@ public class Line : MonoBehaviour
             isFull = true;
             CurrentIndex = 0;
             Debug.Log("²ËÃ¡½À´Ï´Ù.");
-        }      
-        if(destroyIndex == tiles.Length)
+        }
+        if(DestroyIndex != tiles.Length)
         {
-            destroyIndex = tiles.Length - 1;
+            isFull = false;
+            CurrentIndex = DestroyIndex;
+        }
+        if(DestroyIndex == tiles.Length)
+        {
+            DestroyIndex = (uint)tiles.Length - 1;
         }
 
         if (isFull)
@@ -46,7 +51,7 @@ public class Line : MonoBehaviour
     {
         CurrentIndex -= 1;
         DestroyIndex -= 1;
-        tiles[CurrentIndex].DestroyRune();
+        tiles[DestroyIndex].DestroyRune();
     }
 
     #region Index Property
@@ -55,7 +60,7 @@ public class Line : MonoBehaviour
         get => currentIndex;
         set => currentIndex = value;
     }
-    public int DestroyIndex
+    public uint DestroyIndex
     {
         get => destroyIndex;
         set => destroyIndex = value;
