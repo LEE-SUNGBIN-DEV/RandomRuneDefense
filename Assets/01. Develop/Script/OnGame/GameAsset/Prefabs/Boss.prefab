@@ -204,6 +204,8 @@ MonoBehaviour:
   wayNum: 0
   distance: 0
   HealthBar: {fileID: 8596667890013932992}
+  bossBullet: {fileID: 8392897154189795366, guid: 36ee14af5e3c5e14f8c2b0264bcb70ca, type: 3}
+  bossBulletSpeed: 1
 --- !u!114 &8603789451624526235
 MonoBehaviour:
   m_ObjectHideFlags: 0

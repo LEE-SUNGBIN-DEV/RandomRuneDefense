@@ -12,13 +12,15 @@ public class EnemyObjectPool : MonoBehaviour
     public List<Enemy> enemys;  
     public Queue<GameObject> queue = new Queue<GameObject>();
 
-    [SerializeField] private int stage;
+    public int stage;
     [SerializeField] private float stageTime;
 
     [HideInInspector] public bool bossStage;
+    [HideInInspector] public bool endStage;
 
     void Awake()
     {
+        endStage = true;
         Instance = this;
     }
     private void Start()
@@ -35,18 +37,19 @@ public class EnemyObjectPool : MonoBehaviour
     }
     private void Update()
     {
-        if(bossStage)
+        if(bossStage && !endStage)
         {
             stageTime = 0;           
         }
-        if(!bossStage)
+        if(!bossStage && endStage)
         {
             stageTime += Time.deltaTime;
         }       
               
-        if(stageTime >= 10)
-        {
+        if(stageTime >= 5 && endStage)
+        {          
             StartCoroutine(EnemySpawn());
+            endStage = false;
             stageTime = 0;
         }
         ArrangeEnemies();
@@ -67,7 +70,7 @@ public class EnemyObjectPool : MonoBehaviour
         foreach(GameObject Enemys in queue)
         {
             if(!Enemys.activeInHierarchy)
-            {               
+            {
                 enemys.Add(Enemys.GetComponent<Enemy>());
                 Enemys.transform.position = Constant.ENEMY_WAYS[0];
                 Enemys.SetActive(true);
@@ -97,19 +100,6 @@ public class EnemyObjectPool : MonoBehaviour
             yield break; // 보스 나오면 스탑
         }
 
-        //if (queue.Count == 0)
-        //{
-        //    for (int i = 0; i < size; i++)
-        //    {
-        //        GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
-        //        enemys.Add(enemy.GetComponent<Enemy>());
-        //        queue.Enqueue(enemy);
-        //        enemy.transform.parent = this.transform;
-        //        enemy.SetActive(true);
-        //
-        //        yield return new WaitForSeconds(1f);
-        //    }                      
-        //}
         else
         {
             for (int i = 0; i < size; i++)
@@ -117,7 +107,8 @@ public class EnemyObjectPool : MonoBehaviour
                 GetQueue();                
 
                 yield return new WaitForSeconds(1f);
-            }       
+            }
+            endStage = true;
         }
 }
 

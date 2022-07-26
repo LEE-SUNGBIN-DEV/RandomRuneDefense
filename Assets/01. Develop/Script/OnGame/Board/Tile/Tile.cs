@@ -35,6 +35,7 @@ public class Tile : MonoBehaviour
             rune = Instantiate(_rune, transform.position, Quaternion.identity);
             rune.transform.parent = transform;
             owner.CurrentIndex += 1;
+            owner.DestroyIndex += 1;
         }
     }
 
@@ -43,7 +44,8 @@ public class Tile : MonoBehaviour
         runeLevel += 1;
         Debug.Log("업그레이드 호출");
         owner.CurrentIndex += 1;
-        
+        owner.DestroyIndex += 1;
+
         Destroy(rune.gameObject);
 
         int random = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);
@@ -55,7 +57,7 @@ public class Tile : MonoBehaviour
     }
 
     public void DestroyRune()
-    {
-        Destroy(rune.gameObject);
+    {      
+        Destroy(rune.gameObject);       
     }
 }

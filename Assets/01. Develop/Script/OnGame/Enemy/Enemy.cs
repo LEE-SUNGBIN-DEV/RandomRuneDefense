@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Start()
     {
+
         Health = 200;
         MaxHealth = 200;
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-    }
+    }             
 
     #region Property
     public float Health 
@@ -79,13 +80,14 @@ public class Enemy : MonoBehaviour
         Health = Mathf.Max(0, Health);
         HealthBar.GetComponent<Image>().fillAmount = Health / MaxHealth;
     }    
-    public void OnEnable()
+    public virtual void OnEnable()
     {
-        wayNum = 0;       
+        wayNum = 0;
+        //Health = MaxHealth;
         HealthBar.GetComponent<Image>().fillAmount = 1;
         StartCoroutine(MovePath());
     }
-    IEnumerator MovePath()
+    public IEnumerator MovePath()
     {
         while(true)
         {        
@@ -109,16 +111,15 @@ public class Enemy : MonoBehaviour
     public virtual void Die()
     {       
         OnGameScene.Inst.TotalSP += 10;
+        Health = MaxHealth;
         gameObject.SetActive(false);
     }
 
     public virtual void OnDisable()
-    {
-        MaxHealth += 10;       
+    {  
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
 
-        distance = 0;         
-        Health = MaxHealth;
+        distance = 0;                
         
         gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);

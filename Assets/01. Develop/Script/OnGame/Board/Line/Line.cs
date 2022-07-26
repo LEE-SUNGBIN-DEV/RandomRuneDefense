@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Line : MonoBehaviour
 {
-    [SerializeField] Tile[] tiles;
+    public Tile[] tiles;
     [SerializeField] uint currentIndex;
+    [SerializeField] int destroyIndex;
     public bool isFull;
 
     private void Start()
@@ -25,6 +26,10 @@ public class Line : MonoBehaviour
             isFull = true;
             CurrentIndex = 0;
             Debug.Log("²ËÃ¡½À´Ï´Ù.");
+        }      
+        if(destroyIndex == tiles.Length)
+        {
+            destroyIndex = tiles.Length - 1;
         }
 
         if (isFull)
@@ -40,12 +45,20 @@ public class Line : MonoBehaviour
     public void DestroyRune()
     {
         CurrentIndex -= 1;
+        DestroyIndex -= 1;
         tiles[CurrentIndex].DestroyRune();
     }
 
+    #region Index Property
     public uint CurrentIndex
     {
         get => currentIndex;
         set => currentIndex = value;
     }
+    public int DestroyIndex
+    {
+        get => destroyIndex;
+        set => destroyIndex = value;
+    }
+    #endregion
 }

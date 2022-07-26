@@ -3003,6 +3003,7 @@ MonoBehaviour:
   stage: 0
   stageTime: 0
   bossStage: 0
+  endStage: 0
 --- !u!4 &1139894114
 Transform:
   m_ObjectHideFlags: 0
@@ -15557,6 +15558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159422337747
 Transform:
@@ -15607,6 +15609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159504240226
 Transform:
@@ -15755,6 +15758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159559672433
 Transform:
@@ -16100,6 +16104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159708804982
 Transform:
@@ -16466,6 +16471,7 @@ MonoBehaviour:
   lines: []
   diceValue: {fileID: 1282648037400033272}
   rune: {fileID: 2379411917224239299, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
+  RunePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &2036588159810287474
 GameObject:
   m_ObjectHideFlags: 0
@@ -16893,6 +16899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159947683708
 Transform:
@@ -17143,6 +17150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588159985946925
 Transform:
@@ -17491,6 +17499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588160067202198
 Transform:
@@ -17642,6 +17651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588160176334092
 Transform:
@@ -18165,6 +18175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!114 &2036588160463175060
 MonoBehaviour:
@@ -18180,6 +18191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588160463175061
 Transform:
@@ -20505,6 +20517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles: []
   currentIndex: 0
+  destroyIndex: 0
   isFull: 0
 --- !u!4 &2036588161453010413
 Transform:

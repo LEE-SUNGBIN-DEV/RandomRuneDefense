@@ -44,6 +44,8 @@ public class DiceManager : MonoBehaviour
 
     void Update()
     {
+        
+
         if (slider.value <= 0)
             slider.gameObject.SetActive(false);
         else
