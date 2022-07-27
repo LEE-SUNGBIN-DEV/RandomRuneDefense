@@ -8,8 +8,8 @@ public class BossEnemy : Enemy
 
     public override void Start()
     {
-        Health = 500;
-        MaxHealth = 500;
+        Health = Health;
+        MaxHealth = MaxHealth;
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
     }
 
@@ -23,7 +23,7 @@ public class BossEnemy : Enemy
     public override void OnEnable()
     {
         wayNum = 0;
-        Health = MaxHealth;
+        health = maxHealth;
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 1;
         StartCoroutine(MovePath());
@@ -56,7 +56,7 @@ public class BossEnemy : Enemy
 
     public override void OnDisable()
     {
-        MaxHealth += 100;        
+        maxHealth += 100;        
         MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
 
         EnemyObjectPool.Instance.bossStage = false;

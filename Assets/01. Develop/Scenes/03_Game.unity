@@ -3158,7 +3158,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.4, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7109062624183700516}
   m_Father: {fileID: 994007486}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3320,7 +3321,7 @@ MonoBehaviour:
   - {fileID: 2695723151562121217, guid: b12f75f29b63a4f4ca469f35d5a12edf, type: 3}
   - {fileID: 803484486442559273, guid: bcb0bec34bd6f2449bf1fbdbeab35360, type: 3}
   - {fileID: 3629236882809634056, guid: f434cf29e79b3f04999d1ec41522c823, type: 3}
-  size: 10
+  size: 2
   enemys: []
   stage: 0
   stageTime: 0
@@ -4820,7 +4821,6 @@ RectTransform:
   - {fileID: 1523190780}
   - {fileID: 994007486}
   - {fileID: 1779547791}
-  - {fileID: 7109062624183700516}
   m_Father: {fileID: 1659859081}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31508,15 +31508,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8693908720236865310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.465, y: -9.832001, z: -17683.2}
-  m_LocalScale: {x: 12.8, y: 9, z: 192}
+  m_LocalPosition: {x: -75.00002, y: 0, z: -18240}
+  m_LocalScale: {x: 52.244892, y: 93.74999, z: 192}
   m_Children:
   - {fileID: 834396004188161757}
   - {fileID: 357344336801073723}
   - {fileID: 6374266536773569159}
   - {fileID: 6058275705663921968}
-  m_Father: {fileID: 1705655063}
-  m_RootOrder: 3
+  m_Father: {fileID: 1079175602}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &7180960964412454588
 ParticleSystemRenderer:

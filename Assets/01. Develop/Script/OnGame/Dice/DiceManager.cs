@@ -40,16 +40,15 @@ public class DiceManager : MonoBehaviour
         diceSumValue = 0;
         ongameScene = OnGameScene.Inst;
         DiceValueBackGround.SetActive(false);
+        slider.gameObject.SetActive(false);
     }
 
     void Update()
-    {
-        
-
-        if (slider.value <= 0)
-            slider.gameObject.SetActive(false);
-        else
-            slider.gameObject.SetActive(true);
+    {       
+        //if (slider.value < 0.1f)
+        //    slider.gameObject.SetActive(false);
+        //if (slider.value > 0)
+        //    slider.gameObject.SetActive(true);
 
         if (isPointDown && (ongameScene.TotalSP >= ongameScene.SpawnSP))
         {
@@ -84,13 +83,16 @@ public class DiceManager : MonoBehaviour
     {
         if (!isRoll)
         {
-            isPointDown = true;          
+            isPointDown = true;
+            slider.gameObject.SetActive(true); // 슬라이더 켜주기
         }
     }
     public void OnPointerUp()
     {
         if (!isRoll)
         {
+            slider.gameObject.SetActive(false);  // 슬라이더 꺼주기
+
             ongameScene.TotalSP -= ongameScene.SpawnSP;
             ongameScene.SpawnSP += 10;
 
@@ -133,7 +135,7 @@ public class DiceManager : MonoBehaviour
 
         // End Rolling
         inputTime = 0;
-        slider.value = 0;       
+        slider.value = 0;
 
         StartCoroutine(LateCall());
     }
@@ -148,9 +150,9 @@ public class DiceManager : MonoBehaviour
     public IEnumerator LateCall()
     {     
         isRoll = true;
-        button.interactable = false;
+        button.interactable = false;        
 
-        yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);
+        yield return new WaitForSeconds(Constant.DICE_ROLL_TIME);          
 
         if (dices[0].DiceValue == dices[1].DiceValue)
         {

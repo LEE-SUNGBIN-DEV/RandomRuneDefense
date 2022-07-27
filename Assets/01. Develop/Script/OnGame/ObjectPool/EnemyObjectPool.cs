@@ -53,10 +53,10 @@ public class EnemyObjectPool : MonoBehaviour
         }
         ArrangeEnemies();
 
-        if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
-        {
-            StartCoroutine(EnemySpawn());
-        }
+        //if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
+        //{
+        //    StartCoroutine(EnemySpawn());
+        //}
     }
     public void InsertQueue(GameObject p_object)
     {      

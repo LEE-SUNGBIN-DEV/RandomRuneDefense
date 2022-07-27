@@ -23,6 +23,8 @@ public static partial class Constant
 
     public static readonly Vector2 TILE_CENTER_OFFSET = new Vector2(0.25f, 0.25f);
 
+    public static readonly Vector3 SLIDER_EFFECT_POSITION = new Vector3(-1.4f, -2.4f, -5);
+
     // ENEMY--------------------------------------------------------------------------------
 
     // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);   

@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     #endregion
 
     [SerializeField] protected float health;
-    [SerializeField] protected float maxHealth;
+    [SerializeField] protected static float maxHealth;
     [SerializeField] protected float moveSpeed;
 
      public int wayNum;
@@ -21,13 +21,14 @@ public class Enemy : MonoBehaviour
 
     public virtual void Start()
     {
-        Health = 200;
-        MaxHealth = 200;
+        Health = Health;
+        MaxHealth = MaxHealth;
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
     {
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        Debug.Log(MaxHealth);
     }             
 
     #region Property
@@ -44,7 +45,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    public float MaxHealth
+    public static float MaxHealth
     {
         get => maxHealth;
         set

@@ -6,8 +6,8 @@ public class SpeedEnemy : Enemy
 {
     public override void Start()
     {
-        Health = 100;
-        MaxHealth = 100;
+        Health = Health;
+        MaxHealth = MaxHealth;
         MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
     }
     public override void OnEnable()
