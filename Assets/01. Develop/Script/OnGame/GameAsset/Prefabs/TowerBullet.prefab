@@ -15043,6 +15043,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6984140625439615719, guid: 859107dc96c15f54bae90a329de9e63f, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984140625439615719, guid: 859107dc96c15f54bae90a329de9e63f, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9146026600148756358, guid: 859107dc96c15f54bae90a329de9e63f, type: 3}
       propertyPath: m_Name
       value: Water_basic_attack
@@ -15070,6 +15078,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7018634346824514062}
     m_Modifications:
+    - target: {fileID: 810762802493244920, guid: 8efe63ed3a368cd48ab15a16b904d5ce, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 810762802493244920, guid: 8efe63ed3a368cd48ab15a16b904d5ce, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 810762802493244921, guid: 8efe63ed3a368cd48ab15a16b904d5ce, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -15246,6 +15262,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3064243439297390602, guid: 89b0e6235d6c9d448a55721533f278ed, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3064243439297390604, guid: 89b0e6235d6c9d448a55721533f278ed, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3064243439297390604, guid: 89b0e6235d6c9d448a55721533f278ed, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3064243439297390605, guid: 89b0e6235d6c9d448a55721533f278ed, type: 3}
@@ -15460,6 +15484,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7626987347490975232, guid: 28a71c2e79ef95442a6926753229f714, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626987347490975233, guid: 28a71c2e79ef95442a6926753229f714, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626987347490975233, guid: 28a71c2e79ef95442a6926753229f714, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7626987347490975238, guid: 28a71c2e79ef95442a6926753229f714, type: 3}
@@ -15730,6 +15762,14 @@ PrefabInstance:
     - target: {fileID: 5249750808566872571, guid: 01c24d34650316241ba1980fdafdccd3, type: 3}
       propertyPath: m_SortingLayerID
       value: -398620605
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868471893071554640, guid: 01c24d34650316241ba1980fdafdccd3, type: 3}
+      propertyPath: stopAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868471893071554640, guid: 01c24d34650316241ba1980fdafdccd3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01c24d34650316241ba1980fdafdccd3, type: 3}

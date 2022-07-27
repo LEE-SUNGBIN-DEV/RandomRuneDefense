@@ -61,6 +61,11 @@ public class Rune : MonoBehaviour
     }
     #endregion
 
+    public virtual void Awake()
+    {
+        RuneDamage = RuneDamage;
+    }
+
     public void RuneLevelUP(int _level)
     {
         for (int i = 0; i < level.Length; ++i)

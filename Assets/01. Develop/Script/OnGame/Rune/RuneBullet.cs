@@ -14,24 +14,28 @@ public class RuneBullet : MonoBehaviour
     Enemy targetEnemy;
     int skillCount;
     int bulletEffectNum;
-    float EnemyCurrentSpeed; // 현재 적의 스피드
 
     [SerializeField] GameObject[] effect;
     [SerializeField] GameObject[] bulletEffcet;
 
-    IEnumerator slowAttack;
-
-
-    private void Awake()
+    private void LateUpdate()
     {
-        slowAttack = Slow();
+        //게임 오브젝트와 스크립트가 활성화 되어있나?
+        if(!targetEnemy.isActiveAndEnabled)
+        {
+            StopAllCoroutines();
+            for (int i = 0; i < effect.Length; ++i)
+            {
+                effect[i].SetActive(false);
+            }
+            BulletObjetPool.Instance.InsertQueue(gameObject);           
+        }
     }
-    private void OnDisable()
-    {
-        StopAllCoroutines();
-    }
+    //private void OnDisable()
+    //{
+    //    StopAllCoroutines();
+    //}
     
-
     public void SetUpBullet(Color color ,Enemy _targetEnemy ,int TowerDamage , RUNE_TYPE _runeType , int _skillCount , int _bulletEffectNum)
     {
         spriteRenderer.enabled = true;
@@ -40,15 +44,14 @@ public class RuneBullet : MonoBehaviour
         BulletDamage = TowerDamage;
         runeType = _runeType;
         skillCount = _skillCount;
-        bulletEffectNum = _bulletEffectNum;
-        EnemyCurrentSpeed = _targetEnemy.OriginSpeed;
+        bulletEffectNum = _bulletEffectNum;        
         StartCoroutine(AttackCo());
 
     }
 
     IEnumerator AttackCo()
     {
-        bulletEffcet[bulletEffectNum].SetActive(true);        
+        bulletEffcet[bulletEffectNum].SetActive(true);       
 
         while (true)
         {           
@@ -56,19 +59,21 @@ public class RuneBullet : MonoBehaviour
                                                      bulletSpeed * Time.deltaTime);          
             yield return null;
 
-            if((transform.position - targetEnemy.transform.position).sqrMagnitude < bulletSpeed * Time.deltaTime)
+            // 이번 프레임에 이동할 거리가 남은거리보다 짧을 때 도착
+            if((transform.position - targetEnemy.transform.position).sqrMagnitude < bulletSpeed * Time.deltaTime * bulletSpeed * Time.deltaTime)
             {
-                transform.position = targetEnemy.transform.position;
+                transform.position = targetEnemy.transform.position;                
                 break;
             }
         }        
         //데미지를 입힌다..        
         if (targetEnemy != null)       
         {           
-            spriteRenderer.enabled = false;
+            //spriteRenderer.enabled = false;
             targetEnemy.Damage(BulletDamage);
             GameObject damageTMP = DamageObjectPool.Instance.GetQueue();
-            damageTMP.GetComponent<DamageUI>().Setup(targetEnemy.transform , BulletDamage);                      
+            damageTMP.GetComponent<DamageUI>().Setup(targetEnemy.transform , BulletDamage);
+            bulletEffcet[bulletEffectNum].SetActive(false);
         }
 
         Die();
@@ -76,8 +81,8 @@ public class RuneBullet : MonoBehaviour
 
     void Die()
     {
-        bulletEffcet[bulletEffectNum].SetActive(false);
-        
+        spriteRenderer.enabled = false;        
+       
         switch (runeType)
         {
             case RUNE_TYPE.WIND:
@@ -98,11 +103,11 @@ public class RuneBullet : MonoBehaviour
             case RUNE_TYPE.ICE:   
                 if(skillCount == 3)
                 {
-                    StartCoroutine("PowerSlow");
+                    StartCoroutine(PowerSlow());
                 }
                 else
                 {
-                    StartCoroutine("Slow");
+                    StartCoroutine(Slow());
                 }                                                        
                 break;
 
@@ -134,8 +139,8 @@ public class RuneBullet : MonoBehaviour
     #region Nomal Attack Effect Set
 
     IEnumerator NomalAttack(int effectNumber)
-    {       
-        switch(effectNumber)
+    {           
+        switch (effectNumber)
         {
             case 0:
                 effect[0].SetActive(true);
@@ -154,13 +159,13 @@ public class RuneBullet : MonoBehaviour
                 break;
         }       
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < effect.Length; ++i)
         {
             effect[i].SetActive(false);            
         }
-        BulletObjetPool.Instance.InsertQueue(gameObject);
+        BulletObjetPool.Instance.InsertQueue(gameObject);        
     }
     
     IEnumerator Slow()

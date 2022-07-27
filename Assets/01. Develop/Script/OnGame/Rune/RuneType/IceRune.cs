@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class IceRune : Rune
 {
-    private void Start()
+    public override void Awake()
     {
-        RuneDamage = RuneDamage;
+        RuneDamage = 15;
+        base.Awake();
     }
     public override void OnEnable()
     {

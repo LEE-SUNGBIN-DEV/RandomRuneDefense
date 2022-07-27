@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PoisonRune : Rune
 {
-    private void Start()
+    public override void Awake()
     {
-        RuneDamage = RuneDamage;
+        RuneDamage = 20;
+        base.Awake();
     }
     public override void OnEnable()
     {

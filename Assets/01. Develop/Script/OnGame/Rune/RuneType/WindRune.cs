@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WindRune : Rune
 {
-    private void Start()
+    public override void Awake()
     {
-        RuneDamage = RuneDamage;
+        RuneDamage = 10;
+        base.Awake();
     }
     public override void OnEnable()
     {
