@@ -52,13 +52,15 @@ public partial class NetworkManager
         customAuthenticationValues.AddAuthParameter("token", obj.PhotonCustomAuthenticationToken);
         PhotonNetwork.AuthValues = customAuthenticationValues;
 
-        OnLogin();
+        StartCoroutine(OnLogin());
     }
 
-    private void OnLogin()
+    private IEnumerator OnLogin()
     {
         UIManager.Instance.ShowNetworkState("로그인에 성공하였습니다.");
-        DataManager.Instance.RequestAllDatabase();
+        yield return StartCoroutine(DataManager.Instance.RequestGameDatabase());
+        yield return StartCoroutine(DataManager.Instance.RequestPlayerDatabase());
+
         onLogin(true);
         Connect();
     }

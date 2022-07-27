@@ -21,21 +21,24 @@ public partial class DataManager
     [SerializeField] private PlayerData playerData;
 
     #region Player DB
-    #region Get Player Data
-    public void GetPlayerData()
+    #region Request Player Data
+    public IEnumerator RequestPlayerDatabase()
     {
 #if DEBUG_MODE
-        Debug.Log("플레이어 정보를 요청합니다.");
+        Debug.Log("플레이어 데이터를 요청합니다.");
 #endif
-        UIManager.Instance.ShowNetworkState("플레이어 정보를 요청합니다.");
-
-        GetPlayerStats();
-        GetPlayerCurrency();
-        GetPlayerInventory();
-        GetPlayerCollections();
+        UIManager.Instance.ShowNetworkState("플레이어 데이터를 요청합니다.");
+        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerStats));
+        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerCurrency));
+        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerInventory));
+        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerCollections));
     }
     public void GetPlayerStats()
     {
+#if DEBUG_MODE
+        Debug.Log("플레이어 스탯을 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("플레이어 스탯을 요청합니다.");
         var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
         PlayFabDataAPI.GetObjects(getRequest,
             result =>
@@ -45,11 +48,17 @@ public partial class DataManager
 #if DEBUG_MODE
                 Debug.Log("플레이어 스탯을 불러왔습니다.");
 #endif
+                UIManager.Instance.ShowNetworkState("플레이어 스탯을 불러왔습니다.");
+                Function.isAsyncOperationComplete = true;
             },
             OnDataRequestError);
     }
     public void GetPlayerCurrency()
     {
+#if DEBUG_MODE
+        Debug.Log("플레이어 화폐를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("플레이어 화폐를 요청합니다.");
         var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
         PlayFabDataAPI.GetObjects(getRequest,
             result =>
@@ -59,11 +68,17 @@ public partial class DataManager
 #if DEBUG_MODE
                 Debug.Log("플레이어 화폐를 불러왔습니다.");
 #endif
+                UIManager.Instance.ShowNetworkState("플레이어 화폐를 불러왔습니다.");
+                Function.isAsyncOperationComplete = true;
             },
             OnDataRequestError);
     }
     public void GetPlayerInventory()
     {
+#if DEBUG_MODE
+        Debug.Log("플레이어 인벤토리를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("플레이어 인벤토리를 요청합니다.");
         var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
         PlayFabDataAPI.GetObjects(getRequest,
             result =>
@@ -74,11 +89,17 @@ public partial class DataManager
 #if DEBUG_MODE
                 Debug.Log("플레이어 인벤토리를 불러왔습니다.");
 #endif
+                UIManager.Instance.ShowNetworkState("플레이어 인벤토리를 불러왔습니다.");
+                Function.isAsyncOperationComplete = true;
             },
             OnDataRequestError);
     }
     public void GetPlayerCollections()
     {
+#if DEBUG_MODE
+        Debug.Log("플레이어 도감을 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("플레이어 도감을 요청합니다.");
         var getRequest = new GetObjectsRequest { Entity = new PlayFab.DataModels.EntityKey { Id = playFabEntityId, Type = playFabEntityType } };
         PlayFabDataAPI.GetObjects(getRequest,
             result =>
@@ -88,6 +109,8 @@ public partial class DataManager
 #if DEBUG_MODE
                 Debug.Log("플레이어 도감을 불러왔습니다.");
 #endif
+                UIManager.Instance.ShowNetworkState("플레이어 도감을 불러왔습니다.");
+                Function.isAsyncOperationComplete = true;
             },
             OnDataRequestError);
     }
@@ -140,7 +163,7 @@ public partial class DataManager
     #endregion
     #endregion
 
-    #region PlayFab Inventory and Currency
+    #region PlayFab Inventory and Currency (Legacy)
     /*
     public void GetPlayerCurrency()
     {

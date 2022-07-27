@@ -8,16 +8,26 @@ public class PlayerInventory
 {
     #region Event
     public static event UnityAction<PlayerInventory> onPlayerEquipCardChanged;
+    public static event UnityAction<PlayerInventory> onLoadPlayerInventory;
     #endregion
 
     [SerializeField] private string equipCardName;
     [SerializeField] private List<string> itemNames;
     [SerializeField] private List<int> itemAmounts;
 
+    public void GetPlayerInventory()
+    {
+        DataManager.Instance.GetPlayerInventory();
+    }
+
     public void OnLoadPlayerInventory()
     {
         EquipCardName = equipCardName;
         ItemNames = itemNames;
+        if(onLoadPlayerInventory != null)
+        {
+            onLoadPlayerInventory(this);
+        }
     }
 
     public void ClearPlayerInventory()

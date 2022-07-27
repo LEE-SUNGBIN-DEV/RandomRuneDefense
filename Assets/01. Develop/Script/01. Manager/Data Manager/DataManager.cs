@@ -28,6 +28,7 @@ public partial class DataManager : Singleton<DataManager>
 
     public void OnDataRequestError(PlayFabError obj)
     {
+        Function.isAsyncOperationComplete = true;
         Debug.Log(obj.GenerateErrorReport());
     }
 

@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public static partial class Function
 {
+    public static bool isAsyncOperationComplete = false;
+
     //! 컴포넌트를 추가한다.
     public static T AddComponent<T>(GameObject targetObject) where T : Component
     {
@@ -26,6 +28,14 @@ public static partial class Function
             yield return new WaitForEndOfFrame();
             callBack?.Invoke(asyncOperation);
         }
+    }
+
+    //! 비동기 PlayFabAPI 작업을 대기한다.
+    public static IEnumerator WaitPlayFabAPI(UnityAction playFabAPI)
+    {
+        isAsyncOperationComplete = false;
+        playFabAPI();
+        yield return new WaitUntil(() => isAsyncOperationComplete == true);
     }
 
     //! 함수를 지연 호출한다.

@@ -18,8 +18,9 @@ public partial class Constant
 
     // SERVER CATALOG
     public static readonly string SERVER_CATALOG_VERSION_CARD = "Card";
-    public static readonly string SERVER_CATALOG_VERSION_GOLDBOX_STORE = "GoldBoxStore";
-    public static readonly string SERVER_CATALOG_VERSION_CARDBOX_STORE = "CardBoxStore";
+    public static readonly string SERVER_CATALOG_VERSION_RUNE = "Rune";
+    public static readonly string SERVER_CATALOG_VERSION_GOLDBOX_SHOP = "GoldBoxShop";
+    public static readonly string SERVER_CATALOG_VERSION_CARDBOX_SHOP = "CardBoxShop";
 
     public const string SERVER_NAME_CATALOG_CLASS_CARD = "Card";
     public const string SERVER_NAME_CATALOG_CLASS_CARDBOX = "CardBox";
