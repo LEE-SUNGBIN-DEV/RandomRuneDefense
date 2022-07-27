@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2379411917224239299}
   m_Layer: 0
   m_Name: Wind_Rune
-  m_TagString: Enemy
+  m_TagString: Wind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   runeNumber: 0
   runeType: 0
   runeRenderer: {fileID: 3512475945141589413}
-  runeDamage: 10
+  runeDamage: 30
   runeAttackSpeed: 0.5
   runeColor: {r: 0.19416976, g: 1, b: 0, a: 1}
   level:

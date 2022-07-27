@@ -41,21 +41,45 @@ public class Tile : MonoBehaviour
 
     public void UpgradeRune()
     {
-        runeLevel += 1;
-        Debug.Log("업그레이드 호출");
-        owner.CurrentIndex += 1;
-        owner.DestroyIndex += 1;      
-        
-        Destroy(rune.gameObject);
+        if (runeLevel == 3) // 룬만렙 일시
+        {
+            Debug.Log("룬 만렙");
+            runeLevel = 3;
 
-        int random = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);
-        Rune runes = RuneManager.Instance.FindRuneFromList(random);
+            owner.CurrentIndex += 1;
+            owner.DestroyIndex += 1;
 
-        rune = Instantiate(runes, transform.position, Quaternion.identity);
-        rune.RuneDamage = runes.RuneDamage + (runeLevel * 10);
-        rune.RuneLevelUP(runeLevel);
-        
-        rune.transform.parent = transform;       
+            Destroy(rune.gameObject);
+
+            int random = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);
+            Rune runes = RuneManager.Instance.FindRuneFromList(random);
+
+            rune = Instantiate(runes, transform.position, Quaternion.identity);
+            rune.RuneDamage += runes.RuneDamage + (runeLevel * 20);
+            rune.RuneLevelUP(runeLevel);
+
+            rune.transform.parent = transform;
+
+            return;
+        }
+        else
+        {
+            runeLevel += 1;
+            Debug.Log("업그레이드 호출");
+            owner.CurrentIndex += 1;
+            owner.DestroyIndex += 1;
+
+            Destroy(rune.gameObject);
+
+            int random = Random.Range(0, Constant.RUNE_RANDOM_MAX_VALUE);
+            Rune runes = RuneManager.Instance.FindRuneFromList(random);
+
+            rune = Instantiate(runes, transform.position, Quaternion.identity);
+            rune.RuneDamage = runes.RuneDamage + (runeLevel * 10);
+            rune.RuneLevelUP(runeLevel);
+
+            rune.transform.parent = transform;
+        }
     }
 
     public void DestroyRune()

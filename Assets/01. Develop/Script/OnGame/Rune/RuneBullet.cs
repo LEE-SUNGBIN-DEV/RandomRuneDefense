@@ -18,7 +18,20 @@ public class RuneBullet : MonoBehaviour
 
     [SerializeField] GameObject[] effect;
     [SerializeField] GameObject[] bulletEffcet;
+
+    IEnumerator slowAttack;
+
+
+    private void Awake()
+    {
+        slowAttack = Slow();
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
     
+
     public void SetUpBullet(Color color ,Enemy _targetEnemy ,int TowerDamage , RUNE_TYPE _runeType , int _skillCount , int _bulletEffectNum)
     {
         spriteRenderer.enabled = true;
@@ -28,7 +41,7 @@ public class RuneBullet : MonoBehaviour
         runeType = _runeType;
         skillCount = _skillCount;
         bulletEffectNum = _bulletEffectNum;
-        EnemyCurrentSpeed = _targetEnemy.MoveSpeed;
+        EnemyCurrentSpeed = _targetEnemy.OriginSpeed;
         StartCoroutine(AttackCo());
 
     }
@@ -85,11 +98,11 @@ public class RuneBullet : MonoBehaviour
             case RUNE_TYPE.ICE:   
                 if(skillCount == 3)
                 {
-                    StartCoroutine(PowerSlow());
+                    StartCoroutine("PowerSlow");
                 }
                 else
                 {
-                    StartCoroutine(Slow());
+                    StartCoroutine("Slow");
                 }                                                        
                 break;
 
@@ -154,14 +167,14 @@ public class RuneBullet : MonoBehaviour
     {
         effect[2].SetActive(true);       
 
-        targetEnemy.MoveSpeed -= 0.1f;
+        targetEnemy.CurrentSpeed -= 0.2f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
         effect[2].SetActive(false);
 
-        //targetEnemy.MoveSpeed = EnemyCurrentSpeed;
+        targetEnemy.CurrentSpeed = targetEnemy.OriginSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);
@@ -173,12 +186,12 @@ public class RuneBullet : MonoBehaviour
     {
         // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트        
 
-        //targetEnemy.MoveSpeed = 0.1f;
+        targetEnemy.CurrentSpeed = 0;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
-        //targetEnemy.MoveSpeed = EnemyCurrentSpeed;
+        targetEnemy.CurrentSpeed = targetEnemy.OriginSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);

@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: -6527942815423661772}
   m_Layer: 0
   m_Name: Fire_Rune
-  m_TagString: Enemy
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
   runeNumber: 3
   runeType: 3
   runeRenderer: {fileID: 2336498702989323657}
-  runeDamage: 30
+  runeDamage: 60
   runeAttackSpeed: 1.5
   runeColor: {r: 1, g: 0, b: 0, a: 1}
   level:

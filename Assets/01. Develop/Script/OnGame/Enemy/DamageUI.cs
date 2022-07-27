@@ -15,8 +15,7 @@ public class DamageUI : MonoBehaviour
     public void Setup(Transform target, int damage)
     {
         this.target = target;
-        totalTime = 0f;
-        gameObject.SetActive(true);
+        totalTime = 0f;       
         StartCoroutine(DamageTMP(damage));
     }
 

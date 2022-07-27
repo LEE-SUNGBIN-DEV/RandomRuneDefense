@@ -29,7 +29,7 @@ public static partial class Constant
 
     // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);   
 
-    public static readonly int BOSS_SKILL_COUNT = 1;
+    public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;
     public static readonly int BOSS_STAGE = 5;
 

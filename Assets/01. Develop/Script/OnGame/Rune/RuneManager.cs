@@ -44,9 +44,15 @@ public class RuneManager : Singleton<RuneManager>
         // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= WindRuneCost)
         {
+
             if(FindObjectOfType<WindRune>())
             {
-                FindObjectOfType<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                var windRune = GameObject.FindGameObjectsWithTag("Wind");
+
+                for (int i = 0; i < windRune.Length; i++)
+                {
+                    windRune[i].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                }                              
             }
 
             runeDictionary[Constant.WIND_RUNE].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;     
@@ -60,7 +66,12 @@ public class RuneManager : Singleton<RuneManager>
         {
             if (FindObjectOfType<IceRune>())
             {
-                FindObjectOfType<IceRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                var windRune = GameObject.FindGameObjectsWithTag("Ice");
+
+                for (int i = 0; i < windRune.Length; i++)
+                {
+                    windRune[i].GetComponent<IceRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                }
             }
 
             runeDictionary[Constant.ICE_RUNE].GetComponent<IceRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
@@ -75,7 +86,12 @@ public class RuneManager : Singleton<RuneManager>
         {
             if (FindObjectOfType<LightningRune>())
             {
-                FindObjectOfType<LightningRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                var windRune = GameObject.FindGameObjectsWithTag("Lightning");
+
+                for (int i = 0; i < windRune.Length; i++)
+                {
+                    windRune[i].GetComponent<LightningRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                }
             }
 
             runeDictionary[Constant.LIGHTNING_RUNE].GetComponent<LightningRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
@@ -90,7 +106,12 @@ public class RuneManager : Singleton<RuneManager>
         {
             if (FindObjectOfType<FireRune>())
             {
-                FindObjectOfType<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                var windRune = GameObject.FindGameObjectsWithTag("Fire");
+
+                for (int i = 0; i < windRune.Length; i++)
+                {
+                    windRune[i].GetComponent<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                }
             }
 
             runeDictionary[Constant.FIRE_RUNE].GetComponent<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;   
@@ -105,7 +126,12 @@ public class RuneManager : Singleton<RuneManager>
         {
             if (FindObjectOfType<PoisonRune>())
             {
-                FindObjectOfType<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                var windRune = GameObject.FindGameObjectsWithTag("Poison");
+
+                for (int i = 0; i < windRune.Length; i++)
+                {
+                    windRune[i].GetComponent<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                }
             }
 
             runeDictionary[Constant.POISON_RUNE].GetComponent<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;

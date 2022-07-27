@@ -3040,7 +3040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTMP: {fileID: 1921641663895468234, guid: 0fe61f0663117d143bcf00dd352021ba, type: 3}
-  size: 5
+  size: 30
 --- !u!4 &1053559827
 Transform:
   m_ObjectHideFlags: 0

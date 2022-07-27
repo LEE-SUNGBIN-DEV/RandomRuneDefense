@@ -6,11 +6,11 @@ public class BossEnemy : Enemy
 {
     [SerializeField] GameObject bossBullet;
 
-    public override void Start()
+    public override void Awake()
     {
-        Health = Health;
         MaxHealth = MaxHealth;
-        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
+        Health = Health;     
+        originSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
     }
 
     public override void Die()
@@ -25,7 +25,7 @@ public class BossEnemy : Enemy
         wayNum = 0;
         MaxHealth += 100;
         Health = MaxHealth;
-        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
+        CurrentSpeed = OriginSpeed;
         HealthBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 1;
         StartCoroutine(MovePath());
         StartCoroutine(DestroyRuneSkill());
@@ -56,12 +56,12 @@ public class BossEnemy : Enemy
 
 
     public override void OnDisable()
-    {                
-        MoveSpeed = Constant.BOSS_ENEMY_MOVE_SPEED;
-
+    {
         EnemyObjectPool.Instance.bossStage = false;
         EnemyObjectPool.Instance.endStage = true;
 
+        Constant.BOSS_SKILL_COUNT += 1;
+        Debug.Log(Constant.BOSS_SKILL_COUNT);
         distance = 0;        
 
         gameObject.SetActive(false);
