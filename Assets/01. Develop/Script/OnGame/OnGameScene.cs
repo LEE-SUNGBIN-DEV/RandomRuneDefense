@@ -100,7 +100,7 @@ public class OnGameScene : MonoBehaviour
 
     public void GameStart()
     {
-        TotalSP = 100;
+        TotalSP = 10000;
         SpawnSP = 10;
     }
        

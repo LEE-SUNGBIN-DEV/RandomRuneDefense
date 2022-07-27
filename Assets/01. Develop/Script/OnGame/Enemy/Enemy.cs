@@ -28,7 +28,6 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         HealthBar.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        Debug.Log(MaxHealth);
     }             
 
     #region Property
@@ -60,9 +59,9 @@ public class Enemy : MonoBehaviour
         set
         {
             moveSpeed = value;
-            if (moveSpeed <= 0)
+            if (MoveSpeed < 0)
             {
-                moveSpeed = 0;
+                MoveSpeed = 0;
                 return;
             }                
         }
@@ -82,7 +81,8 @@ public class Enemy : MonoBehaviour
         MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<Image>().fillAmount = 1;
 
-        if(gameObject.activeInHierarchy)
+        //이미 오브젝트풀로 들어간 게임오브젝트에서 코루틴을 실행시키는 걸 방지
+        if (gameObject.activeInHierarchy)
         {
             StartCoroutine(MovePath());
         }
@@ -111,19 +111,17 @@ public class Enemy : MonoBehaviour
     public virtual void Die()
     {       
         OnGameScene.Inst.TotalSP += 10;
-        
+        //MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;        
         gameObject.SetActive(false);
     }
 
     public virtual void OnDisable()
     {
         MaxHealth += 10;
-        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<Image>().color = Color.red;
-
+        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
         distance = 0;                
-        
-        gameObject.SetActive(false);
+                
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }

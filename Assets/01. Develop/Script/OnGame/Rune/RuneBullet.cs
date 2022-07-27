@@ -28,8 +28,9 @@ public class RuneBullet : MonoBehaviour
         runeType = _runeType;
         skillCount = _skillCount;
         bulletEffectNum = _bulletEffectNum;
-
+        EnemyCurrentSpeed = _targetEnemy.MoveSpeed;
         StartCoroutine(AttackCo());
+
     }
 
     IEnumerator AttackCo()
@@ -113,7 +114,8 @@ public class RuneBullet : MonoBehaviour
                     StartCoroutine(NomalAttack(4));
                 }
                 break;
-        }   
+        }
+        BulletObjetPool.Instance.bullets.Remove(this);
     }
 
     #region Nomal Attack Effect Set
@@ -150,17 +152,16 @@ public class RuneBullet : MonoBehaviour
     
     IEnumerator Slow()
     {
-        effect[2].SetActive(true);
-        EnemyCurrentSpeed = targetEnemy.MoveSpeed;
+        effect[2].SetActive(true);       
 
-        targetEnemy.MoveSpeed -= 0.2f;
+        targetEnemy.MoveSpeed -= 0.1f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
         effect[2].SetActive(false);
 
-        targetEnemy.MoveSpeed = EnemyCurrentSpeed;
+        //targetEnemy.MoveSpeed = EnemyCurrentSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);
@@ -170,15 +171,14 @@ public class RuneBullet : MonoBehaviour
     #region Skill Set
     IEnumerator PowerSlow()
     {
-        // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트
-        EnemyCurrentSpeed = targetEnemy.MoveSpeed;
+        // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트        
 
-        targetEnemy.MoveSpeed -= 0.5f;
+        //targetEnemy.MoveSpeed = 0.1f;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
         yield return new WaitForSeconds(Constant.SLOW_TIME);
 
-        targetEnemy.MoveSpeed = EnemyCurrentSpeed;
+        //targetEnemy.MoveSpeed = EnemyCurrentSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
         BulletObjetPool.Instance.InsertQueue(gameObject);

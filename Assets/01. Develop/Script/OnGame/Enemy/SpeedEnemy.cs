@@ -23,16 +23,13 @@ public class SpeedEnemy : Enemy
             StartCoroutine(MovePath());
         }        
     }
-
     public override void OnDisable()
     {
         MaxHealth += 10;
-        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
         HealthBar.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-
+        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
         distance = 0;
 
-        gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);
     }

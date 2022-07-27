@@ -28,7 +28,7 @@ public class EnemyObjectPool : MonoBehaviour
         // 미리생성
         for (int i = 0; i < size; i++)
         {
-            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);                       
+            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);                       
             queue.Enqueue(enemy);
             enemy.transform.parent = this.transform;
             enemy.SetActive(false);
@@ -60,23 +60,25 @@ public class EnemyObjectPool : MonoBehaviour
     }
     public void InsertQueue(GameObject p_object)
     {      
-        queue.Enqueue(p_object);          
+        queue.Enqueue(p_object);
+        p_object.SetActive(false);
     }
 
     public GameObject GetQueue()
-    {        
+    {
         // 풀링에 Enemy가 있다면 있는걸 리턴
-        foreach(GameObject Enemys in queue)
+        foreach (GameObject Enemys in queue)
         {
-            if(!Enemys.activeInHierarchy)
-            {                
-                enemys.Add(Enemys.GetComponent<Enemy>());
+            if (!Enemys.activeInHierarchy)
+            {
+                enemys.Add(Enemys.GetComponent<Enemy>());               
                 Enemys.transform.position = Constant.ENEMY_WAYS[0];
                 Enemys.SetActive(true);
 
-                return Enemys;                
-            }    
-        }       
+                return Enemys;
+            }
+        }
+
         //  풀링이 꽉찼으면 새로 만들어서 리턴.
         GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
         enemys.Add(enemy.GetComponent<Enemy>());
@@ -91,7 +93,7 @@ public class EnemyObjectPool : MonoBehaviour
         Debug.Log("스테이지 시작");
         stage += 1;
 
-        if(stage % 2 == 0 ) // 보스 
+        if(stage % Constant.BOSS_STAGE == 0 ) // 보스 
         {
             bossStage = true;
             BossObjectPool.Instance.EnemySpawn();
@@ -101,7 +103,7 @@ public class EnemyObjectPool : MonoBehaviour
 
         else
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < (size * stage); ++i)
             {
                 GetQueue();                
 
@@ -109,7 +111,8 @@ public class EnemyObjectPool : MonoBehaviour
             }
             endStage = true;
         }
-}
+        
+    }
 
     void ArrangeEnemies()
     {

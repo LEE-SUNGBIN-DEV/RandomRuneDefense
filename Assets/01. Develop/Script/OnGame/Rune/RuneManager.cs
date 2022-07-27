@@ -103,7 +103,7 @@ public class RuneManager : Singleton<RuneManager>
     {
         if (OnGameScene.Inst.TotalSP >= PoisonRuneCost)
         {
-            if (FindObjectOfType<WindRune>())
+            if (FindObjectOfType<PoisonRune>())
             {
                 FindObjectOfType<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
             }

@@ -34,8 +34,18 @@ public class DamageObjectPool : MonoBehaviour
 
     public GameObject GetQueue()
     {
-        GameObject damageTmp = queue.Dequeue();
+        if(Instance.queue.Count >0)
+        {
+            var DamageTmp = Instance.queue.Dequeue();
+            DamageTmp.SetActive(true);
+            return DamageTmp;
+        }
+      
+        GameObject damageTmp = Instantiate(damageTMP, this.transform.position, Quaternion.identity);
+        damageTmp.transform.SetParent(transform);
+        queue.Enqueue(damageTmp);
         damageTmp.SetActive(true);
+
         return damageTmp;
     }
 }
