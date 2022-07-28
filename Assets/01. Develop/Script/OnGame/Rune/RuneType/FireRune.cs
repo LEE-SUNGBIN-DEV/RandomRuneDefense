@@ -6,7 +6,7 @@ public class FireRune : Rune
 {
     public override void Awake()
     {
-        RuneDamage = 20;
+        RuneDamage = 30;
         base.Awake();
     }
     public override void OnEnable()

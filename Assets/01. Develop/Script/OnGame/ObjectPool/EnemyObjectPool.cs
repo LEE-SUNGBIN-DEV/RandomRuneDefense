@@ -75,9 +75,10 @@ public class EnemyObjectPool : MonoBehaviour
 
     public IEnumerator EnemySpawn(int LineEffectValue)
     {
+
+        Debug.Log("이번 강화 라인 " + LineEffectValue);
         stage += 1;
-        Debug.Log("스테이지 시작");
-        Debug.Log(stage);
+        Debug.Log(stage + " 스테이지 시작");       
         StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue , true));
         if (stage % Constant.BOSS_STAGE == 0 ) // 보스 
         {
@@ -86,7 +87,9 @@ public class EnemyObjectPool : MonoBehaviour
             bossStage = true;
             BossObjectPool.Instance.EnemySpawn();
 
-            yield break; // 보스 나오면 스탑
+            yield return new WaitForSeconds(Constant.NEXT_SPAWN_WAIT_TIME);
+            StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
+            yield break; // 보스 나오면 스탑            
         }
 
         else
@@ -98,10 +101,10 @@ public class EnemyObjectPool : MonoBehaviour
                 yield return new WaitForSeconds(1f);
             }           
             endStage = true;
-        }
 
-        yield return new WaitForSeconds(Constant.NEXT_SPAWN_WAIT_TIME);
-        StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
+            yield return new WaitForSeconds(Constant.NEXT_SPAWN_WAIT_TIME);
+            StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
+        }              
     }
 
     void ArrangeEnemies()

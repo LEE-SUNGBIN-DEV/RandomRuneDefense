@@ -10,9 +10,11 @@ public class Line : MonoBehaviour
     public bool isFull;
 
     public GameObject LineEffect;
+    public bool lineEffectOn;
 
     private void Start()
     {
+        lineEffectOn = true;
         tiles = GetComponentsInChildren<Tile>();
 
         for(int i = 0; i < tiles.Length; i++)
@@ -22,25 +24,32 @@ public class Line : MonoBehaviour
     }
     private void Update()
     {
-        if (currentIndex == tiles.Length)
+        if(DestroyIndex == tiles.Length)
         {
-            isFull = true;
-            if(LineEffect.activeSelf)// 라인 강화 퀘스트가 true 라면  
-            {
-                for (int i = 0; i < tiles.Length; i++)
-                {
-                    tiles[i].rune.RuneDamage = tiles[i].rune.RuneDamage + 10;
+              isFull = true;
+           
+              if(LineEffect.activeInHierarchy && !lineEffectOn)// 라인 강화 퀘스트가 Hierarchy 에서 true 라면  
+            {                  
+                  Debug.Log("라인 강화 퀘스트 중인데 꽉참");
+                  for (int i = 0; i < tiles.Length; i++)
+                  {                   
+                    tiles[i].rune.RuneDamage += 10;
+                    //tiles[i].rune.RuneDamage + 10;
                 }
-            }
-            else
-            {
-                for (int i = 0; i < tiles.Length; i++)
-                {
-                    tiles[i].rune.RuneDamage = tiles[i].rune.RuneDamage;
-                }
-            }
+                lineEffectOn = true;
+              }
+              if(!LineEffect.activeInHierarchy && lineEffectOn)
+              {                  
+                  Debug.Log("라인 강화 퀘스트 아닌데 꽉참");
+                  for (int i = 0; i < tiles.Length; i++)
+                  {
+                    Debug.Log(tiles[i].name);
+                    tiles[i].rune.RuneDamage -= 10;
+                  }
+                  lineEffectOn = false;
+              }           
         }
-        if (DestroyIndex != tiles.Length)
+        else
         {
             isFull = false;
             //LineEffect.SetActive(false);

@@ -28,7 +28,7 @@ public static partial class Constant
     // ENEMY--------------------------------------------------------------------------------
 
     // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);   
-    public static readonly float NEXT_SPAWN_WAIT_TIME = 3;
+    public static readonly float NEXT_SPAWN_WAIT_TIME = 2.5f;
 
     public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;

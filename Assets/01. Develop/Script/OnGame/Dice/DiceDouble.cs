@@ -15,9 +15,9 @@ public class DiceDouble : MonoBehaviour
     {
         time += Time.deltaTime * 1.5f;
 
-        transform.localScale = new Vector3(2, 1, 0) * (time + 2);
+        transform.localScale = new Vector3(1, 1, 0) * (time + 2);
 
-        if (time > 1f)
+        if (time > 1.5f)
         {
             gameObject.SetActive(false);
         }
@@ -26,6 +26,6 @@ public class DiceDouble : MonoBehaviour
     private void OnDisable()
     {
         time = 0;
-        transform.localScale = new Vector3(2,1,0);
+        transform.localScale = new Vector3(1,1,0);
     }
 }

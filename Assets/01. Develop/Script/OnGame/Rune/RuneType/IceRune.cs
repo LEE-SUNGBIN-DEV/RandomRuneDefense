@@ -6,7 +6,7 @@ public class IceRune : Rune
 {
     public override void Awake()
     {
-        RuneDamage = 15;
+        RuneDamage = 20;
         base.Awake();
     }
     public override void OnEnable()

@@ -55,7 +55,7 @@ public class Tile : MonoBehaviour
             Rune runes = RuneManager.Instance.FindRuneFromList(random);
 
             rune = Instantiate(runes, transform.position, Quaternion.identity);
-            rune.RuneDamage += runes.RuneDamage + (runeLevel * 20);
+            rune.RuneDamage += runes.RuneDamage + (runeLevel * 10);
             rune.RuneLevelUP(runeLevel);
 
             rune.transform.parent = transform;

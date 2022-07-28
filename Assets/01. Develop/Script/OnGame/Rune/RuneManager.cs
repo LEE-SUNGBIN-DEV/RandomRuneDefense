@@ -5,7 +5,7 @@ using TMPro;
 
 public class RuneManager : Singleton<RuneManager>
 {
-    public List<Rune> runeList;
+    public List<GameObject> runeList;
     public Dictionary<int, Rune> runeDictionary;
 
     [SerializeField] TMP_Text[] value_Sp_Text;
@@ -23,7 +23,7 @@ public class RuneManager : Singleton<RuneManager>
         RuneDictionary = new Dictionary<int, Rune>();
         for (int i = 0; i < RuneList.Count; ++i)
         {
-            RuneDictionary.Add(RuneList[i].RuneNumber, RuneList[i]);
+            RuneDictionary.Add(RuneList[i].GetComponent<Rune>().RuneNumber, RuneList[i].GetComponent<Rune>());
         }
     }
     public Rune FindRuneFromList(int runeNumber)
@@ -143,7 +143,7 @@ public class RuneManager : Singleton<RuneManager>
     #endregion
 
     #region Property
-    public List<Rune> RuneList
+    public List<GameObject> RuneList
     {
         get { return runeList; }
         private set { runeList = value; }
