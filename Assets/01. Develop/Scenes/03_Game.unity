@@ -3322,7 +3322,7 @@ MonoBehaviour:
   - {fileID: 2695723151562121217, guid: b12f75f29b63a4f4ca469f35d5a12edf, type: 3}
   - {fileID: 803484486442559273, guid: bcb0bec34bd6f2449bf1fbdbeab35360, type: 3}
   - {fileID: 3629236882809634056, guid: f434cf29e79b3f04999d1ec41522c823, type: 3}
-  size: 2
+  size: 5
   enemys: []
   stage: 0
   stageTime: 0
@@ -4568,11 +4568,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runeList:
-  - {fileID: 2379411917224239299, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
-  - {fileID: 8442821750072116522, guid: 970f3e03a4e84d141b1324accecfa296, type: 3}
-  - {fileID: 1688431215337428730, guid: a37b3f0749bc494448a6adca5bdc129f, type: 3}
-  - {fileID: -6527942815423661772, guid: da89f8b07296feb46ba0a9d03bfa87af, type: 3}
-  - {fileID: 6826634792382109149, guid: 017ecc65c161d6f47ae34db5ce636b15, type: 3}
+  - {fileID: 3512475945141589415, guid: ed0216e3f87c3b341b8343c9c5ac188f, type: 3}
+  - {fileID: 759289332579012774, guid: 970f3e03a4e84d141b1324accecfa296, type: 3}
+  - {fileID: 2078465390838602843, guid: a37b3f0749bc494448a6adca5bdc129f, type: 3}
+  - {fileID: 2336498702989323659, guid: da89f8b07296feb46ba0a9d03bfa87af, type: 3}
+  - {fileID: 3512475945141589415, guid: 017ecc65c161d6f47ae34db5ce636b15, type: 3}
   value_Sp_Text:
   - {fileID: 937165814}
   - {fileID: 1894800205}
@@ -5515,6 +5515,7 @@ MonoBehaviour:
   - {fileID: 1611951314}
   total_SP_TMP: {fileID: 828288433}
   spawn_SP_TMP: {fileID: 196726642}
+  LineEffectValue: 0
   shakeTime: 0.5
   shakeIntensity: 0.2
 --- !u!4 &1882571857

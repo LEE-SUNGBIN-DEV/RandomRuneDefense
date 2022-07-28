@@ -13,7 +13,8 @@ public class EnemyObjectPool : MonoBehaviour
     public Queue<GameObject> queue = new Queue<GameObject>();
 
     public int stage;
-    [SerializeField] private float stageTime;
+
+    [HideInInspector] public float stageTime;
 
     [HideInInspector] public bool bossStage;
     [HideInInspector] public bool endStage;
@@ -36,23 +37,7 @@ public class EnemyObjectPool : MonoBehaviour
     }
     private void Update()
     {
-        if(bossStage && !endStage)
-        {
-            stageTime = 0;           
-        }
-        if(!bossStage && endStage)
-        {
-            stageTime += Time.deltaTime;
-        }       
-              
-        if(stageTime >= 3 && endStage)
-        {          
-            StartCoroutine(EnemySpawn());
-            endStage = false;
-            stageTime = 0;
-        }
         ArrangeEnemies();
-
         //if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
         //{
         //    StartCoroutine(EnemySpawn());
@@ -88,13 +73,16 @@ public class EnemyObjectPool : MonoBehaviour
         return enemy;
     }
 
-    IEnumerator EnemySpawn()
+    public IEnumerator EnemySpawn(int LineEffectValue)
     {
-        Debug.Log("스테이지 시작");
         stage += 1;
-
-        if(stage % Constant.BOSS_STAGE == 0 ) // 보스 
+        Debug.Log("스테이지 시작");
+        Debug.Log(stage);
+        StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue , true));
+        if (stage % Constant.BOSS_STAGE == 0 ) // 보스 
         {
+            Debug.Log("보스 스테이지");
+
             bossStage = true;
             BossObjectPool.Instance.EnemySpawn();
 
@@ -103,15 +91,17 @@ public class EnemyObjectPool : MonoBehaviour
 
         else
         {
-            for (int i = 0; i < (size * stage); ++i)
+            for (int i = 0; i < (size + stage); ++i)
             {
                 GetQueue();                
 
                 yield return new WaitForSeconds(1f);
-            }
+            }           
             endStage = true;
         }
-        
+
+        yield return new WaitForSeconds(Constant.NEXT_SPAWN_WAIT_TIME);
+        StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
     }
 
     void ArrangeEnemies()

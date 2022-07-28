@@ -7,10 +7,16 @@ public class DamageUI : MonoBehaviour
 {
     [SerializeField] float minOffsetY;
     [SerializeField] float maxOffsetY;
-    [SerializeField] TMP_Text damageTMP;
+    [SerializeField] TMP_Text damageTmpValue;
 
     Transform target;  
     float totalTime;
+
+    public TMP_Text DamageTmpValue
+    {
+        get => damageTmpValue;
+        set => damageTmpValue = value;
+    }
 
     public void Setup(Transform target, int damage)
     {
@@ -21,7 +27,7 @@ public class DamageUI : MonoBehaviour
 
     IEnumerator DamageTMP(int damage)
     {
-        while (totalTime <= 0.4f)
+        while (totalTime <= 0.1f)
         {
             if (target != null)
             {              
@@ -29,7 +35,7 @@ public class DamageUI : MonoBehaviour
                 targetPos.y += minOffsetY;
                 transform.position = targetPos;
 
-                damageTMP.text = damage.ToString();
+                DamageTmpValue.text = damage.ToString();
             }
 
             totalTime += Time.deltaTime;
@@ -38,32 +44,32 @@ public class DamageUI : MonoBehaviour
 
         // 점점 올라가며 페이드 아웃
         totalTime = 0;
-        while (totalTime <= 0.8f)
+        while (totalTime <= 0.4f)
         {
             if (target != null)
             {
-                float lerpTime = totalTime * 2f;
+                float lerpTime = totalTime;
 
                 var targetPos = target.position;
                 targetPos.y += Mathf.Lerp(minOffsetY , maxOffsetY, lerpTime);
                 transform.position = targetPos;
 
                 // 페이드 아웃 하기
-                damageTMP.color = Color.Lerp(Color.white, new Color(1f, 1f, 1f, 0f), lerpTime);
+                DamageTmpValue.color = Color.Lerp(Color.white, new Color(1f, 1f, 1f, 0f), lerpTime);
             }
 
             totalTime += Time.deltaTime;
             yield return null;
         }
 
-        gameObject.SetActive(false);
+        gameObject.SetActive(false);      
     }
 
     void OnDisable()
-    {        
-        DamageObjectPool.Instance.InsertQueue(gameObject); 
+    {
+        DamageObjectPool.Instance.InsertQueue(gameObject);
         target = null;
         totalTime = 0f;
-        damageTMP.text = "";
+        DamageTmpValue.text = null;
     }
 }

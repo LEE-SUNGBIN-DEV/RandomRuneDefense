@@ -6,7 +6,7 @@ public class Board : MonoBehaviour
 {
     public static Board Inst { get; private set; }
 
-    [SerializeField] Line[] lines;
+    public Line[] lines;
     [SerializeField] DiceManager diceValue;
     [SerializeField] Rune rune;
 

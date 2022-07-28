@@ -16,7 +16,7 @@ public class SpeedEnemy : Enemy
     }
     public override void OnDisable()
     {
-        MaxHealth += 1;
+        MaxHealth += 10;
         HealthBar.GetComponent<UnityEngine.UI.Image>().color = Color.red;        
         distance = 0;
 

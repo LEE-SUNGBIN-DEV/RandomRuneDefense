@@ -19,16 +19,17 @@ public class DamageObjectPool : MonoBehaviour
 
         for (int i = 0; i < size; ++i)
         {   
-            GameObject damageTmp = Instantiate(damageTMP,this.transform.position,Quaternion.identity);
-            damageTmp.transform.SetParent(transform);            
-            queue.Enqueue(damageTmp);                 
+            GameObject damageTmp = Instantiate(damageTMP , this.transform.position , Quaternion.identity);
+            damageTmp.transform.SetParent(transform);
             damageTmp.SetActive(false);
+            queue.Enqueue(damageTmp);           
         }
     }
 
     public void InsertQueue(GameObject damageTMP)
-    {
+    {       
         queue.Enqueue(damageTMP);
+        damageTMP.GetComponent<DamageUI>().DamageTmpValue.text = "";
         damageTMP.SetActive(false);
     }
 
@@ -41,7 +42,7 @@ public class DamageObjectPool : MonoBehaviour
             return DamageTmp;
         }
       
-        GameObject damageTmp = Instantiate(damageTMP, this.transform.position, Quaternion.identity);
+        GameObject damageTmp = Instantiate(damageTMP, this.transform.position, Quaternion.identity);        
         damageTmp.transform.SetParent(transform);
         queue.Enqueue(damageTmp);
         damageTmp.SetActive(true);

@@ -9,7 +9,7 @@ public class Line : MonoBehaviour
     [SerializeField] uint destroyIndex;
     public bool isFull;
 
-    [SerializeField] GameObject LineEffect;
+    public GameObject LineEffect;
 
     private void Start()
     {
@@ -24,13 +24,26 @@ public class Line : MonoBehaviour
     {
         if (currentIndex == tiles.Length)
         {
-            isFull = true;           
-            LineEffect.SetActive(true); // 라인 강화 이펙트           
+            isFull = true;
+            if(LineEffect.activeSelf)// 라인 강화 퀘스트가 true 라면  
+            {
+                for (int i = 0; i < tiles.Length; i++)
+                {
+                    tiles[i].rune.RuneDamage = tiles[i].rune.RuneDamage + 10;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < tiles.Length; i++)
+                {
+                    tiles[i].rune.RuneDamage = tiles[i].rune.RuneDamage;
+                }
+            }
         }
         if (DestroyIndex != tiles.Length)
         {
             isFull = false;
-            LineEffect.SetActive(false);
+            //LineEffect.SetActive(false);
         }
     }
 

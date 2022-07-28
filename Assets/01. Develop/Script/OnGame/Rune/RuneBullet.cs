@@ -21,15 +21,7 @@ public class RuneBullet : MonoBehaviour
     private void LateUpdate()
     {
         //게임 오브젝트와 스크립트가 활성화 되어있나?
-        if(!targetEnemy.isActiveAndEnabled)
-        {
-            StopAllCoroutines();
-            for (int i = 0; i < effect.Length; ++i)
-            {
-                effect[i].SetActive(false);
-            }
-            BulletObjetPool.Instance.InsertQueue(gameObject);           
-        }
+       
     }
     //private void OnDisable()
     //{
@@ -65,11 +57,14 @@ public class RuneBullet : MonoBehaviour
                 transform.position = targetEnemy.transform.position;                
                 break;
             }
-        }        
+        }       
+        if(targetEnemy == null)
+        {
+            yield break;
+        }
         //데미지를 입힌다..        
         if (targetEnemy != null)       
         {           
-            //spriteRenderer.enabled = false;
             targetEnemy.Damage(BulletDamage);
             GameObject damageTMP = DamageObjectPool.Instance.GetQueue();
             damageTMP.GetComponent<DamageUI>().Setup(targetEnemy.transform , BulletDamage);
@@ -189,13 +184,14 @@ public class RuneBullet : MonoBehaviour
     #region Skill Set
     IEnumerator PowerSlow()
     {
-        // typeSkill[Constant.ICE_RUNE].SetActive(true); 얼음스턴 스킬이펙트        
+        typeSkill[Constant.ICE_RUNE].SetActive(true);
 
         targetEnemy.CurrentSpeed = 0;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.blue;
 
-        yield return new WaitForSeconds(Constant.SLOW_TIME);
+        yield return new WaitForSeconds(Constant.STUN_TIME);
 
+        typeSkill[Constant.ICE_RUNE].SetActive(false);
         targetEnemy.CurrentSpeed = targetEnemy.OriginSpeed;
         targetEnemy.HealthBar.GetComponent<Image>().color = Color.red;
 
@@ -204,13 +200,15 @@ public class RuneBullet : MonoBehaviour
     IEnumerator Lightning()
     {
         typeSkill[Constant.LIGHTNING_RUNE].SetActive(true);
+        typeSkill[Constant.LIGHTNING_RUNE].GetComponent<RuneSkill>().Damage = BulletDamage / 5;
         yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
         typeSkill[Constant.LIGHTNING_RUNE].SetActive(false);
         BulletObjetPool.Instance.InsertQueue(gameObject);
     }
     IEnumerator Fire()
     {
-        typeSkill[Constant.FIRE_RUNE].SetActive(true);     
+        typeSkill[Constant.FIRE_RUNE].SetActive(true);
+        typeSkill[Constant.FIRE_RUNE].GetComponent<RuneSkill>().Damage = BulletDamage / 5;
         yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
         typeSkill[Constant.FIRE_RUNE].SetActive(false);
         BulletObjetPool.Instance.InsertQueue(gameObject);
@@ -218,6 +216,7 @@ public class RuneBullet : MonoBehaviour
     IEnumerator Poison()
     {
         typeSkill[Constant.POISON_RUNE].SetActive(true);
+        typeSkill[Constant.POISON_RUNE].GetComponent<RuneSkill>().Damage = BulletDamage / 5;
         yield return new WaitForSeconds(Constant.SKILL_ON_TIME);
         typeSkill[Constant.POISON_RUNE].SetActive(false);
 

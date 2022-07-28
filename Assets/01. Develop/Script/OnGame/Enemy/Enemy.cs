@@ -101,7 +101,7 @@ public class Enemy : MonoBehaviour
     {
         while(true)
         {        
-           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], OriginSpeed * Time.deltaTime);
+           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], CurrentSpeed * Time.deltaTime);
            distance += CurrentSpeed * Time.deltaTime;
 
            if ((Vector2)transform.position == Constant.ENEMY_WAYS[wayNum])
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDisable()
     {
-        MaxHealth += 1;                
+        MaxHealth += 10;                
         distance = 0;                
                 
         EnemyObjectPool.Instance.enemys.Remove(this);
