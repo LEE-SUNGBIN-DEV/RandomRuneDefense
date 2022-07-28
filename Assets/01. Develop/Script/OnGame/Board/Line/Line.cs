@@ -10,7 +10,8 @@ public class Line : MonoBehaviour
     public bool isFull;
 
     public GameObject LineEffect;
-    public bool lineEffectOn;
+    public GameObject LineUpgradeEffect;
+    [SerializeField] bool lineEffectOn;
 
     private void Start()
     {
@@ -27,18 +28,20 @@ public class Line : MonoBehaviour
         if(DestroyIndex == tiles.Length)
         {
               isFull = true;
-           
-              if(LineEffect.activeInHierarchy && !lineEffectOn)// 라인 강화 퀘스트가 Hierarchy 에서 true 라면  
-            {                  
+              
+              if(LineEffect.activeInHierarchy && !lineEffectOn) // 라인 강화 퀘스트가 Hierarchy 에서 true 라면  
+              {                  
                   Debug.Log("라인 강화 퀘스트 중인데 꽉참");
                   for (int i = 0; i < tiles.Length; i++)
                   {                   
-                    tiles[i].rune.RuneDamage += 10;
+                     tiles[i].rune.RuneDamage += 10;
                     //tiles[i].rune.RuneDamage + 10;
-                }
-                lineEffectOn = true;
+                  }
+              
+                  lineEffectOn = true;
+                  LineUpgradeEffect.SetActive(true); // 강화 라인이고 그 라인이 업그레이드 중이라면
               }
-              if(!LineEffect.activeInHierarchy && lineEffectOn)
+              if(!LineEffect.activeInHierarchy && lineEffectOn) // 라인 강화 퀘스트가 Hierarchy 에서 false 라면
               {                  
                   Debug.Log("라인 강화 퀘스트 아닌데 꽉참");
                   for (int i = 0; i < tiles.Length; i++)
@@ -46,7 +49,9 @@ public class Line : MonoBehaviour
                     Debug.Log(tiles[i].name);
                     tiles[i].rune.RuneDamage -= 10;
                   }
+
                   lineEffectOn = false;
+                  LineUpgradeEffect.SetActive(false);
               }           
         }
         else

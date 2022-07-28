@@ -137,6 +137,11 @@ public class OnGameScene : MonoBehaviour
     public IEnumerator QuestLine(int lineEffectValue , bool check)
     {
         Board.Inst.lines[lineEffectValue].LineEffect.SetActive(check);
+        
+        if(check == false)
+        {
+            Board.Inst.lines[lineEffectValue].LineUpgradeEffect.SetActive(false);
+        }     
         yield break;
     }
 
