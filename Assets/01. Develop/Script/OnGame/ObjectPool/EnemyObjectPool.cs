@@ -38,10 +38,6 @@ public class EnemyObjectPool : MonoBehaviour
     private void Update()
     {
         ArrangeEnemies();
-        //if (Input.GetKeyDown(KeyCode.Space)) // 스타트 테스트 용 
-        //{
-        //    StartCoroutine(EnemySpawn());
-        //}
     }
     public void InsertQueue(GameObject p_object)
     {      
@@ -63,7 +59,6 @@ public class EnemyObjectPool : MonoBehaviour
                 return Enemys;
             }
         }
-
         //  풀링이 꽉찼으면 새로 만들어서 리턴.
         GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
         enemys.Add(enemy.GetComponent<Enemy>());
@@ -91,7 +86,6 @@ public class EnemyObjectPool : MonoBehaviour
             StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
             yield break; // 보스 나오면 스탑            
         }
-
         else
         {
             for (int i = 0; i < (size + stage); ++i)
