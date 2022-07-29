@@ -13,19 +13,19 @@ public class DiceDouble : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime * 1.5f;
+        time += Time.deltaTime * 20;
 
-        transform.localScale = new Vector3(1, 1, 0) * (time + 2);
+        transform.localScale = Vector3.one * (time);  
 
-        if (time > 1.5f)
+        if(time > 4)
         {
-            gameObject.SetActive(false);
+            transform.localScale = Vector3.one * 5;
         }
     }   
 
     private void OnDisable()
     {
         time = 0;
-        transform.localScale = new Vector3(1,1,0);
+        transform.localScale = Vector3.one;
     }
 }

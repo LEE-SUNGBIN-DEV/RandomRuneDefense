@@ -9,33 +9,43 @@ public class Line : MonoBehaviour
     [SerializeField] uint destroyIndex;
     public bool isFull;
 
+    [SerializeField] int[] originRuneDamage;
+
     public GameObject LineEffect;
     public GameObject LineUpgradeEffect;
     [SerializeField] bool lineEffectOn;
 
     private void Start()
     {
-        lineEffectOn = true;
+        lineEffectOn = false;
         tiles = GetComponentsInChildren<Tile>();
+        originRuneDamage = new int[tiles.Length]; // 기본 데미지 값 저장
 
-        for(int i = 0; i < tiles.Length; i++)
+        for (int i = 0; i < tiles.Length; i++)
         {
             tiles[i].owner = this;
         }        
     }
-    private void Update()
+    private void LateUpdate()
     {
         if(DestroyIndex == tiles.Length)
         {
               isFull = true;
-              
-              if(LineEffect.activeInHierarchy && !lineEffectOn) // 라인 강화 퀘스트가 Hierarchy 에서 true 라면  
-              {                  
+
+            for (int i = 0; i < tiles.Length; i++) // 룬에 원래 데미지를 확인해서 넣어준다.
+            {
+                if (tiles[i].rune != null)
+                {
+                    originRuneDamage[i] = tiles[i].rune.RuneDamage;
+                }
+            }
+
+            if (LineEffect.activeInHierarchy && !lineEffectOn) // 라인 강화 퀘스트가 Hierarchy 에서 true 라면  
+              {                 
                   Debug.Log("라인 강화 퀘스트 중인데 꽉참");
                   for (int i = 0; i < tiles.Length; i++)
-                  {                   
-                     tiles[i].rune.RuneDamage += 10;
-                    //tiles[i].rune.RuneDamage + 10;
+                  {
+                    tiles[i].rune.RuneDamage = originRuneDamage[i] + 20;                    
                   }
               
                   lineEffectOn = true;
@@ -47,7 +57,7 @@ public class Line : MonoBehaviour
                   for (int i = 0; i < tiles.Length; i++)
                   {
                     Debug.Log(tiles[i].name);
-                    tiles[i].rune.RuneDamage -= 10;
+                    tiles[i].rune.RuneDamage = originRuneDamage[i] - 20;
                   }
 
                   lineEffectOn = false;
@@ -62,7 +72,7 @@ public class Line : MonoBehaviour
     }
 
     public void AddRune(Rune rune)
-    {
+    {              
         if (CurrentIndex == tiles.Length)
         {           
             CurrentIndex = 0;
@@ -85,6 +95,14 @@ public class Line : MonoBehaviour
         {            
             tiles[CurrentIndex].AddRune(rune);         
         }
+
+        //for (int i = 0; i < tiles.Length; i++) // 룬에 원래 데미지를 확인해서 넣어준다.
+        //{
+        //    if (tiles[i].rune != null)
+        //    {
+        //        originRuneDamage[i] = tiles[i].rune.RuneDamage;
+        //    }
+        //}
     }
 
     public void DestroyRune()

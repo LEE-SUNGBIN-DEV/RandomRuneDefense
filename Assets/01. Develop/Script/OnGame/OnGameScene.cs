@@ -141,8 +141,8 @@ public class OnGameScene : MonoBehaviour
         if(check == false)
         {
             Board.Inst.lines[lineEffectValue].LineUpgradeEffect.SetActive(false);
-        }     
-        yield break;
+        }
+        yield return null;
     }
 
 }

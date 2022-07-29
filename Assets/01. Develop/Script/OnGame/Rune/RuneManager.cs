@@ -24,7 +24,9 @@ public class RuneManager : Singleton<RuneManager>
         for (int i = 0; i < RuneList.Count; ++i)
         {
             RuneDictionary.Add(RuneList[i].GetComponent<Rune>().RuneNumber, RuneList[i].GetComponent<Rune>());
+            RuneList[i].GetComponent<Rune>().Awake();
         }
+        
     }
     public Rune FindRuneFromList(int runeNumber)
     {

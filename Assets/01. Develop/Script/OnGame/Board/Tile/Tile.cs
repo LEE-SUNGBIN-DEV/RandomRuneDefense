@@ -83,7 +83,8 @@ public class Tile : MonoBehaviour
     }
 
     public void DestroyRune()
-    {      
+    {
+        runeLevel = 0;
         Destroy(rune.gameObject);       
     }
 }

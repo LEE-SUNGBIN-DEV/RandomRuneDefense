@@ -1902,7 +1902,7 @@ RectTransform:
   m_GameObject: {fileID: 736500467}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 17.600098}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1894386127}
   - {fileID: 471396158}
@@ -1911,7 +1911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -35.999992}
+  m_AnchoredPosition: {x: 0, y: 22}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736500469
@@ -17409,6 +17409,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 757183170}
   LineUpgradeEffect: {fileID: 752551867}
   lineEffectOn: 0
@@ -17463,6 +17464,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1377194340}
   LineUpgradeEffect: {fileID: 1600932614}
   lineEffectOn: 0
@@ -17615,6 +17617,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1900296839}
   LineUpgradeEffect: {fileID: 2025323362}
   lineEffectOn: 0
@@ -17964,6 +17967,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1378909956}
   LineUpgradeEffect: {fileID: 890378616}
   lineEffectOn: 0
@@ -18762,6 +18766,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1492677041}
   LineUpgradeEffect: {fileID: 393283193}
   lineEffectOn: 0
@@ -19016,6 +19021,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 142995191}
   LineUpgradeEffect: {fileID: 1496447806}
   lineEffectOn: 0
@@ -19368,6 +19374,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1556787132}
   LineUpgradeEffect: {fileID: 1123256504}
   lineEffectOn: 0
@@ -19523,6 +19530,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1391934722}
   LineUpgradeEffect: {fileID: 907324747}
   lineEffectOn: 0
@@ -20050,6 +20058,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 531634621}
   LineUpgradeEffect: {fileID: 165553589}
   lineEffectOn: 0
@@ -20069,6 +20078,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 1497992429}
   LineUpgradeEffect: {fileID: 437042265}
   lineEffectOn: 0
@@ -22398,6 +22408,7 @@ MonoBehaviour:
   currentIndex: 0
   destroyIndex: 0
   isFull: 0
+  originRuneDamage: 
   LineEffect: {fileID: 823966368}
   LineUpgradeEffect: {fileID: 1785988691}
   lineEffectOn: 0
