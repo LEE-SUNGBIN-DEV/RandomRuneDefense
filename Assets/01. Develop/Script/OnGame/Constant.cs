@@ -32,7 +32,7 @@ public static partial class Constant
 
     public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;
-    public static readonly int BOSS_STAGE = 5;
+    public static readonly int BOSS_STAGE = 2;
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {
@@ -67,6 +67,14 @@ public static partial class Constant
     public static readonly int POISON_TIME = 5;
     public static readonly int SKILL_TIME = 3;
 
+    // SUN MOVE
+
+    public static readonly Vector2[] SUN_WAYS = new Vector2[]
+     {
+        new Vector2(-3.4f, 0f),
+        new Vector2(-0.05f, 3.5f),
+        new Vector2(3.4f, 0),
+     };
     // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
     {

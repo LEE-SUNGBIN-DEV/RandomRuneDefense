@@ -18,11 +18,7 @@ public class RuneBullet : MonoBehaviour
     [SerializeField] GameObject[] effect;
     [SerializeField] GameObject[] bulletEffcet;
 
-    private void LateUpdate()
-    {
-        //게임 오브젝트와 스크립트가 활성화 되어있나?
-       
-    }
+
     //private void OnDisable()
     //{
     //    StopAllCoroutines();
