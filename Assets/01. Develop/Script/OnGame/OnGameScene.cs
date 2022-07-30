@@ -13,6 +13,13 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] TMP_Text total_SP_TMP; // 글씨 표시
     [SerializeField] TMP_Text spawn_SP_TMP; // 글자 표시
 
+    [SerializeField] GameObject sun; // 태양
+    [SerializeField] float sunMoveSpeed; // 태양 스피드
+    [SerializeField] int sunWayNum; // 태양 웨이 포인트
+    [SerializeField] SpriteRenderer backGround; // 배경
+    public float backGroundColor;
+
+
     EnemyObjectPool enemyObjectPool;
     public int LineEffectValue;
 
@@ -52,17 +59,52 @@ public class OnGameScene : MonoBehaviour
             spawn_SP_TMP.text = value.ToString();          
         }
     }
+
+    public float BackGroundColor
+    {
+        get => backGroundColor;
+        set
+        {
+            backGroundColor = value;
+            if (BackGroundColor > 255)
+            {
+                BackGroundColor = 255;              
+            }
+            if(BackGroundColor < 50)
+            {
+                BackGroundColor = 50;                
+            }            
+        }
+    }
     #endregion
 
     void Start()
     {
+        BackGroundColor = 255;
         enemyObjectPool = EnemyObjectPool.Instance;
-        GameStartSp();
+        GameStartSp();        
     }
 
     private void Update()
     {
-        StageStart();
+        StageStart();       
+        if (enemyObjectPool.bossStage)
+        {
+            sunWayNum = 2;
+            BackGroundColor -= Time.deltaTime * 50;            
+        }       
+        else
+        {
+            sunWayNum = 1;
+            BackGroundColor += Time.deltaTime * 50;
+            sun.gameObject.SetActive(true);
+        }
+
+        if(sun.activeInHierarchy)
+        {
+            SunMove(sunWayNum);            
+        }
+        backGround.color = new Color(BackGroundColor / 255f, BackGroundColor / 255f, BackGroundColor / 255f);
     }
 
     private void OnEnable()
@@ -143,6 +185,18 @@ public class OnGameScene : MonoBehaviour
             Board.Inst.lines[lineEffectValue].LineUpgradeEffect.SetActive(false);
         }
         yield return null;
+    }
+
+    public void SunMove(int wayNum)
+    {       
+        sun.transform.position = Vector2.MoveTowards(sun.transform.position, Constant.SUN_WAYS[wayNum], sunMoveSpeed * Time.deltaTime);  
+     
+        if((Vector2)sun.transform.position == Constant.SUN_WAYS[2])
+        {
+            sun.gameObject.SetActive(false);
+            sun.transform.position = Constant.SUN_WAYS[0];                      
+        }
+        
     }
 
 }

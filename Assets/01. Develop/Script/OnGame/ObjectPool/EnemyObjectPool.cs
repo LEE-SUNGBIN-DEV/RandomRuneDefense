@@ -33,7 +33,7 @@ public class EnemyObjectPool : MonoBehaviour
             queue.Enqueue(enemy);
             enemy.transform.parent = this.transform;
             enemy.SetActive(false);
-        }
+        }        
     }
     private void Update()
     {
@@ -77,14 +77,15 @@ public class EnemyObjectPool : MonoBehaviour
         StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue , true));
         if (stage % Constant.BOSS_STAGE == 0 ) // 보스 
         {
-            Debug.Log("보스 스테이지");
+            Debug.Log("보스 스테이지");          
+
+            BossObjectPool.Instance.EnemySpawn();
 
             bossStage = true;
-            BossObjectPool.Instance.EnemySpawn();
 
             yield return new WaitForSeconds(Constant.NEXT_SPAWN_WAIT_TIME);
             StartCoroutine(OnGameScene.Inst.QuestLine(LineEffectValue, false));
-            yield break; // 보스 나오면 스탑            
+            //yield break; // 보스 나오면 스탑            
         }
         else
         {

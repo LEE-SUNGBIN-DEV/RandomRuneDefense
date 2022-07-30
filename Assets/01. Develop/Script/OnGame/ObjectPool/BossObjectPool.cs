@@ -30,7 +30,7 @@ public class BossObjectPool : MonoBehaviour
     }
 
     public void EnemySpawn()
-    {
+    {       
         if(queue.Count == 0)
         {          
              GameObject boss = Instantiate(poolingPrefab[0], Constant.ENEMY_WAYS[0], Quaternion.identity);
