@@ -9,6 +9,7 @@ public class Line : MonoBehaviour
     [SerializeField] uint destroyIndex;
     public bool isFull;
 
+
     [SerializeField] int[] originRuneDamage;
 
     public GameObject LineEffect;
