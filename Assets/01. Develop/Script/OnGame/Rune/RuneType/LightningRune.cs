@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class LightningRune : Rune
 {
-    private void Start()
+    public override void Awake()
     {
-        RuneDamage = RuneDamage;
+        RuneDamage = 30;
+        base.Awake();
     }
     public override void OnEnable()
     {

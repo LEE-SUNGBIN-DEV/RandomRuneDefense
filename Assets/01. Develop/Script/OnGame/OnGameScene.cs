@@ -12,6 +12,10 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] GameObject[] HeartImages;
     [SerializeField] TMP_Text total_SP_TMP; // 글씨 표시
     [SerializeField] TMP_Text spawn_SP_TMP; // 글자 표시
+
+    EnemyObjectPool enemyObjectPool;
+    public int LineEffectValue;
+
     int totalSp; // 전체 sp
     int spawnSP; // 스폰 sp
 
@@ -52,7 +56,13 @@ public class OnGameScene : MonoBehaviour
 
     void Start()
     {
-        GameStart();
+        enemyObjectPool = EnemyObjectPool.Instance;
+        GameStartSp();
+    }
+
+    private void Update()
+    {
+        StageStart();
     }
 
     private void OnEnable()
@@ -98,10 +108,41 @@ public class OnGameScene : MonoBehaviour
         }
     }
 
-    public void GameStart()
+    void GameStartSp()
     {
-        TotalSP = 100;
+        TotalSP = 10000;
         SpawnSP = 10;
     }
-       
+    void StageStart()
+    {
+        if (enemyObjectPool.bossStage || !enemyObjectPool.endStage)
+        {            
+            enemyObjectPool.stageTime = 0;
+        }
+        if (!enemyObjectPool.bossStage && enemyObjectPool.endStage)
+        {
+            enemyObjectPool.stageTime += Time.deltaTime;
+        }
+
+        if (enemyObjectPool.stageTime >=  Constant.NEXT_SPAWN_WAIT_TIME && enemyObjectPool.endStage)
+        {
+            LineEffectValue = Random.Range(0, 11); 
+
+            StartCoroutine(enemyObjectPool.EnemySpawn(LineEffectValue));
+            enemyObjectPool.endStage = false;
+            enemyObjectPool.stageTime = 0;
+        }
+    }
+
+    public IEnumerator QuestLine(int lineEffectValue , bool check)
+    {
+        Board.Inst.lines[lineEffectValue].LineEffect.SetActive(check);
+        
+        if(check == false)
+        {
+            Board.Inst.lines[lineEffectValue].LineUpgradeEffect.SetActive(false);
+        }
+        yield return null;
+    }
+
 }

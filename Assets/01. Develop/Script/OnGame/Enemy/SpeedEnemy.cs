@@ -4,35 +4,22 @@ using UnityEngine;
 
 public class SpeedEnemy : Enemy
 {
-    public override void Start()
+    public override void Awake()
     {
-        Health = 100;
-        MaxHealth = 100;
-        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
+        MaxHealth = MaxHealth;
+        Health = Health;
+        originSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
     }
     public override void OnEnable()
     {
-        wayNum = 0;
-        Health = MaxHealth;
-        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
-        HealthBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 1;
-
-        //이미 오브젝트풀로 들어간 게임오브젝트에서 코루틴을 실행시키는 걸 방지
-        if (gameObject.activeInHierarchy)
-        {
-            StartCoroutine(MovePath());
-        }        
+        base.OnEnable();
     }
-
     public override void OnDisable()
     {
         MaxHealth += 10;
-        MoveSpeed = Constant.SPEED_ENEMY_MOVE_SPEED;
-        HealthBar.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-
+        HealthBar.GetComponent<UnityEngine.UI.Image>().color = Color.red;        
         distance = 0;
 
-        gameObject.SetActive(false);
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);
     }

@@ -5,25 +5,21 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    #region SINGLETON
-    public static Enemy Inst { get; private set; }
-    private void Awake() => Inst = this;
-    #endregion
-
     [SerializeField] protected float health;
-    [SerializeField] protected float maxHealth;
-    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected static float maxHealth;
+    [SerializeField] protected float originSpeed;
+    [SerializeField] protected float currentSpeed;
 
      public int wayNum;
      public float distance;
     
     public GameObject HealthBar;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
-        Health = 200;
-        MaxHealth = 200;
-        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        MaxHealth = MaxHealth;
+        Health = Health;       
+        originSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
     }
     private void Update()
     {
@@ -42,9 +38,13 @@ public class Enemy : MonoBehaviour
             {
                 Die();
             }
+            if(MaxHealth < health)
+            {
+                health = MaxHealth;
+            }
         }
     }
-    public float MaxHealth
+    public static float MaxHealth
     {
         get => maxHealth;
         set
@@ -53,17 +53,20 @@ public class Enemy : MonoBehaviour
         }
     }
     
-    public float MoveSpeed
+    public float OriginSpeed
     {
-        get => moveSpeed;
+        get => originSpeed;
+    }
+    public float CurrentSpeed
+    {
+        get => currentSpeed;
         set
         {
-            moveSpeed = value;
-            if (moveSpeed <= 0)
+            currentSpeed = value;
+            if (currentSpeed < 0)
             {
-                moveSpeed = 0;
-                return;
-            }                
+                currentSpeed = 0;
+            }
         }
     }
     #endregion
@@ -76,12 +79,20 @@ public class Enemy : MonoBehaviour
     }    
     public virtual void OnEnable()
     {
+        InitializeEnemy();
+    }
+
+    public void InitializeEnemy()
+    {
+        HealthBar.GetComponent<Image>().color = Color.red;
+
         wayNum = 0;
-        Health = MaxHealth;
-        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
+        Health = MaxHealth;        
+        CurrentSpeed = OriginSpeed;
         HealthBar.GetComponent<Image>().fillAmount = 1;
 
-        if(gameObject.activeInHierarchy)
+        //이미 오브젝트풀로 들어간 게임오브젝트에서 코루틴을 실행시키는 걸 방지
+        if (gameObject.activeInHierarchy)
         {
             StartCoroutine(MovePath());
         }
@@ -90,8 +101,8 @@ public class Enemy : MonoBehaviour
     {
         while(true)
         {        
-           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], MoveSpeed * Time.deltaTime);
-           distance += MoveSpeed * Time.deltaTime;
+           transform.position = Vector2.MoveTowards(transform.position, Constant.ENEMY_WAYS[wayNum], CurrentSpeed * Time.deltaTime);
+           distance += CurrentSpeed * Time.deltaTime;
 
            if ((Vector2)transform.position == Constant.ENEMY_WAYS[wayNum])
                wayNum++;
@@ -109,20 +120,15 @@ public class Enemy : MonoBehaviour
 
     public virtual void Die()
     {       
-        OnGameScene.Inst.TotalSP += 10;
-        
+        OnGameScene.Inst.TotalSP += 10;               
         gameObject.SetActive(false);
     }
 
     public virtual void OnDisable()
     {
-        MaxHealth += 10;
-        MoveSpeed = Constant.BIG_ENEMY_MOVE_SPEED;
-        HealthBar.GetComponent<Image>().color = Color.red;
-
+        MaxHealth += 10;                
         distance = 0;                
-        
-        gameObject.SetActive(false);
+                
         EnemyObjectPool.Instance.enemys.Remove(this);
         EnemyObjectPool.Instance.InsertQueue(gameObject);        
     }

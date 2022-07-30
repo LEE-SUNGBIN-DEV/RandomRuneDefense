@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minOffsetY: 0.5
   maxOffsetY: 1
-  damageTMP: {fileID: 7987141666324771108}
+  damageTmpValue: {fileID: 7987141666324771108}
 --- !u!114 &1164027236946119665
 MonoBehaviour:
   m_ObjectHideFlags: 0

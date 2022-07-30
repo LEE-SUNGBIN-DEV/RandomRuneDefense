@@ -33,15 +33,13 @@ public class BulletObjetPool : MonoBehaviour
     public GameObject GetQueue()
     {
         // 풀링에 Bullet이 있다면 있는걸 리턴
-        foreach (GameObject Bullets in queue)
+        if(Instance.queue.Count > 0)
         {
-            if (!Bullets.activeInHierarchy)
-            {
-                bullets.Add(Bullets.GetComponent<RuneBullet>());
-                Bullets.SetActive(true);
-                return Bullets;
-            }
-        }
+            var Bullets = Instance.queue.Dequeue();
+            bullets.Add(Bullets.GetComponent<RuneBullet>());
+            Bullets.SetActive(true);
+            return Bullets;
+        }      
 
         GameObject bullet = Instantiate(bulletPrefab);
         queue.Enqueue(bullet);

@@ -16,7 +16,7 @@ public class Rune : MonoBehaviour
     [SerializeField] protected int runeNumber;   
     [SerializeField] protected RUNE_TYPE runeType;
     [SerializeField] protected SpriteRenderer runeRenderer;
-    [SerializeField] public int runeDamage;
+    [SerializeField] protected int runeDamage;
     [SerializeField] protected float runeAttackSpeed;
     [SerializeField] protected Color runeColor;
     [SerializeField] protected GameObject[] level;
@@ -60,6 +60,12 @@ public class Rune : MonoBehaviour
         set { level = value; }
     }
     #endregion
+
+    public virtual void Awake(){}
+    public void Start()
+    {
+        //runeDamage = RuneDamage;
+    }
 
     public void RuneLevelUP(int _level)
     {

@@ -23,12 +23,16 @@ public static partial class Constant
 
     public static readonly Vector2 TILE_CENTER_OFFSET = new Vector2(0.25f, 0.25f);
 
+    public static readonly Vector3 SLIDER_EFFECT_POSITION = new Vector3(-1.4f, -2.4f, -5);
+    
     // ENEMY--------------------------------------------------------------------------------
 
     // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);   
+    public static readonly float NEXT_SPAWN_WAIT_TIME = 2.5f;
 
-    public static readonly int BOSS_SKILL_COUNT = 1;
+    public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;
+    public static readonly int BOSS_STAGE = 5;
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {
@@ -56,11 +60,12 @@ public static partial class Constant
 
     public const int MAX_RUNE_LEVEL = 4;
 
-    public const float SLOW_TIME = 0.8f;   
+    public const float SLOW_TIME = 0.8f;
+    public const float STUN_TIME = 1f;
     public const float SKILL_ON_TIME = 2f;
 
     public static readonly int POISON_TIME = 5;
-    public static readonly int SKILL_TIME = 5;
+    public static readonly int SKILL_TIME = 3;
 
     // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
@@ -75,6 +80,4 @@ public static partial class Constant
             shakecamera.transform.position -= offset;
         }
     }
-
-
 }
