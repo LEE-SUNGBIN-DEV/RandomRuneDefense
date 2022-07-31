@@ -568,7 +568,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115809407}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a8b48a1929bd42fc8a74e9281c1f25e, type: 3}
   m_Name: 
@@ -576,10 +576,10 @@ MonoBehaviour:
   CamTransform: {fileID: 115809410}
   CameraSpeedMultiplier: 1
   Color: {r: 1, g: 1, b: 1, a: 1}
-  Size: 1.6
-  HorizontalSpeed: 0.2
+  Size: 1
+  HorizontalSpeed: 0.4
   VerticalSpeed: 0
-  Density: 1.24
+  Density: 0
   Shader: {fileID: 4800000, guid: 00e888b8dfe2842c1a10e04b2d083b64, type: 3}
 --- !u!1001 &142995189
 PrefabInstance:
@@ -6581,6 +6581,7 @@ MonoBehaviour:
   sunMoveSpeed: 1.5
   sunWayNum: 0
   backGround: {fileID: 1786896436}
+  d2FogsPE: {fileID: 115809411}
   backGroundColor: 0
   LineEffectValue: 0
   shakeTime: 0.5
@@ -17432,7 +17433,7 @@ MonoBehaviour:
   button: {fileID: 1023741868}
   DiceValueBackGround: {fileID: 736500467}
   DiceDoble: {fileID: 471396155}
-  percentage: 100
+  percentage: 10
 --- !u!4 &1282648037400033273
 Transform:
   m_ObjectHideFlags: 0

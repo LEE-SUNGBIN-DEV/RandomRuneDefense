@@ -43,23 +43,27 @@ public class RuneManager : Singleton<RuneManager>
     #region RUNE_POWER_UP
     public void WindPowerUP()
     {
+
+        runeDictionary[Constant.WIND_RUNE].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+        WindRuneCost += Constant.POWER_UP_COST;
+        OnGameScene.Inst.TotalSP -= WindRuneCost;
         // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= WindRuneCost)
         {
+            Line[] lines = Board.Inst.lines;
 
-            if(FindObjectOfType<WindRune>())
+            for (int i = 0; i < lines.Length; i++)
             {
-                var windRune = GameObject.FindGameObjectsWithTag("Wind");
-
-                for (int i = 0; i < windRune.Length; i++)
+                for (int j = 0; j < lines[i].tiles.Length; j++)
                 {
-                    windRune[i].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
-                }                              
+                    Debug.Log(i +""+ j);
+                    if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.WIND)
+                    {            
+                        
+                        lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
+                    }
+                }
             }
-
-            runeDictionary[Constant.WIND_RUNE].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;     
-            WindRuneCost += Constant.POWER_UP_COST;
-            OnGameScene.Inst.TotalSP -= WindRuneCost;
         }
     }
     public void IcePowerUP()

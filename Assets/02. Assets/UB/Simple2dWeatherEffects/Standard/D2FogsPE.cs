@@ -90,5 +90,28 @@ namespace UB.Simple2dWeatherEffects.Standard
                 Graphics.Blit(source, destination, _material);
             }
         }
+
+       //public void StartSmoke()
+       //{
+       //    while(true)
+       //    {
+       //        if(Density < 0)
+       //        {
+       //            break;
+       //        }
+       //        Density -= Time.deltaTime;
+       //    }
+       //}
+       //public void EndSmoke()
+       //{
+       //    while(true)
+       //    {
+       //        if (Density > 5)
+       //        {
+       //            break;
+       //        }
+       //        Density += Time.deltaTime;
+       //    }
+       //}
     }
 }

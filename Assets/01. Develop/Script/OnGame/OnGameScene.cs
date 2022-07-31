@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
+
 public class OnGameScene : MonoBehaviour
 {
     public static OnGameScene Inst { get; private set; }
@@ -17,8 +18,9 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] float sunMoveSpeed; // 태양 스피드
     [SerializeField] int sunWayNum; // 태양 웨이 포인트
     [SerializeField] SpriteRenderer backGround; // 배경
-    public float backGroundColor;
+    [SerializeField] UB.Simple2dWeatherEffects.Standard.D2FogsPE d2FogsPE;
 
+    public float backGroundColor;    
 
     EnemyObjectPool enemyObjectPool;
     public int LineEffectValue;
@@ -79,14 +81,14 @@ public class OnGameScene : MonoBehaviour
     #endregion
 
     void Start()
-    {
+    {        
         BackGroundColor = 255;
         enemyObjectPool = EnemyObjectPool.Instance;
         GameStartSp();        
     }
 
     private void Update()
-    {
+    {       
         StageStart();       
         if (enemyObjectPool.bossStage)
         {
@@ -146,6 +148,7 @@ public class OnGameScene : MonoBehaviour
         if (System.Array.TrueForAll(HeartImages, x => x.activeSelf == false))
         {
             isDie = true;
+            //d2FogsPE.EndSmoke();
             print("게임 오바");
         }
     }
