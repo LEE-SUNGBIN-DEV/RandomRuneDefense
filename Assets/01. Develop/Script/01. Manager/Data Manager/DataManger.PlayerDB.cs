@@ -1,14 +1,11 @@
 #define DEBUG_MODE
 
 using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using PlayFab;
 using PlayFab.DataModels;
-using PlayFab.ClientModels;
-using PlayFab.CloudScriptModels;
 using Newtonsoft.Json;
 
 public partial class DataManager
@@ -28,10 +25,10 @@ public partial class DataManager
         Debug.Log("플레이어 데이터를 요청합니다.");
 #endif
         UIManager.Instance.ShowNetworkState("플레이어 데이터를 요청합니다.");
-        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerStats));
-        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerCurrency));
-        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerInventory));
-        yield return StartCoroutine(Function.WaitPlayFabAPI(GetPlayerCollections));
+        yield return Function.WaitPlayFabAPI(GetPlayerStats);
+        yield return Function.WaitPlayFabAPI(GetPlayerCurrency);
+        yield return Function.WaitPlayFabAPI(GetPlayerInventory);
+        yield return Function.WaitPlayFabAPI(GetPlayerCollections);
     }
     public void GetPlayerStats()
     {
@@ -119,10 +116,10 @@ public partial class DataManager
     #region Set Player Data
     public void SetPlayerData()
     {
-        var playerStats = JsonConvert.SerializeObject(PlayerData.PlayerStats);
-        var playerCurrency = JsonConvert.SerializeObject(PlayerData.PlayerCurrency);
-        var playerInventory = JsonConvert.SerializeObject(PlayerData.PlayerInventory);
-        var playerCollections = JsonConvert.SerializeObject(PlayerData.PlayerCollections);
+        var playerStats = PlayerData.PlayerStats;
+        var playerCurrency = PlayerData.PlayerCurrency;
+        var playerInventory = PlayerData.PlayerInventory;
+        var playerCollections = PlayerData.PlayerCollections;
 
         var dataList = new List<SetObject>()
         {
@@ -156,6 +153,7 @@ public partial class DataManager
         PlayFabDataAPI.SetObjects(setRequest,
             result =>
             {
+                Function.isAsyncOperationComplete = true;
                 Debug.Log("저장 성공");
             },
             OnDataRequestError);

@@ -24,6 +24,7 @@ public class PlayerInventory
     {
         EquipCardName = equipCardName;
         ItemNames = itemNames;
+        ItemAmounts = itemAmounts;
         if(onLoadPlayerInventory != null)
         {
             onLoadPlayerInventory(this);

@@ -31,4 +31,11 @@ public static partial class Function
             panels[i].gameObject.SetActive(isActive);
         }
     }
+
+    public static Color SetAlpha(Color color, float alphaValue)
+    {
+        Color newColor = color;
+        newColor.a = alphaValue;
+        return newColor;
+    }
 }

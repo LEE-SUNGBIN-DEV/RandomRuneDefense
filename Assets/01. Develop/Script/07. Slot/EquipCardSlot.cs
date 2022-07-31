@@ -12,10 +12,7 @@ public class EquipCardSlot : CardSlot
 
     public void ReleaseCard()
     {
-        if (IsEmpty() == false)
-        {
-            Card.ReleaseCard();
-            ClearSlot();
-        }
+        Card.ReleaseCard();
+        ClearSlot();
     }
 }

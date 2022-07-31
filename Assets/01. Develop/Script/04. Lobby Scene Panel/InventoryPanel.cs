@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class InventoryPanel : ScrollPanel
 {
     [SerializeField] private EquipCardSlot equipCardSlot;
     [SerializeField] private CardSlot[] inventorySlots;
+    [SerializeField] private ContentSizeFitter[] sizeFitters;
 
     private void Awake()
     {
@@ -39,12 +41,19 @@ public class InventoryPanel : ScrollPanel
         CardInformationPanel.onEquipCard -= EquipCard;
         CardInformationPanel.onReleaseCard -= ReleaseCard;
         PlayerInventory.onLoadPlayerInventory -= RefreshInventory;
+    }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            RefreshInventory(DataManager.Instance.PlayerData.PlayerInventory);
+        }
     }
 
     public void RefreshInventory(PlayerInventory playerInventory)
     {
-        Dictionary<string, Card> cardDatabase = DataManager.Instance.CardDatabaseDictionary; 
+        var cardDatabase = DataManager.Instance.CardDatabaseDictionary;
         if (playerInventory.EquipCardName != null)
         {
             EquipCard(cardDatabase[playerInventory.EquipCardName]);
@@ -63,6 +72,12 @@ public class InventoryPanel : ScrollPanel
                 inventorySlots[i].ClearSlot();
                 inventorySlots[i].gameObject.SetActive(false);
             }
+        }
+
+        for(int i=0; i<sizeFitters.Length; ++i)
+        {
+            sizeFitters[i].enabled = false;
+            sizeFitters[i].enabled = true;
         }
     }
 

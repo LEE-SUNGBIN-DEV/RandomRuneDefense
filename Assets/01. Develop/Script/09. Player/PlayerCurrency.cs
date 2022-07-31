@@ -17,6 +17,10 @@ public class PlayerCurrency
     {
         Gold = gold;
         Crystal = crystal;
+        if(onPlayerCurrencyChanged != null)
+        {
+            onPlayerCurrencyChanged(this);
+        }
     }
 
     public int Gold

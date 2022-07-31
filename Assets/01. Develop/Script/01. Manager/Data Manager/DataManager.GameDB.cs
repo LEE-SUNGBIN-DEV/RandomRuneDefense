@@ -14,7 +14,7 @@ using PlayFab.EconomyModels;
 public partial class DataManager
 {
     #region Event
-    public static UnityAction onLoadDatabase;
+    public static event UnityAction onLoadDatabase;
     #endregion
 
     [Header("Game Database")]
@@ -27,6 +27,7 @@ public partial class DataManager
     [SerializeField] private List<Enemy> enemyDatabase;
     [SerializeField] private Dictionary <string, Enemy> enemyDatabaseDictionary = new Dictionary<string, Enemy>();
 
+
     #region Game Database
     // ! 게임 실행시 게임 DB를 받아오는 작업
     public IEnumerator RequestGameDatabase()
@@ -35,8 +36,8 @@ public partial class DataManager
         Debug.Log("게임 데이터를 요청합니다.");
 #endif
         UIManager.Instance.ShowNetworkState("게임 데이터를 요청합니다.");
-        yield return StartCoroutine(Function.WaitPlayFabAPI(RequestCardDatabase));
-        yield return StartCoroutine(Function.WaitPlayFabAPI(RequestRuneDatabase));
+        yield return Function.WaitPlayFabAPI(RequestCardDatabase);
+        yield return Function.WaitPlayFabAPI(RequestRuneDatabase);
     }
 
     public void RequestCardDatabase()
@@ -66,6 +67,7 @@ public partial class DataManager
 #if DEBUG_MODE
             Debug.Log("카드 데이터를 불러왔습니다.");
 #endif
+            onLoadDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("카드 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
@@ -91,7 +93,33 @@ public partial class DataManager
 #if DEBUG_MODE
             Debug.Log("룬 데이터를 불러왔습니다.");
 #endif
+            onLoadDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("룬 데이터를 불러왔습니다.");
+            Function.isAsyncOperationComplete = true;
+        }, OnDataRequestError);
+    }
+
+    // ! 상점 정보 요청
+    public void RequestShopDatabase()
+    {
+#if DEBUG_MODE
+        Debug.Log("상점 데이터를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("상점 데이터를 요청합니다.");
+        GetCatalogItemsRequest request = new GetCatalogItemsRequest()
+        {
+            CatalogVersion = Constant.SERVER_CATALOG_VERSION_GOLDBOX_SHOP
+        };
+
+        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
+        {
+            //
+
+#if DEBUG_MODE
+            Debug.Log("상점 데이터를 불러왔습니다.");
+#endif
+            onLoadDatabase?.Invoke();
+            UIManager.Instance.ShowNetworkState("상점 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
     }
