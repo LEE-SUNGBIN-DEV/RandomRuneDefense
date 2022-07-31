@@ -1,3 +1,5 @@
+#define DEBUG_MODE
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +18,6 @@ public class CardInformationPanel : Panel
     [SerializeField] private Card card;
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
-    [SerializeField] private TextMeshProUGUI cardEffectText;
     [SerializeField] private Image cardImage;
 
     [Header("Button")]
@@ -38,8 +39,9 @@ public class CardInformationPanel : Panel
     {
         cardNameText.text = null;
         cardDescriptionText.text = null;
-        cardEffectText.text = null;
         cardImage.sprite = null;
+        cardImage.color = Function.SetAlpha(cardImage.color, 0f);
+        card = null;
     }
 
     public void SetCardInformation(CardSlot cardSlot)
@@ -50,7 +52,9 @@ public class CardInformationPanel : Panel
             cardNameText.text = card.ItemName;
             cardDescriptionText.text = card.ItemDescription;
             cardImage.sprite = card.ItemSprite;
+            cardImage.color = Function.SetAlpha(cardImage.color, 1f);
 
+            equipButton.onClick.RemoveAllListeners();
             if (cardSlot is EquipCardSlot)
             {
                 equipButton.GetComponentInChildren<TextMeshProUGUI>().text = "«ÿ¡¶";
@@ -72,9 +76,13 @@ public class CardInformationPanel : Panel
     }
 
     public void OnClickEquipButton()
-    {  
-        if(card != null)
+    {
+#if DEBUG_MODE
+        Debug.Log($"Equip Card: {card.ItemName}");
+#endif
+        if (card != null)
         {
+
             onEquipCard(card);
             gameObject.SetActive(false);
         }
@@ -82,7 +90,10 @@ public class CardInformationPanel : Panel
 
     public void OnClickReleaseButton()
     {
-        if(card != null)
+#if DEBUG_MODE
+        Debug.Log($"Release Card: {card.ItemName}");
+#endif
+        if (card != null)
         {
             ClearSlot();
             onReleaseCard();

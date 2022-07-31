@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
-using Photon.Pun;
 
 public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
 {
@@ -24,22 +22,10 @@ public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
     [SerializeField] private CollectionPanel collectionPanel;
     [SerializeField] private RunePanel runePanel;
 
-    [Header("Top User Panel")]
-    [SerializeField] private TextMeshProUGUI topUserNicknameText;
-    [SerializeField] private TextMeshProUGUI topUserGoldText;
-    [SerializeField] private TextMeshProUGUI topUserCrystalText;
-    [SerializeField] private TextMeshProUGUI topUserLevelText;
+    [Header("Top Panel")]
+    [SerializeField] private TopUserPanel topUserPanel;
 
     private IEnumerator scrollToTargetPanel;
-    private bool isScroll = false;
-
-    private void Awake()
-    {
-        PlayerStats.onPlayerStatsChanged -= UpdateStatsUI;
-        PlayerStats.onPlayerStatsChanged += UpdateStatsUI;
-        PlayerCurrency.onPlayerCurrencyChanged -= UpdateCurrencyUI;
-        PlayerCurrency.onPlayerCurrencyChanged += UpdateCurrencyUI;
-    }
 
     private void OnEnable()
     {
@@ -50,23 +36,6 @@ public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
     private void OnDisable()
     {
         Function.SetAllPanelActivation(lobbyScenePanels, false);
-    }
-
-    private void OnDestroy()
-    {
-        PlayerStats.onPlayerStatsChanged -= UpdateStatsUI;
-        PlayerCurrency.onPlayerCurrencyChanged -= UpdateCurrencyUI;
-    }
-
-    private void UpdateCurrencyUI(PlayerCurrency playerCurrency)
-    {
-        topUserGoldText.text = playerCurrency.Gold.ToString();
-        topUserCrystalText.text = playerCurrency.Crystal.ToString();
-    }
-    private void UpdateStatsUI(PlayerStats playerStats)
-    {
-        topUserNicknameText.text = PhotonNetwork.LocalPlayer.NickName;
-        topUserLevelText.text = playerStats.Level.ToString();
     }
 
     public void MovePanel(ScrollPanel targetPanel)
@@ -81,7 +50,6 @@ public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
 
     public IEnumerator ScrollToTargetPanel(ScrollPanel targetPanel)
     {
-        isScroll = true;
         float scrollTime = 0f;
         while (scrollTime < Constant.TIME_SCROLL)
         {
@@ -90,7 +58,6 @@ public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
             yield return null;
         }
         scrollbar.value = targetPanel.ScrollPosition;
-        isScroll = false;
 
         currentPanel = targetPanel;
     }

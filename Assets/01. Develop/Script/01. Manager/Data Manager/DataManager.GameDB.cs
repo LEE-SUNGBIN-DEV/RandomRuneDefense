@@ -1,17 +1,20 @@
 #define DEBUG_MODE
 
 using System.Collections;
+using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.EconomyModels;
+
 
 public partial class DataManager
 {
     #region Event
-    public static UnityAction onLoadDatabase;
+    public static event UnityAction onLoadDatabase;
     #endregion
 
     [Header("Game Database")]
@@ -23,18 +26,20 @@ public partial class DataManager
 
     [SerializeField] private List<Enemy> enemyDatabase;
     [SerializeField] private Dictionary <string, Enemy> enemyDatabaseDictionary = new Dictionary<string, Enemy>();
-    
+
+
     #region Game Database
-    public void RequestAllDatabase()
+    // ! 게임 실행시 게임 DB를 받아오는 작업
+    public IEnumerator RequestGameDatabase()
     {
 #if DEBUG_MODE
         Debug.Log("게임 데이터를 요청합니다.");
 #endif
         UIManager.Instance.ShowNetworkState("게임 데이터를 요청합니다.");
-        RequestCardDatabase();
-        RequestRuneDatabase();
-        GetPlayerData();
+        yield return Function.WaitPlayFabAPI(RequestCardDatabase);
+        yield return Function.WaitPlayFabAPI(RequestRuneDatabase);
     }
+
     public void RequestCardDatabase()
     {
 #if DEBUG_MODE
@@ -46,27 +51,28 @@ public partial class DataManager
             CatalogVersion = Constant.SERVER_CATALOG_VERSION_CARD
         };
 
-        PlayFabClientAPI.GetCatalogItems(request, UpdateCardDatabase, OnDataRequestError);
-    }
-    public void UpdateCardDatabase(GetCatalogItemsResult result)
-    {
-        for (int i = 0; i < result.Catalog.Count; ++i)
+        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
         {
-            string jsonString = result.Catalog[i].CustomData;
+            cardDatabase.Clear();
+            for (int i = 0; i < result.Catalog.Count; ++i)
+            {
+                string jsonString = result.Catalog[i].CustomData;
 
-            Card newCard = new Card();
-            newCard.LoadItem(jsonString);
-            cardDatabase.Add(newCard);
-            cardDatabaseDictionary.Add(newCard.ItemName, newCard);
-        }
+                Card newCard = new Card();
+                newCard.LoadItem(jsonString);
+                cardDatabase.Add(newCard);
+                cardDatabaseDictionary.Add(newCard.ItemName, newCard);
+            }
 
 #if DEBUG_MODE
-        Debug.Log("카드 데이터를 불러왔습니다.");
+            Debug.Log("카드 데이터를 불러왔습니다.");
 #endif
-        UIManager.Instance.ShowNetworkState("카드 데이터를 불러왔습니다.");
+            onLoadDatabase?.Invoke();
+            UIManager.Instance.ShowNetworkState("카드 데이터를 불러왔습니다.");
+            Function.isAsyncOperationComplete = true;
+        }, OnDataRequestError);
     }
     #endregion
-
 
     // ! 룬 정보 요청
     public void RequestRuneDatabase()
@@ -74,6 +80,48 @@ public partial class DataManager
 #if DEBUG_MODE
         Debug.Log("룬 데이터를 요청합니다.");
 #endif
+        UIManager.Instance.ShowNetworkState("룬 데이터를 요청합니다.");
+        GetCatalogItemsRequest request = new GetCatalogItemsRequest()
+        {
+            CatalogVersion = Constant.SERVER_CATALOG_VERSION_RUNE
+        };
+
+        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
+        {
+            //
+
+#if DEBUG_MODE
+            Debug.Log("룬 데이터를 불러왔습니다.");
+#endif
+            onLoadDatabase?.Invoke();
+            UIManager.Instance.ShowNetworkState("룬 데이터를 불러왔습니다.");
+            Function.isAsyncOperationComplete = true;
+        }, OnDataRequestError);
+    }
+
+    // ! 상점 정보 요청
+    public void RequestShopDatabase()
+    {
+#if DEBUG_MODE
+        Debug.Log("상점 데이터를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("상점 데이터를 요청합니다.");
+        GetCatalogItemsRequest request = new GetCatalogItemsRequest()
+        {
+            CatalogVersion = Constant.SERVER_CATALOG_VERSION_GOLDBOX_SHOP
+        };
+
+        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
+        {
+            //
+
+#if DEBUG_MODE
+            Debug.Log("상점 데이터를 불러왔습니다.");
+#endif
+            onLoadDatabase?.Invoke();
+            UIManager.Instance.ShowNetworkState("상점 데이터를 불러왔습니다.");
+            Function.isAsyncOperationComplete = true;
+        }, OnDataRequestError);
     }
 
     #region Property

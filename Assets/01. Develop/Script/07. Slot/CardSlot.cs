@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 public class CardSlot : Slot
 {
@@ -12,6 +13,7 @@ public class CardSlot : Slot
     [SerializeField] private Card card;
     [SerializeField] private Image cardImage;
     [SerializeField] private Button cardButton;
+    [SerializeField] private TextMeshProUGUI cardName;
 
     public bool IsEmpty()
     {
@@ -21,12 +23,18 @@ public class CardSlot : Slot
     {
         Card = requestCard;
         CardImage.sprite = Card.ItemSprite;
+        CardName.text = requestCard.ItemName;
+
+        CardImage.color = Function.SetAlpha(CardImage.color, 1f);
     }
 
     public override void ClearSlot()
     {
         Card = null;
         CardImage.sprite = null;
+        CardName.text = null;
+
+        CardImage.color = Function.SetAlpha(CardImage.color, 0f);
     }
 
     public void OnClickCardSlot()
@@ -40,17 +48,13 @@ public class CardSlot : Slot
 
     public void ActiveCardSlot()
     {
-        Color color = CardImage.color;
-        color.a = Constant.COLOR_ALPHA_OPACITY;
-        cardImage.color = color;
+        cardImage.color = Color.white;
         cardButton.interactable = true;
     }
 
     public void InactiveCardSlot()
     {
-        Color color = CardImage.color;
-        color.a = Constant.COLOR_ALPHA_TRANSLUCENT;
-        cardImage.color = color;
+        cardImage.color = Color.gray;
         cardButton.interactable = false;
     }
 
@@ -63,6 +67,10 @@ public class CardSlot : Slot
     public Image CardImage
     {
         get => cardImage;
+    }
+    public TextMeshProUGUI CardName
+    {
+        get => cardName;
     }
     #endregion
 }

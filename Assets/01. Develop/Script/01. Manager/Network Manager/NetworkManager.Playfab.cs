@@ -16,6 +16,7 @@ public partial class NetworkManager
 
     [Header("Playfab Settings")]
     private string playFabUserId;
+    private IEnumerator loginCoroutine;
 
     #region Playfab API
     #region Login
@@ -52,13 +53,17 @@ public partial class NetworkManager
         customAuthenticationValues.AddAuthParameter("token", obj.PhotonCustomAuthenticationToken);
         PhotonNetwork.AuthValues = customAuthenticationValues;
 
-        OnLogin();
+        loginCoroutine = OnLogin();
+        StartCoroutine(loginCoroutine);
     }
 
-    private void OnLogin()
+    private IEnumerator OnLogin()
     {
         UIManager.Instance.ShowNetworkState("로그인에 성공하였습니다.");
-        DataManager.Instance.RequestAllDatabase();
+        //yield return Function.WaitPlayFabAPI(DataManager.Instance.SetPlayerData);
+        yield return DataManager.Instance.RequestGameDatabase();
+        yield return DataManager.Instance.RequestPlayerDatabase();
+
         onLogin(true);
         Connect();
     }
@@ -86,6 +91,7 @@ public partial class NetworkManager
 
     private void OnPlayFabError(PlayFabError obj)
     {
+        StopCoroutine(loginCoroutine);
         UIManager.Instance.ShowNetworkState("오류가 발생하였습니다.");
         Debug.Log(obj.GenerateErrorReport());
         onLogin(false);

@@ -14,6 +14,11 @@ public class PlayerCollections
 
     public void OnLoadPlayerCollections()
     {
+        CollectedCardNames = collectedCardNames;
+        if (onPlayerCollectionsChanged != null)
+        {
+            onPlayerCollectionsChanged(this);
+        }
     }
 
     #region Property

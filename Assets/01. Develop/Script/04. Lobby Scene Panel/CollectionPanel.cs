@@ -10,6 +10,9 @@ public class CollectionPanel : ScrollPanel
 
     private void Awake()
     {
+        PlayerCollections.onPlayerCollectionsChanged -= RefreshCollections;
+        PlayerCollections.onPlayerCollectionsChanged += RefreshCollections;
+
         cardDatabase = DataManager.Instance.CardDatabase;
         collectionDictionary = new Dictionary<string, CardSlot>();
 
@@ -25,13 +28,21 @@ public class CollectionPanel : ScrollPanel
 
     private void OnEnable()
     {
-        PlayerInventory playerInventory = DataManager.Instance.PlayerData.PlayerInventory;
+        RefreshCollections(DataManager.Instance.PlayerData.PlayerCollections);
+    }
 
-        for (int i = 0; i < playerInventory.ItemNames.Count; ++i)
+    private void OnDestroy()
+    {
+        PlayerCollections.onPlayerCollectionsChanged -= RefreshCollections;
+    }
+
+    public void RefreshCollections(PlayerCollections playerCollections)
+    {
+        for (int i = 0; i < playerCollections.CollectedCardNames.Count; ++i)
         {
-            if (playerInventory.ItemNames[i] != null)
+            if (playerCollections.CollectedCardNames[i] != null)
             {
-                ActiveCollectionSlot(collectionDictionary[playerInventory.ItemNames[i]]);
+                ActiveCollectionSlot(collectionDictionary[playerCollections.CollectedCardNames[i]]);
             }
         }
     }
