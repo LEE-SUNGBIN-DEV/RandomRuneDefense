@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         {
             health = value;
             HealthBar.GetComponent<Image>().fillAmount = health / MaxHealth;
-            if(Health <= 0 && gameObject.activeSelf)
+            if(Health < 0 && gameObject.activeSelf)
             {
                 Die();
             }
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnDisable()
     {
-        MaxHealth += 10;                
+        MaxHealth += 1;                
         distance = 0;                
                 
         EnemyObjectPool.Instance.enemys.Remove(this);

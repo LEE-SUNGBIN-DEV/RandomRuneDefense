@@ -43,10 +43,6 @@ public class RuneManager : Singleton<RuneManager>
     #region RUNE_POWER_UP
     public void WindPowerUP()
     {
-
-        runeDictionary[Constant.WIND_RUNE].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
-        WindRuneCost += Constant.POWER_UP_COST;
-        OnGameScene.Inst.TotalSP -= WindRuneCost;
         // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= WindRuneCost)
         {
@@ -56,94 +52,104 @@ public class RuneManager : Singleton<RuneManager>
             {
                 for (int j = 0; j < lines[i].tiles.Length; j++)
                 {
-                    Debug.Log(i +""+ j);
                     if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.WIND)
-                    {            
-                        
+                    {
                         lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
                     }
                 }
             }
+
+            runeDictionary[Constant.WIND_RUNE].GetComponent<WindRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+            WindRuneCost += Constant.POWER_UP_COST;
+            OnGameScene.Inst.TotalSP -= WindRuneCost;
         }
     }
     public void IcePowerUP()
-    {
+    {        
+        // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= IceRuneCost)
         {
-            if (FindObjectOfType<IceRune>())
-            {
-                var windRune = GameObject.FindGameObjectsWithTag("Ice");
+            Line[] lines = Board.Inst.lines;
 
-                for (int i = 0; i < windRune.Length; i++)
-                {
-                    windRune[i].GetComponent<IceRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                for (int j = 0; j < lines[i].tiles.Length; j++)
+                {                   
+                    if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.ICE)
+                    {
+                        lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
+                    }
                 }
             }
-
             runeDictionary[Constant.ICE_RUNE].GetComponent<IceRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
-
             IceRuneCost += Constant.POWER_UP_COST;
-            OnGameScene.Inst.TotalSP -= WindRuneCost;
+            OnGameScene.Inst.TotalSP -= IceRuneCost;
         }
     }
     public void LightningPowerUP()
-    {
+    {        
+        // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= LightningRuneCost)
         {
-            if (FindObjectOfType<LightningRune>())
-            {
-                var windRune = GameObject.FindGameObjectsWithTag("Lightning");
+            Line[] lines = Board.Inst.lines;
 
-                for (int i = 0; i < windRune.Length; i++)
-                {
-                    windRune[i].GetComponent<LightningRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                for (int j = 0; j < lines[i].tiles.Length; j++)
+                {                   
+                    if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.LIGHTNING)
+                    {
+                        lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
+                    }
                 }
             }
-
             runeDictionary[Constant.LIGHTNING_RUNE].GetComponent<LightningRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
-
             LightningRuneCost += Constant.POWER_UP_COST;
-            OnGameScene.Inst.TotalSP -= WindRuneCost;
+            OnGameScene.Inst.TotalSP -= LightningRuneCost;
         }
     }
     public void FirePowerUP()
-    {
+    {        
+        // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= FireRuneCost)
         {
-            if (FindObjectOfType<FireRune>())
-            {
-                var windRune = GameObject.FindGameObjectsWithTag("Fire");
+            Line[] lines = Board.Inst.lines;
 
-                for (int i = 0; i < windRune.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
+            {
+                for (int j = 0; j < lines[i].tiles.Length; j++)
                 {
-                    windRune[i].GetComponent<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                    if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.FIRE)
+                    {
+                        lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
+                    }
                 }
             }
-
-            runeDictionary[Constant.FIRE_RUNE].GetComponent<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;   
-            
+            runeDictionary[Constant.FIRE_RUNE].GetComponent<FireRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
             FireRuneCost += Constant.POWER_UP_COST;
-            OnGameScene.Inst.TotalSP -= WindRuneCost;
+            OnGameScene.Inst.TotalSP -= FireRuneCost;
         }
     }
     public void PoisonPowerUP()
-    {
+    {      
+        // sp 관리를 위한 onGameScene.TotalSp
         if (OnGameScene.Inst.TotalSP >= PoisonRuneCost)
         {
-            if (FindObjectOfType<PoisonRune>())
-            {
-                var windRune = GameObject.FindGameObjectsWithTag("Poison");
+            Line[] lines = Board.Inst.lines;
 
-                for (int i = 0; i < windRune.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
+            {
+                for (int j = 0; j < lines[i].tiles.Length; j++)
                 {
-                    windRune[i].GetComponent<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
+                    if (lines[i].tiles[j].rune != null && lines[i].tiles[j].rune.RuneType == RUNE_TYPE.POISON)
+                    {
+                        lines[i].tiles[j].rune.RuneDamage += Constant.POWER_UP_DAMAGE;
+                    }
                 }
             }
-
             runeDictionary[Constant.POISON_RUNE].GetComponent<PoisonRune>().RuneDamage += Constant.POWER_UP_DAMAGE;
-
             PoisonRuneCost += Constant.POWER_UP_COST;
-            OnGameScene.Inst.TotalSP -= WindRuneCost;
+            OnGameScene.Inst.TotalSP -= PoisonRuneCost;
         }
     }
     #endregion

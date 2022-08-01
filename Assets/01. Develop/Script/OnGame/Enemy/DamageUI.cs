@@ -44,7 +44,7 @@ public class DamageUI : MonoBehaviour
 
         // 점점 올라가며 페이드 아웃
         totalTime = 0;
-        while (totalTime <= 0.4f)
+        while (totalTime <= 0.3f)
         {
             if (target != null)
             {

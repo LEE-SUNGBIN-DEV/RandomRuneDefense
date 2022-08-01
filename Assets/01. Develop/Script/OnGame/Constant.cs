@@ -32,7 +32,7 @@ public static partial class Constant
 
     public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;
-    public static readonly int BOSS_STAGE = 2;
+    public static readonly int BOSS_STAGE = 5;
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {

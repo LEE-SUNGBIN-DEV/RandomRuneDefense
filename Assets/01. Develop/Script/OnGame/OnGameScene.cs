@@ -41,14 +41,11 @@ public class OnGameScene : MonoBehaviour
         get => totalSp;
         set
         {
-            if(totalSp < 0)
+            totalSp = value;
+            if (totalSp < 0)
             {
-                totalSp = 0;
+                value = 0;               
             }
-            else
-            {
-                totalSp = value;
-            }            
             total_SP_TMP.text = value.ToString();           
         }
     }
@@ -155,7 +152,7 @@ public class OnGameScene : MonoBehaviour
 
     void GameStartSp()
     {
-        TotalSP = 10000;
+        TotalSP = 100;
         SpawnSP = 10;
     }
     void StageStart()
