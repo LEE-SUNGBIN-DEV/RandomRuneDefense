@@ -579,7 +579,7 @@ MonoBehaviour:
   Size: 1
   HorizontalSpeed: 0.4
   VerticalSpeed: 0
-  Density: 0
+  Density: 5
   Shader: {fileID: 4800000, guid: 00e888b8dfe2842c1a10e04b2d083b64, type: 3}
 --- !u!1001 &142995189
 PrefabInstance:

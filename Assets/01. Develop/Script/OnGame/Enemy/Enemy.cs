@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine; 
 using UnityEngine.UI;
+using Photon.Pun;
 
+//IPunObservable
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float health;
@@ -14,6 +16,17 @@ public class Enemy : MonoBehaviour
      public float distance;
     
     public GameObject HealthBar;
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(Health);
+    //    }
+    //    else
+    //    {
+    //        this.Health = (float)stream.ReceiveNext();
+    //    }
+    //}
 
     public virtual void Awake()
     {

@@ -81,11 +81,22 @@ public class OnGameScene : MonoBehaviour
     {        
         BackGroundColor = 255;
         enemyObjectPool = EnemyObjectPool.Instance;
-        GameStartSp();        
+        GameStartSp();       
     }
 
     private void Update()
-    {       
+    {
+        if(!isDie)
+        {
+            d2FogsPE.Density -= Time.deltaTime * 2;            
+        }
+        if(isDie)
+        {
+            d2FogsPE.Density += Time.deltaTime * 2;
+            return;
+        }
+                
+
         StageStart();       
         if (enemyObjectPool.bossStage)
         {
