@@ -75,6 +75,7 @@ public static partial class Constant
         new Vector2(-0.05f, 3.5f),
         new Vector2(3.4f, 0),
      };
+    
     // CAMERA-------------------------------------------------------------------------------
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
     {

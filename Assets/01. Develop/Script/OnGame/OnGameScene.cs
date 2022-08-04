@@ -20,14 +20,12 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] SpriteRenderer backGround; // 배경
     [SerializeField] UB.Simple2dWeatherEffects.Standard.D2FogsPE d2FogsPE;
 
-    public float backGroundColor;    
-
     EnemyObjectPool enemyObjectPool;
+    public float backGroundColor;    
     public int LineEffectValue;
 
     int totalSp; // 전체 sp
     int spawnSP; // 스폰 sp
-
     bool isDie; // 죽음
 
     //-----------CAMERA SHAKE--------------//
@@ -96,7 +94,6 @@ public class OnGameScene : MonoBehaviour
             return;
         }
                 
-
         StageStart();       
         if (enemyObjectPool.bossStage)
         {
