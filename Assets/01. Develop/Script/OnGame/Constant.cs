@@ -42,7 +42,6 @@ public static partial class Constant
         new Vector2(2.46f, -0.5f), 
         new Vector2(2.46f, -1.5f)
     };
-
     public static readonly float BIG_ENEMY_MOVE_SPEED = 0.6f;
     public static readonly float SPEED_ENEMY_MOVE_SPEED = 0.9f;
     public static readonly float BOSS_ENEMY_MOVE_SPEED = 0.4f;
@@ -67,8 +66,7 @@ public static partial class Constant
     public static readonly int POISON_TIME = 5;
     public static readonly int SKILL_TIME = 3;
 
-    // SUN MOVE
-
+    // SUN MOVE-------------------------------------------------------------------------------
     public static readonly Vector2[] SUN_WAYS = new Vector2[]
      {
         new Vector2(-3.4f, 0f),
