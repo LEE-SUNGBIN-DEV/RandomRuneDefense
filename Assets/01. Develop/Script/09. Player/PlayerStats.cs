@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class PlayerStats
+public class PlayerStats : IStats
 {
     #region Event
     public static event UnityAction<PlayerStats> onPlayerStatsChanged;
@@ -12,8 +12,7 @@ public class PlayerStats
 
     [SerializeField] private int level;
     [SerializeField] private float experience;
-    [SerializeField] private float normalAttackPower;
-    [SerializeField] private float bossAttackPower;
+    [SerializeField] private float attackPower;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float criticalChance;
     [SerializeField] private float criticalDamage;
@@ -43,8 +42,7 @@ public class PlayerStats
 
     public void EquipCard(Card requestCard)
     {
-        NormalAttackPower += requestCard.NormalAttackPower;
-        BossAttackPower += requestCard.BossAttackPower;
+        AttackPower += requestCard.AttackPower;
         AttackSpeed += requestCard.AttackSpeed;
         CriticalChance += requestCard.CriticalChance;
         CriticalDamage += requestCard.CriticalDamage;
@@ -55,8 +53,7 @@ public class PlayerStats
 
     public void ReleaseCard(Card requestCard)
     {
-        NormalAttackPower -= requestCard.NormalAttackPower;
-        BossAttackPower -= requestCard.BossAttackPower;
+        AttackPower -= requestCard.AttackPower;
         AttackSpeed -= requestCard.AttackSpeed;
         CriticalChance -= requestCard.CriticalChance;
         CriticalDamage -= requestCard.CriticalDamage;
@@ -91,24 +88,12 @@ public class PlayerStats
         }
     }
     #region Property
-    public float NormalAttackPower
+    public float AttackPower
     {
-        get => normalAttackPower;
+        get => attackPower;
         set
         {
-            normalAttackPower = value;
-            if (onPlayerStatsChanged != null)
-            {
-                onPlayerStatsChanged(this);
-            }
-        }
-    }
-    public float BossAttackPower
-    {
-        get => bossAttackPower;
-        set
-        {
-            bossAttackPower = value;
+            attackPower = value;
             if (onPlayerStatsChanged != null)
             {
                 onPlayerStatsChanged(this);
