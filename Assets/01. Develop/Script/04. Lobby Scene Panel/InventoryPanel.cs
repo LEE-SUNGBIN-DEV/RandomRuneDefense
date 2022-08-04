@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class InventoryPanel : ScrollPanel
 {
+    #region Events
+    public static event UnityAction<InventoryPanel> onInventoryChanged;
+    #endregion
     [SerializeField] private EquipCardSlot equipCardSlot;
     [SerializeField] private CardSlot[] inventorySlots;
     [SerializeField] private ContentSizeFitter[] sizeFitters;
@@ -79,6 +83,8 @@ public class InventoryPanel : ScrollPanel
             sizeFitters[i].enabled = false;
             sizeFitters[i].enabled = true;
         }
+
+        onInventoryChanged?.Invoke(this);
     }
 
     public void EquipCard(Card requestCard)
@@ -88,10 +94,19 @@ public class InventoryPanel : ScrollPanel
             ReleaseCard();
         }
         equipCardSlot.EquipCard(requestCard);
+        onInventoryChanged?.Invoke(this);
     }
 
     public void ReleaseCard()
     {
         equipCardSlot.ReleaseCard();
+        onInventoryChanged?.Invoke(this);
     }
+
+    #region Property
+    public EquipCardSlot EquipCardSlot
+    {
+        get => equipCardSlot;
+    }
+    #endregion
 }

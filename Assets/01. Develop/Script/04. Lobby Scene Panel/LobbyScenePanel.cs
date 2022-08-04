@@ -80,4 +80,31 @@ public class LobbyScenePanel : Panel, IBeginDragHandler, IEndDragHandler
             }
         }
     }
+
+    #region Property
+    public ShopPanel ShopPanel
+    {
+        get => shopPanel;
+    }
+    public InventoryPanel InventoryPanel
+    {
+        get => inventoryPanel;
+    }
+    public LobbyPanel LobbyPanel
+    {
+        get => lobbyPanel;
+    }
+    public CollectionPanel CollectionPanel
+    {
+        get => collectionPanel;
+    }
+    public RunePanel RunePanel
+    {
+        get => runePanel;
+    }
+    public TopUserPanel TopUserPanel
+    {
+        get => topUserPanel;
+    }
+    #endregion
 }

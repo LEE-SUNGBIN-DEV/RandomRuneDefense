@@ -5,15 +5,14 @@ using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
 
 [System.Serializable]
-public class Card : Item<Card>
+public class Card : Item<Card>, IStats
 {
     #region Events
     public static event UnityAction<Card> onEquipCard;
     public static event UnityAction<Card> onReleaseCard;
     #endregion
 
-    [SerializeField] private float normalAttackPower;
-    [SerializeField] private float bossAttackPower;
+    [SerializeField] private float attackPower;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float criticalChance;
     [SerializeField] private float criticalDamage;
@@ -26,8 +25,7 @@ public class Card : Item<Card>
         base.LoadItem(jsonString);
         JObject jObject = JObject.Parse(jsonString);
 
-        normalAttackPower = float.Parse(jObject["normalAttackPower"].ToString());
-        bossAttackPower = float.Parse(jObject["bossAttackPower"].ToString());
+        attackPower = float.Parse(jObject["attackPower"].ToString());
         attackSpeed = float.Parse(jObject["attackSpeed"].ToString());
         criticalChance = float.Parse(jObject["criticalChance"].ToString());
         criticalDamage = float.Parse(jObject["criticalDamage"].ToString());
@@ -47,37 +45,40 @@ public class Card : Item<Card>
     }
 
     #region Property
-    public float NormalAttackPower
+    public float AttackPower
     {
-        get => normalAttackPower;
-    }
-    public float BossAttackPower
-    {
-        get => bossAttackPower;
+        get => attackPower;
+        set => attackPower = value;
     }
     public float AttackSpeed
     {
         get => attackSpeed;
+        set => attackSpeed = value;
     }
     public float CriticalChance
     {
         get => criticalChance;
+        set => criticalChance = value;
     }
     public float CriticalDamage
     {
         get => criticalDamage;
+        set => criticalDamage = value;
     }
     public float DiceControl
     {
         get => diceControl;
+        set => diceControl = value;
     }
     public float SpAcquisition
     {
         get => spAcquisition;
+        set => spAcquisition = value;
     }
     public float SpUsage
     {
         get => spUsage;
+        set => spUsage = value;
     }
     #endregion
 }

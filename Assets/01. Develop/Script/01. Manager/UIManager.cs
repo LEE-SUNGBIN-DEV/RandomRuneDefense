@@ -12,6 +12,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameScenePanel gameScenePanel;
     [SerializeField] private SystemNoticePanel systemNoticePanel;
     [SerializeField] private CardInformationPanel cardInformationPanel;
+    [SerializeField] private UserInformationPanel userInformationPanel;
     [SerializeField] private NetworkStatePanel networkStatePanel;
 
     public override void Initialize()
@@ -77,6 +78,10 @@ public class UIManager : Singleton<UIManager>
     public CardInformationPanel CardInformationPanel
     {
         get => cardInformationPanel;
+    }
+    public UserInformationPanel UserInformationPanel
+    {
+        get => userInformationPanel;
     }
     public NetworkStatePanel NetworkStatePanel
     {

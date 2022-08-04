@@ -20,6 +20,9 @@ public class CardInformationPanel : Panel
     [SerializeField] private TextMeshProUGUI cardDescriptionText;
     [SerializeField] private Image cardImage;
 
+    [Header("Card Stat Panel")]
+    [SerializeField] private StatPanel cardStatPanel;
+
     [Header("Button")]
     [SerializeField] private Button equipButton;
     [SerializeField] private Button closeButton;
@@ -53,6 +56,8 @@ public class CardInformationPanel : Panel
             cardDescriptionText.text = card.ItemDescription;
             cardImage.sprite = card.ItemSprite;
             cardImage.color = Function.SetAlpha(cardImage.color, 1f);
+
+            cardStatPanel.SetStatPanel(card);
 
             equipButton.onClick.RemoveAllListeners();
             if (cardSlot is EquipCardSlot)
