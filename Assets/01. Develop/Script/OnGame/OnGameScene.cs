@@ -14,9 +14,9 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] TMP_Text total_SP_TMP; // 글씨 표시
     [SerializeField] TMP_Text spawn_SP_TMP; // 글자 표시
 
-    [SerializeField] GameObject sun; // 태양
+    public GameObject sun; // 태양
     [SerializeField] float sunMoveSpeed; // 태양 스피드
-    [SerializeField] int sunWayNum; // 태양 웨이 포인트
+    public int sunWayNum; // 태양 웨이 포인트
     [SerializeField] SpriteRenderer backGround; // 배경
     [SerializeField] UB.Simple2dWeatherEffects.Standard.D2FogsPE d2FogsPE;
 
@@ -83,36 +83,37 @@ public class OnGameScene : MonoBehaviour
     }
 
     private void Update()
-    {
-        if(!isDie)
-        {
-            d2FogsPE.Density -= Time.deltaTime * 2;            
-        }
-        if(isDie)
-        {
-            d2FogsPE.Density += Time.deltaTime * 2;
-            return;
-        }
-         
-        // 마스터 만 함수 실행
-        StageStart();       
-        if (enemyObjectPool.bossStage)
-        {
-            sunWayNum = 2;
-            BackGroundColor -= Time.deltaTime * 50;            
-        }       
-        else
-        {
-            sunWayNum = 1;
-            BackGroundColor += Time.deltaTime * 50;
-            sun.gameObject.SetActive(true);
-        }
-
-        if(sun.activeInHierarchy)
-        {
-            SunMove(sunWayNum);            
-        }
-        backGround.color = new Color(BackGroundColor / 255f, BackGroundColor / 255f, BackGroundColor / 255f);
+    {     
+            if (!isDie)
+            {
+                d2FogsPE.Density -= Time.deltaTime * 2;
+            }
+            if (isDie)
+            {
+                d2FogsPE.Density += Time.deltaTime * 2;
+                return;
+            }       
+            // 마스터 만 함수 실행
+            /*
+            StageStart();
+            if (enemyObjectPool.bossStage)
+            {
+                sunWayNum = 2;
+                BackGroundColor -= Time.deltaTime * 50;
+            }
+            else
+            {
+                sunWayNum = 1;
+                BackGroundColor += Time.deltaTime * 50;
+                sun.gameObject.SetActive(true);
+            }
+            */
+            if (sun.activeInHierarchy)
+            {
+                SunMove(sunWayNum);
+            }
+            backGround.color = new Color(BackGroundColor / 255f, BackGroundColor / 255f, BackGroundColor / 255f);
+        
     }
 
     private void OnEnable()
@@ -165,7 +166,7 @@ public class OnGameScene : MonoBehaviour
         SpawnSP = 10;
     }
     
-    void StageStart()
+    public void StageStart()
     {
         if (enemyObjectPool.bossStage || !enemyObjectPool.endStage)
         {            

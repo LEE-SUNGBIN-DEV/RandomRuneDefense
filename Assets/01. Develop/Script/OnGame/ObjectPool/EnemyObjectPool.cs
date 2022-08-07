@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using System.Linq;
 
 public class EnemyObjectPool : MonoBehaviour
@@ -37,6 +38,22 @@ public class EnemyObjectPool : MonoBehaviour
     }
     private void Update()
     {
+       //if (PhotonNetwork.IsMasterClient)
+       //{
+            OnGameScene.Inst.StageStart();
+            if (bossStage)
+            {
+                OnGameScene.Inst.sunWayNum = 2;
+                OnGameScene.Inst.BackGroundColor -= Time.deltaTime * 50;
+            }
+            else
+            {
+                OnGameScene.Inst.sunWayNum = 1;
+                OnGameScene.Inst.BackGroundColor += Time.deltaTime * 50;
+                OnGameScene.Inst.sun.gameObject.SetActive(true);
+
+            }
+        //}
         ArrangeEnemies();
     }
     public void InsertQueue(GameObject p_object)
