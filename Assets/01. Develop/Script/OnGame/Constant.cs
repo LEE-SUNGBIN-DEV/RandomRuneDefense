@@ -5,9 +5,9 @@ using UnityEngine;
 
 public static partial class Constant
 {
+    #region DICE
     public static readonly float DICE_Y_VALUE = -5;
 
-    // DICE--------------------------------------------------------------------------------
     public static readonly int DICE_MAX_VALUE = 6;
     public static readonly float DICE_ROLL_TIME = 0.7f;
     public static readonly float DICE_ROLL_END_TIME = 1f;
@@ -24,15 +24,15 @@ public static partial class Constant
     public static readonly Vector2 TILE_CENTER_OFFSET = new Vector2(0.25f, 0.25f);
 
     public static readonly Vector3 SLIDER_EFFECT_POSITION = new Vector3(-1.4f, -2.4f, -5);
-    
-    // ENEMY--------------------------------------------------------------------------------
+    #endregion
 
-    // public static readonly Vector2 SPAWN_POSITION = new Vector2(-2.45f, 0.66f);   
+    #region ENEMY
+
     public static readonly float NEXT_SPAWN_WAIT_TIME = 2.5f;
 
     public static int BOSS_SKILL_COUNT = 1;
     public static readonly float BOSS_SKILL_COOL_TIME = 2f;
-    public static readonly int BOSS_STAGE = 2;
+    public static readonly int BOSS_STAGE = 5;
 
     public static readonly Vector2[] ENEMY_WAYS = new Vector2[]
     {
@@ -42,12 +42,12 @@ public static partial class Constant
         new Vector2(2.46f, -0.5f), 
         new Vector2(2.46f, -1.5f)
     };
-
     public static readonly float BIG_ENEMY_MOVE_SPEED = 0.6f;
     public static readonly float SPEED_ENEMY_MOVE_SPEED = 0.9f;
     public static readonly float BOSS_ENEMY_MOVE_SPEED = 0.4f;
+#endregion
 
-    // RUNE--------------------------------------------------------------------------------
+    #region RUNE
 
     public static readonly int WIND_RUNE = 0;
     public static readonly int ICE_RUNE = 1;
@@ -66,16 +66,19 @@ public static partial class Constant
 
     public static readonly int POISON_TIME = 5;
     public static readonly int SKILL_TIME = 3;
+    #endregion
 
-    // SUN MOVE
-
+    #region SUN MOVE
     public static readonly Vector2[] SUN_WAYS = new Vector2[]
      {
         new Vector2(-3.4f, 0f),
         new Vector2(-0.05f, 3.5f),
         new Vector2(3.4f, 0),
      };
-    // CAMERA-------------------------------------------------------------------------------
+    #endregion
+
+    #region ShakeCamera
+
     public static IEnumerator ShakeCamera(this Camera shakecamera, float shakeTime, float shakeIntensity)
     {
         Vector3 offset;
@@ -88,4 +91,5 @@ public static partial class Constant
             shakecamera.transform.position -= offset;
         }
     }
+    #endregion
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
+
 public class OnGameScene : MonoBehaviour
 {
     public static OnGameScene Inst { get; private set; }
@@ -17,15 +18,14 @@ public class OnGameScene : MonoBehaviour
     [SerializeField] float sunMoveSpeed; // 태양 스피드
     [SerializeField] int sunWayNum; // 태양 웨이 포인트
     [SerializeField] SpriteRenderer backGround; // 배경
-    public float backGroundColor;
-
+    [SerializeField] UB.Simple2dWeatherEffects.Standard.D2FogsPE d2FogsPE;
 
     EnemyObjectPool enemyObjectPool;
+    public float backGroundColor;    
     public int LineEffectValue;
 
     int totalSp; // 전체 sp
     int spawnSP; // 스폰 sp
-
     bool isDie; // 죽음
 
     //-----------CAMERA SHAKE--------------//
@@ -39,14 +39,11 @@ public class OnGameScene : MonoBehaviour
         get => totalSp;
         set
         {
-            if(totalSp < 0)
+            totalSp = value;
+            if (totalSp < 0)
             {
-                totalSp = 0;
+                value = 0;               
             }
-            else
-            {
-                totalSp = value;
-            }            
             total_SP_TMP.text = value.ToString();           
         }
     }
@@ -79,14 +76,24 @@ public class OnGameScene : MonoBehaviour
     #endregion
 
     void Start()
-    {
+    {        
         BackGroundColor = 255;
         enemyObjectPool = EnemyObjectPool.Instance;
-        GameStartSp();        
+        GameStartSp();       
     }
 
     private void Update()
     {
+        if(!isDie)
+        {
+            d2FogsPE.Density -= Time.deltaTime * 2;            
+        }
+        if(isDie)
+        {
+            d2FogsPE.Density += Time.deltaTime * 2;
+            return;
+        }
+                
         StageStart();       
         if (enemyObjectPool.bossStage)
         {
@@ -146,13 +153,14 @@ public class OnGameScene : MonoBehaviour
         if (System.Array.TrueForAll(HeartImages, x => x.activeSelf == false))
         {
             isDie = true;
+            //d2FogsPE.EndSmoke();
             print("게임 오바");
         }
     }
 
     void GameStartSp()
     {
-        TotalSP = 10000;
+        TotalSP = 100;
         SpawnSP = 10;
     }
     void StageStart()
