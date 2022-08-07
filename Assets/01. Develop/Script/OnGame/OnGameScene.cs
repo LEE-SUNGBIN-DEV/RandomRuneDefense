@@ -93,7 +93,8 @@ public class OnGameScene : MonoBehaviour
             d2FogsPE.Density += Time.deltaTime * 2;
             return;
         }
-                
+         
+        // 마스터 만 함수 실행
         StageStart();       
         if (enemyObjectPool.bossStage)
         {
@@ -163,6 +164,7 @@ public class OnGameScene : MonoBehaviour
         TotalSP = 100;
         SpawnSP = 10;
     }
+    
     void StageStart()
     {
         if (enemyObjectPool.bossStage || !enemyObjectPool.endStage)
