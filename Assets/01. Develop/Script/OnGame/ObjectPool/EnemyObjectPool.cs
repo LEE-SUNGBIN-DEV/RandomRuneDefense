@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using System.Linq;
 
 public class EnemyObjectPool : MonoBehaviour
@@ -36,7 +37,8 @@ public class EnemyObjectPool : MonoBehaviour
         }        
     }
     private void Update()
-    {
+    {     
+        
         ArrangeEnemies();
     }
     public void InsertQueue(GameObject p_object)
