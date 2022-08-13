@@ -16,6 +16,7 @@ public class InventoryPanel : ScrollPanel
 
     private void Awake()
     {
+        sizeFitters = GetComponentsInChildren<ContentSizeFitter>();
         CardInformationPanel.onEquipCard -= EquipCard;
         CardInformationPanel.onEquipCard += EquipCard;
 
@@ -47,14 +48,6 @@ public class InventoryPanel : ScrollPanel
         PlayerInventory.onLoadPlayerInventory -= RefreshInventory;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            RefreshInventory(DataManager.Instance.PlayerData.PlayerInventory);
-        }
-    }
-
     public void RefreshInventory(PlayerInventory playerInventory)
     {
         var cardDatabase = DataManager.Instance.CardDatabaseDictionary;
@@ -82,6 +75,7 @@ public class InventoryPanel : ScrollPanel
         {
             sizeFitters[i].enabled = false;
             sizeFitters[i].enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)sizeFitters[i].transform);
         }
 
         onInventoryChanged?.Invoke(this);

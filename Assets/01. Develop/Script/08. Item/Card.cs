@@ -23,8 +23,9 @@ public class Card : Item<Card>, IStats
     public override void LoadItem(string jsonString)
     {
         base.LoadItem(jsonString);
-        JObject jObject = JObject.Parse(jsonString);
+        ItemSprite = ResourceManager.Instance.CardResourceDictionary[ItemName].itemSprite;
 
+        JObject jObject = JObject.Parse(jsonString);
         attackPower = float.Parse(jObject["attackPower"].ToString());
         attackSpeed = float.Parse(jObject["attackSpeed"].ToString());
         criticalChance = float.Parse(jObject["criticalChance"].ToString());

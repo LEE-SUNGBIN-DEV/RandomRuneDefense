@@ -19,15 +19,13 @@ public partial class Constant
     // SERVER CATALOG
     public static readonly string SERVER_CATALOG_VERSION_CARD = "Card";
     public static readonly string SERVER_CATALOG_VERSION_RUNE = "Rune";
-    public static readonly string SERVER_CATALOG_VERSION_GOLDBOX_SHOP = "GoldBoxShop";
-    public static readonly string SERVER_CATALOG_VERSION_CARDBOX_SHOP = "CardBoxShop";
+    public static readonly string SERVER_CATALOG_VERSION_SHOP = "Shop";
 
     public const string SERVER_NAME_CATALOG_CLASS_CARD = "Card";
-    public const string SERVER_NAME_CATALOG_CLASS_CARDBOX = "CardBox";
-    public const string SERVER_NAME_CATALOG_CLASS_GOLDBOX = "GoldBox";
+    public const string SERVER_NAME_CATALOG_CLASS_SHOPITEM = "ShopItem";
     public const string SERVER_NAME_CATALOG_CLASS_ENEMY = "Enemy";
 
     // RESOURCE
     public static readonly string NAME_PREFAB_CARD_SLOT = "Card Slot";
-    public static readonly string NAME_PREFAB_SELL_SLOT = "Sell Slot";
+    public static readonly string NAME_PREFAB_SHOP_SLOT = "Shop Slot";
 }
