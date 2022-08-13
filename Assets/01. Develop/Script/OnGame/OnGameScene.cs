@@ -99,7 +99,7 @@ public class OnGameScene : MonoBehaviour
         WaveNum.text = enemyObjectPool.stage.ToString();
 
             // 마스터 만 함수 실행
-           if(PhotonNetwork.IsMasterClient)
+           
            StageStart();
 
             if (enemyObjectPool.bossStage)

@@ -37,8 +37,7 @@ public class EnemyObjectPool : MonoBehaviour
         }        
     }
     private void Update()
-    {     
-        
+    {            
         ArrangeEnemies();
     }
     public void InsertQueue(GameObject p_object)
