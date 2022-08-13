@@ -17,6 +17,8 @@ public partial class DataManager : Singleton<DataManager>
     public override void Initialize()
     {
         cardDatabase = new List<Card>();
+        goldShopDatabase = new List<ShopItem>();
+        crystalShopDatabase = new List<ShopItem>();
         enemyDatabase = new List<Enemy>();
     }
 

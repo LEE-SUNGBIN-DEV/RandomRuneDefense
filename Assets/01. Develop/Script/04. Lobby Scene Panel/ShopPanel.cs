@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ShopPanel : ScrollPanel
 {
-    [SerializeField] private ShopSlot[] goldBoxSlots;
-    [SerializeField] private ShopSlot[] cardBoxSlots;
+    #region Events
+    public static event UnityAction<ShopPanel> onShopChanged;
+    #endregion
+    [SerializeField] private ShopSlot[] goldShopSlots;
+    [SerializeField] private ShopSlot[] crystalShopSlots;
     [SerializeField] private ContentSizeFitter[] sizeFitters;
 
     private void Awake()
     {
+        sizeFitters = GetComponentsInChildren<ContentSizeFitter>();
         DataManager.onLoadDatabase -= RefreshShop;
         DataManager.onLoadDatabase += RefreshShop;
     }
@@ -22,15 +27,15 @@ public class ShopPanel : ScrollPanel
 
     private void OnDisable()
     {
-        for (int i = 0; i < goldBoxSlots.Length; ++i)
+        for (int i = 0; i < goldShopSlots.Length; ++i)
         {
-            goldBoxSlots[i].ClearSlot();
-            goldBoxSlots[i].gameObject.SetActive(false);
+            goldShopSlots[i].ClearSlot();
+            goldShopSlots[i].gameObject.SetActive(false);
         }
-        for (int i = 0; i < cardBoxSlots.Length; ++i)
+        for (int i = 0; i < crystalShopSlots.Length; ++i)
         {
-            cardBoxSlots[i].ClearSlot();
-            cardBoxSlots[i].gameObject.SetActive(false);
+            crystalShopSlots[i].ClearSlot();
+            crystalShopSlots[i].gameObject.SetActive(false);
         }
     }
     private void OnDestroy()
@@ -38,28 +43,38 @@ public class ShopPanel : ScrollPanel
         DataManager.onLoadDatabase -= RefreshShop;
     }
 
-    
     public void RefreshShop()
     {
-        /*
-        var cardDatabase = DataManager.Instance.CardDatabaseDictionary;
-        if (playerInventory.EquipCardName != null)
-        {
-            RegisterSellList(cardDatabase[playerInventory.EquipCardName]);
-        }
+        var goldShopDatabase = DataManager.Instance.GoldShopDatabase;
+        var crystalShopDatabase = DataManager.Instance.CrystalShopDatabase;
 
-        for (int i = 0; i < playerInventory.ItemNames.Count; ++i)
+        for (int i = 0; i < goldShopDatabase.Count; ++i)
         {
-            if (playerInventory.ItemNames[i] != null)
+            if (goldShopDatabase[i] != null)
             {
-                inventorySlots[i].RegisterCardToSlot(cardDatabase[playerInventory.ItemNames[i]]);
-                inventorySlots[i].gameObject.SetActive(true);
+                goldShopSlots[i].RegisterItemToSlot(goldShopDatabase[i]);
+                goldShopSlots[i].gameObject.SetActive(true);
             }
 
             else
             {
-                inventorySlots[i].ClearSlot();
-                inventorySlots[i].gameObject.SetActive(false);
+                goldShopSlots[i].ClearSlot();
+                goldShopSlots[i].gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < crystalShopDatabase.Count; ++i)
+        {
+            if (crystalShopDatabase[i] != null)
+            {
+                crystalShopSlots[i].RegisterItemToSlot(crystalShopDatabase[i]);
+                crystalShopSlots[i].gameObject.SetActive(true);
+            }
+
+            else
+            {
+                crystalShopSlots[i].ClearSlot();
+                crystalShopSlots[i].gameObject.SetActive(false);
             }
         }
 
@@ -67,18 +82,9 @@ public class ShopPanel : ScrollPanel
         {
             sizeFitters[i].enabled = false;
             sizeFitters[i].enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)sizeFitters[i].transform);
         }
-    */
-    }
 
-    /*
-    public void RegisterSellList(Card requestCard)
-    {
-        if (equipCardSlot.IsEmpty() == false)
-        {
-            ReleaseCard();
-        }
-        equipCardSlot.EquipCard(requestCard);
+        onShopChanged?.Invoke(this);
     }
-    */
 }

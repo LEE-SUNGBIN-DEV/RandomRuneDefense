@@ -17,13 +17,22 @@ public partial class DataManager
     public static event UnityAction onLoadDatabase;
     #endregion
 
-    [Header("Game Database")]
+    [Header("Card Database")]
     [SerializeField] private List<Card> cardDatabase;
     [SerializeField] private Dictionary<string, Card> cardDatabaseDictionary = new Dictionary<string, Card>();
 
+    [Header("Shop Database")]
+    [SerializeField] private List<ShopItem> goldShopDatabase;
+    [SerializeField] private Dictionary<string, ShopItem> goldShopDatabaseDictionary = new Dictionary<string, ShopItem>();
+
+    [SerializeField] private List<ShopItem> crystalShopDatabase;
+    [SerializeField] private Dictionary<string, ShopItem> crystalShopDatabaseDictionary = new Dictionary<string, ShopItem>();
+
+    [Header("Rune Database")]
     [SerializeField] private List<Rune> runeDatabase;
     [SerializeField] private Dictionary<string, Rune> runeDatabaseDictionary = new Dictionary<string, Rune>();
 
+    [Header("Enemy Database")]
     [SerializeField] private List<Enemy> enemyDatabase;
     [SerializeField] private Dictionary <string, Enemy> enemyDatabaseDictionary = new Dictionary<string, Enemy>();
 
@@ -37,6 +46,7 @@ public partial class DataManager
 #endif
         UIManager.Instance.ShowNetworkState("게임 데이터를 요청합니다.");
         yield return Function.WaitPlayFabAPI(RequestCardDatabase);
+        yield return Function.WaitPlayFabAPI(RequestShopDatabase);
         yield return Function.WaitPlayFabAPI(RequestRuneDatabase);
     }
 
@@ -74,6 +84,80 @@ public partial class DataManager
     }
     #endregion
 
+    // ! 상점 정보 요청
+    public void RequestShopDatabase()
+    {
+#if DEBUG_MODE
+        Debug.Log("상점 데이터를 요청합니다.");
+#endif
+        UIManager.Instance.ShowNetworkState("상점 데이터를 요청합니다.");
+        GetCatalogItemsRequest request = new GetCatalogItemsRequest()
+        {
+            CatalogVersion = Constant.SERVER_CATALOG_VERSION_SHOP
+        };
+
+        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
+        {
+            goldShopDatabase.Clear();
+            crystalShopDatabase.Clear();
+
+            for (int i = 0; i < result.Catalog.Count; ++i)
+            {
+                string jsonString = result.Catalog[i].CustomData;
+                ShopItem newShopItem;
+
+                // 아이템 종류
+                if(result.Catalog[i].ItemClass == "GoldBox")
+                {
+                    GoldBox goldBox = new GoldBox();
+                    goldBox.LoadItem(jsonString);
+                    newShopItem = goldBox;
+                }
+                else if(result.Catalog[i].ItemClass == "TicketBox")
+                {
+                    TicketBox ticketBox = new TicketBox();
+                    ticketBox.LoadItem(jsonString);
+                    newShopItem = ticketBox;
+                }
+                else if (result.Catalog[i].ItemClass == "CardBox")
+                {
+                    CardBox cardBox = new CardBox();
+                    cardBox.LoadItem(jsonString);
+                    newShopItem = cardBox;
+                }
+                else
+                {
+                    ShopItem shopItem = new ShopItem();
+                    shopItem.LoadItem(jsonString);
+                    newShopItem = shopItem;
+                }
+
+                // 화폐 타입
+                if (newShopItem.CurrencyType == "gold")
+                {
+                    goldShopDatabase.Add(newShopItem);
+                    goldShopDatabaseDictionary.Add(newShopItem.ItemName, newShopItem);
+                }
+                else if (newShopItem.CurrencyType == "crystal")
+                {
+                    crystalShopDatabase.Add(newShopItem);
+                    crystalShopDatabaseDictionary.Add(newShopItem.ItemName, newShopItem);
+                }
+                else
+                {
+                    Debug.Log("올바르지 않은 구매 타입");
+                }
+            }
+
+#if DEBUG_MODE
+            Debug.Log("상점 데이터를 불러왔습니다.");
+#endif
+            onLoadDatabase?.Invoke();
+            UIManager.Instance.ShowNetworkState("상점 데이터를 불러왔습니다.");
+            Function.isAsyncOperationComplete = true;
+        }, OnDataRequestError);
+    }
+
     // ! 룬 정보 요청
     public void RequestRuneDatabase()
     {
@@ -88,38 +172,13 @@ public partial class DataManager
 
         PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
         {
-            //
+            // Do Something
 
 #if DEBUG_MODE
             Debug.Log("룬 데이터를 불러왔습니다.");
 #endif
             onLoadDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("룬 데이터를 불러왔습니다.");
-            Function.isAsyncOperationComplete = true;
-        }, OnDataRequestError);
-    }
-
-    // ! 상점 정보 요청
-    public void RequestShopDatabase()
-    {
-#if DEBUG_MODE
-        Debug.Log("상점 데이터를 요청합니다.");
-#endif
-        UIManager.Instance.ShowNetworkState("상점 데이터를 요청합니다.");
-        GetCatalogItemsRequest request = new GetCatalogItemsRequest()
-        {
-            CatalogVersion = Constant.SERVER_CATALOG_VERSION_GOLDBOX_SHOP
-        };
-
-        PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
-        {
-            //
-
-#if DEBUG_MODE
-            Debug.Log("상점 데이터를 불러왔습니다.");
-#endif
-            onLoadDatabase?.Invoke();
-            UIManager.Instance.ShowNetworkState("상점 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
     }
@@ -132,6 +191,22 @@ public partial class DataManager
     public Dictionary<string, Card> CardDatabaseDictionary
     {
         get => cardDatabaseDictionary;
+    }
+    public List<ShopItem> GoldShopDatabase
+    {
+        get => goldShopDatabase;
+    }
+    public Dictionary<string, ShopItem> GoldShopDatabaseDictionary
+    {
+        get => goldShopDatabaseDictionary;
+    }
+    public List<ShopItem> CrystalShopDatabase
+    {
+        get => crystalShopDatabase;
+    }
+    public Dictionary<string, ShopItem> CrystalShopDatabaseDictionary
+    {
+        get => crystalShopDatabaseDictionary;
     }
     public List<Rune> RuneDatabase
     {

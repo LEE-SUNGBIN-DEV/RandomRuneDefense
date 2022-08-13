@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollectionPanel : ScrollPanel
 {
     [SerializeField] private List<Card> cardDatabase;
     [SerializeField] private CardSlot[] collectionSlots;
     [SerializeField] private Dictionary<string, CardSlot> collectionDictionary;
+    [SerializeField] private ContentSizeFitter[] sizeFitters;
 
     private void Awake()
     {
+        sizeFitters = GetComponentsInChildren<ContentSizeFitter>();
         PlayerCollections.onPlayerCollectionsChanged -= RefreshCollections;
         PlayerCollections.onPlayerCollectionsChanged += RefreshCollections;
 
@@ -44,6 +47,13 @@ public class CollectionPanel : ScrollPanel
             {
                 ActiveCollectionSlot(collectionDictionary[playerCollections.CollectedCardNames[i]]);
             }
+        }
+
+        for (int i = 0; i < sizeFitters.Length; ++i)
+        {
+            sizeFitters[i].enabled = false;
+            sizeFitters[i].enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)sizeFitters[i].transform);
         }
     }
 

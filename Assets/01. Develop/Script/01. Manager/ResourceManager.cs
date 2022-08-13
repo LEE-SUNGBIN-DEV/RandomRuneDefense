@@ -11,19 +11,19 @@ public class ResourceManager : Singleton<ResourceManager>
 
     [Header("Item Resource")]
     [SerializeField] private ItemResource[] cardResources;
-    [SerializeField] private ItemResource[] boxResources;
+    [SerializeField] private ItemResource[] shopResources;
 
     [Header("Resource Dictionary")]
     [SerializeField] private Dictionary<string, GameObject> prefabDictionary;
     [SerializeField] private Dictionary<string, ItemResource> cardResourceDictionary;
-    [SerializeField] private Dictionary<string, ItemResource> boxResourceDictionary;
+    [SerializeField] private Dictionary<string, ItemResource> shopResourceDictionary;
 
     public override void Initialize()
     {
         localDataPath = Application.dataPath + "/Resources/";
 
         cardResourceDictionary = new Dictionary<string, ItemResource>();
-        boxResourceDictionary = new Dictionary<string, ItemResource>();
+        shopResourceDictionary = new Dictionary<string, ItemResource>();
 
         for(int i=0; i<prefabs.Length; ++i)
         {
@@ -35,9 +35,9 @@ public class ResourceManager : Singleton<ResourceManager>
             cardResourceDictionary.Add(cardResources[i].itemName, cardResources[i]);
         }
 
-        for (int i = 0; i < boxResources.Length; ++i)
+        for (int i = 0; i < shopResources.Length; ++i)
         {
-            boxResourceDictionary.Add(boxResources[i].itemName, boxResources[i]);
+            shopResourceDictionary.Add(shopResources[i].itemName, shopResources[i]);
         }
     }
 
@@ -50,9 +50,9 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         get => cardResourceDictionary;
     }
-    public Dictionary<string, ItemResource> BoxResourceDictionary
+    public Dictionary<string, ItemResource> ShopResourceDictionary
     {
-        get => boxResourceDictionary;
+        get => shopResourceDictionary;
     }
     #endregion
 }

@@ -15,7 +15,7 @@ public class Item<T> where T : Item<T>
         JObject jObject = JObject.Parse(jsonString);
         ItemName = jObject["itemName"].ToString();
         ItemDescription = jObject["itemDescription"].ToString();
-        itemSprite = ResourceManager.Instance.CardResourceDictionary[ItemName].itemSprite;
+        ItemSprite = null;
     }
 
     #region Property
