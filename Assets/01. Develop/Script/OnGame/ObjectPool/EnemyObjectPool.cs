@@ -30,14 +30,15 @@ public class EnemyObjectPool : MonoBehaviour
         // 미리생성
         for (int i = 0; i < size; i++)
         {
-            GameObject enemy = Instantiate(poolingPrefab[Random.Range(0,2)], Constant.ENEMY_WAYS[0], Quaternion.identity);                       
+            Debug.Log("적 생성");
+            GameObject enemy = PhotonNetwork.Instantiate(poolingPrefab[Random.Range(0,2)].gameObject.name, Constant.ENEMY_WAYS[0], Quaternion.identity);                       
             queue.Enqueue(enemy);
             enemy.transform.parent = this.transform;
             enemy.SetActive(false);
         }        
     }
     private void Update()
-    {            
+    {
         ArrangeEnemies();
     }
     public void InsertQueue(GameObject p_object)
@@ -61,7 +62,7 @@ public class EnemyObjectPool : MonoBehaviour
             }
         }
         //  풀링이 꽉찼으면 새로 만들어서 리턴.
-        GameObject enemy = Instantiate(poolingPrefab[Random.Range(0, 2)], Constant.ENEMY_WAYS[0], Quaternion.identity);
+        GameObject enemy = PhotonNetwork.Instantiate(poolingPrefab[Random.Range(0, 2)].gameObject.name, Constant.ENEMY_WAYS[0], Quaternion.identity);
         enemys.Add(enemy.GetComponent<Enemy>());
         queue.Enqueue(enemy);
         enemy.transform.parent = this.transform;
@@ -71,7 +72,6 @@ public class EnemyObjectPool : MonoBehaviour
 
     public IEnumerator EnemySpawn(int LineEffectValue)
     {
-
         Debug.Log("이번 강화 라인 " + LineEffectValue);
         stage += 1;
         Debug.Log(stage + " 스테이지 시작");       

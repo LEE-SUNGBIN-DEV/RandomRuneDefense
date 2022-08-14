@@ -28,7 +28,7 @@ public class OnGameScene : MonoBehaviour
 
     int totalSp; // 전체 sp
     int spawnSP; // 스폰 sp
-    bool isDie; // 죽음
+    public bool isDie; // 죽음
 
     //-----------CAMERA SHAKE--------------//
     [Header("※ CAMERA_SHAKE")]
@@ -86,21 +86,22 @@ public class OnGameScene : MonoBehaviour
 
     private void Update()
     {
-        if (!isDie)
-        {
-            d2FogsPE.Density -= Time.deltaTime * 2;
-        }
-        if (isDie)
-        {
-            d2FogsPE.Density += Time.deltaTime * 2;
-            return;
-        }
+        //if (!isDie)
+        //{
+        //    d2FogsPE.Density -= Time.deltaTime * 2;
+        //}
+        //if (isDie)
+        //{
+        //    d2FogsPE.Density += Time.deltaTime * 2;
+        //    return;
+        //}
         // 스테이지 표시
         WaveNum.text = enemyObjectPool.stage.ToString();
 
-            // 마스터 만 함수 실행
-           
-           StageStart();
+        // 마스터 만 함수 실행
+        if (PhotonNetwork.IsMasterClient)       
+            StageStart();
+        
 
             if (enemyObjectPool.bossStage)
             {
@@ -125,21 +126,12 @@ public class OnGameScene : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.onSceneLoaded -= CreatePlayer;
-        GameManager.onSceneLoaded += CreatePlayer;
+
     }
 
     private void OnDisable()
     {
-        GameManager.onSceneLoaded -= CreatePlayer;
-    }
 
-    private void CreatePlayer(string sceneName)
-    {
-        if (sceneName == Constant.NAME_SCENE_GAME)
-        {
-            PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
-        }
     }
 
     public void DecreaseHeart()

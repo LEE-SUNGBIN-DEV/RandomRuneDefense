@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BossObjectPool : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class BossObjectPool : MonoBehaviour
     {       
         if(queue.Count == 0)
         {          
-             GameObject boss = Instantiate(poolingPrefab[0], Constant.ENEMY_WAYS[0], Quaternion.identity);
+             GameObject boss = PhotonNetwork.Instantiate(poolingPrefab[0].gameObject.name, Constant.ENEMY_WAYS[0], Quaternion.identity);
              EnemyObjectPool.Instance.enemys.Add(boss.GetComponent<BossEnemy>());
              queue.Enqueue(boss);
              boss.transform.parent = this.transform;

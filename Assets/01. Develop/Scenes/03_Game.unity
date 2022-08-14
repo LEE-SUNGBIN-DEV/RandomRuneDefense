@@ -569,7 +569,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115809407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a8b48a1929bd42fc8a74e9281c1f25e, type: 3}
   m_Name: 
@@ -4274,9 +4274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingPrefab:
-  - {fileID: 2695723151562121217, guid: b12f75f29b63a4f4ca469f35d5a12edf, type: 3}
-  - {fileID: 803484486442559273, guid: bcb0bec34bd6f2449bf1fbdbeab35360, type: 3}
-  - {fileID: 3629236882809634056, guid: f434cf29e79b3f04999d1ec41522c823, type: 3}
+  - {fileID: 2695723151562121217, guid: 0c3c42519e5d1cb47a4e729f2662c88e, type: 3}
+  - {fileID: 803484486442559273, guid: 311dbd38399790249bd336db150efb7b, type: 3}
+  - {fileID: 3629236882809634056, guid: 50c986fc857121c448280032fb36d9dd, type: 3}
   size: 5
   enemys: []
   stage: 0
@@ -7016,6 +7016,7 @@ MonoBehaviour:
   backGroundColor: 0
   LineEffectValue: 0
   WaveNum: {fileID: 298914345}
+  isDie: 0
   shakeTime: 0.5
   shakeIntensity: 0.2
 --- !u!4 &1882571857
@@ -7047,7 +7048,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 0
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
@@ -19070,6 +19071,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2036588159810287472}
   - component: {fileID: 2036588159810287473}
+  - component: {fileID: 2036588159810287476}
+  - component: {fileID: 2036588159810287475}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -19077,6 +19080,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2036588159810287475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036588159810287474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &2036588159810287476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036588159810287474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 2036588159810287475}
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &2036588159843145025
 MonoBehaviour:
   m_ObjectHideFlags: 0

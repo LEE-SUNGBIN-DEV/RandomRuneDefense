@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class BulletObjetPool : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class BulletObjetPool : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab);
+            GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name ,Vector3.zero ,Quaternion.identity);
             queue.Enqueue(bullet);
             bullet.transform.parent = this.transform;
             bullet.SetActive(false);
@@ -41,7 +42,7 @@ public class BulletObjetPool : MonoBehaviour
             return Bullets;
         }      
 
-        GameObject bullet = Instantiate(bulletPrefab);
+        GameObject bullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, Vector3.zero, Quaternion.identity);
         queue.Enqueue(bullet);
         bullet.transform.parent = this.transform;
         bullet.SetActive(true);

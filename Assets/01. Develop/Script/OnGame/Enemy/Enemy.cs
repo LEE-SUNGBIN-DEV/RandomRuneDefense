@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 
 //IPunObservable
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviourPun
 {
     [SerializeField] protected float health;
     [SerializeField] protected static float maxHealth;
