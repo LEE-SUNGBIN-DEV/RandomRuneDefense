@@ -48,7 +48,7 @@ public class GameManager : Singleton<GameManager>
         currentSceneName = scene.name;
         if(scene.name == Constant.NAME_SCENE_GAME)
         {
-            Screen.SetResolution(Constant.SCREEN_RESOLUTION_HEIGHT, Constant.SCREEN_RESOLUTION_WIDTH, false);
+            Screen.SetResolution(Constant.SCREEN_RESOLUTION_WIDTH, Constant.SCREEN_RESOLUTION_HEIGHT, false);
         }
         else
         {

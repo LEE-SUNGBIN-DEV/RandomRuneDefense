@@ -19,6 +19,7 @@ public partial class DataManager : Singleton<DataManager>
         cardDatabase = new List<Card>();
         goldShopDatabase = new List<ShopItem>();
         crystalShopDatabase = new List<ShopItem>();
+        runeDatabase = new List<RuneData>();
         enemyDatabase = new List<Enemy>();
     }
 

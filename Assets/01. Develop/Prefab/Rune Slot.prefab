@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2404168320665101834}
   - component: {fileID: 2404168320665101839}
+  - component: {fileID: -7005282346822831061}
   - component: {fileID: 2404168320665101836}
   - component: {fileID: 2404168320665101837}
   m_Layer: 5
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2404168320665101839
 CanvasRenderer:
@@ -46,6 +47,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2404168320665101835}
   m_CullTransparentMesh: 1
+--- !u!114 &-7005282346822831061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404168320665101835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2629aee7a61a85b4a8fe1d70cb9f4330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotImage: {fileID: 2404168320665101836}
+  runeName: 
+  runeData:
+    runeName: 
+    runeSprite: {fileID: 0}
+    runeNumber: 0
+    runeType: 0
+    runeDamage: 0
+    runeAttackSpeed: 0
+  runeImage: {fileID: 0}
 --- !u!114 &2404168320665101836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

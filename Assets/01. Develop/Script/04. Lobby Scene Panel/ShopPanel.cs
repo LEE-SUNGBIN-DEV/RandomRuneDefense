@@ -16,8 +16,8 @@ public class ShopPanel : ScrollPanel
     private void Awake()
     {
         sizeFitters = GetComponentsInChildren<ContentSizeFitter>();
-        DataManager.onLoadDatabase -= RefreshShop;
-        DataManager.onLoadDatabase += RefreshShop;
+        DataManager.onLoadShopDatabase -= RefreshShop;
+        DataManager.onLoadShopDatabase += RefreshShop;
     }
 
     private void OnEnable()
@@ -40,7 +40,7 @@ public class ShopPanel : ScrollPanel
     }
     private void OnDestroy()
     {
-        DataManager.onLoadDatabase -= RefreshShop;
+        DataManager.onLoadShopDatabase -= RefreshShop;
     }
 
     public void RefreshShop()

@@ -12,11 +12,13 @@ public class ResourceManager : Singleton<ResourceManager>
     [Header("Item Resource")]
     [SerializeField] private ItemResource[] cardResources;
     [SerializeField] private ItemResource[] shopResources;
+    [SerializeField] private ItemResource[] runeResources;
 
     [Header("Resource Dictionary")]
     [SerializeField] private Dictionary<string, GameObject> prefabDictionary;
     [SerializeField] private Dictionary<string, ItemResource> cardResourceDictionary;
     [SerializeField] private Dictionary<string, ItemResource> shopResourceDictionary;
+    [SerializeField] private Dictionary<string, ItemResource> runeResourceDictionary;
 
     public override void Initialize()
     {
@@ -24,6 +26,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
         cardResourceDictionary = new Dictionary<string, ItemResource>();
         shopResourceDictionary = new Dictionary<string, ItemResource>();
+        runeResourceDictionary = new Dictionary<string, ItemResource>();
 
         for(int i=0; i<prefabs.Length; ++i)
         {
@@ -39,6 +42,11 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             shopResourceDictionary.Add(shopResources[i].itemName, shopResources[i]);
         }
+
+        for (int i = 0; i < runeResources.Length; ++i)
+        {
+            runeResourceDictionary.Add(runeResources[i].itemName, runeResources[i]);
+        }
     }
 
     #region Property
@@ -53,6 +61,10 @@ public class ResourceManager : Singleton<ResourceManager>
     public Dictionary<string, ItemResource> ShopResourceDictionary
     {
         get => shopResourceDictionary;
+    }
+    public Dictionary<string, ItemResource> RuneResourceDictionary
+    {
+        get => runeResourceDictionary;
     }
     #endregion
 }

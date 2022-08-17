@@ -20,12 +20,13 @@ public partial class NetworkManager
 
     #region Playfab API
     #region Login
+    // 로그인 로직
     public void LoginWithPlayFab(string userName, string userPassword)
     {
         UIManager.Instance.ShowNetworkState("로그인 정보를 확인합니다.");
 
         var request = new LoginWithPlayFabRequest { Username = userName, Password = userPassword };
-        PlayFabClientAPI.LoginWithPlayFab(request, RequestToken, OnPlayFabError);
+        PlayFabClientAPI.LoginWithPlayFab(request, RequestToken, OnLoginError);
     }
 
     private void RequestToken(LoginResult loginResult)
@@ -40,7 +41,7 @@ public partial class NetworkManager
         PlayFabClientAPI.GetPhotonAuthenticationToken(new GetPhotonAuthenticationTokenRequest()
         {
             PhotonApplicationId = PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime
-        }, AuthenticateWithPhoton, OnPlayFabError);
+        }, AuthenticateWithPhoton, OnLoginError);
     }
 
     // Step 3
@@ -67,13 +68,23 @@ public partial class NetworkManager
         onLogin(true);
         Connect();
     }
+    private void OnLoginError(PlayFabError error)
+    {
+        if (loginCoroutine != null)
+        {
+            StopCoroutine(loginCoroutine);
+        }
+        UIManager.Instance.ShowNetworkState("로그인에 실패하였습니다.");
+        Debug.LogWarning(error.GenerateErrorReport());
+        onLogin(false);
+    }
     #endregion
     #region Register
-    // ! 가입
+    // 가입 로직
     public void Register(string userID, string userPassword, string userEmail, string nickname)
     {
         var request = new RegisterPlayFabUserRequest { Username = userID, Password = userPassword, Email = userEmail, DisplayName = nickname };
-        PlayFabClientAPI.RegisterPlayFabUser(request, RegisterSuccess, RegisterFailure);
+        PlayFabClientAPI.RegisterPlayFabUser(request, RegisterSuccess, OnRegisterError);
     }
     private void RegisterSuccess(RegisterPlayFabUserResult result)
     {
@@ -81,20 +92,12 @@ public partial class NetworkManager
         onRegister(true);
     }
 
-    private void RegisterFailure(PlayFabError error)
+    private void OnRegisterError(PlayFabError error)
     {
         UIManager.Instance.DoSystemNotice("회원가입에 실패하였습니다.");
         Debug.LogWarning(error.GenerateErrorReport());
         onRegister(false);
     }
     #endregion
-
-    private void OnPlayFabError(PlayFabError obj)
-    {
-        StopCoroutine(loginCoroutine);
-        UIManager.Instance.ShowNetworkState("오류가 발생하였습니다.");
-        Debug.Log(obj.GenerateErrorReport());
-        onLogin(false);
-    }
     #endregion
 }
