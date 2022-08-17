@@ -9,12 +9,15 @@ using UnityEngine.Events;
 using PlayFab;
 using PlayFab.ClientModels;
 using PlayFab.EconomyModels;
+using Newtonsoft.Json.Linq;
 
 
 public partial class DataManager
 {
     #region Event
-    public static event UnityAction onLoadDatabase;
+    public static event UnityAction onLoadCardDatabase;
+    public static event UnityAction onLoadShopDatabase;
+    public static event UnityAction onLoadRuneDatabase;
     #endregion
 
     [Header("Card Database")]
@@ -29,8 +32,8 @@ public partial class DataManager
     [SerializeField] private Dictionary<string, ShopItem> crystalShopDatabaseDictionary = new Dictionary<string, ShopItem>();
 
     [Header("Rune Database")]
-    [SerializeField] private List<Rune> runeDatabase;
-    [SerializeField] private Dictionary<string, Rune> runeDatabaseDictionary = new Dictionary<string, Rune>();
+    [SerializeField] private List<RuneData> runeDatabase;
+    [SerializeField] private Dictionary<string, RuneData> runeDatabaseDictionary = new Dictionary<string, RuneData>();
 
     [Header("Enemy Database")]
     [SerializeField] private List<Enemy> enemyDatabase;
@@ -77,7 +80,7 @@ public partial class DataManager
 #if DEBUG_MODE
             Debug.Log("카드 데이터를 불러왔습니다.");
 #endif
-            onLoadDatabase?.Invoke();
+            onLoadCardDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("카드 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
@@ -152,7 +155,7 @@ public partial class DataManager
 #if DEBUG_MODE
             Debug.Log("상점 데이터를 불러왔습니다.");
 #endif
-            onLoadDatabase?.Invoke();
+            onLoadShopDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("상점 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
@@ -172,12 +175,22 @@ public partial class DataManager
 
         PlayFabClientAPI.GetCatalogItems(request, (GetCatalogItemsResult result) =>
         {
-            // Do Something
+            runeDatabase.Clear();
+
+            for (int i = 0; i < result.Catalog.Count; ++i)
+            {
+                string jsonString = result.Catalog[i].CustomData;
+                RuneData newRune = new RuneData();
+                newRune.LoadItem(result.Catalog[i].DisplayName, jsonString);
+
+                runeDatabase.Add(newRune);
+                runeDatabaseDictionary.Add(result.Catalog[i].ItemId, newRune);
+            }
 
 #if DEBUG_MODE
             Debug.Log("룬 데이터를 불러왔습니다.");
 #endif
-            onLoadDatabase?.Invoke();
+            onLoadRuneDatabase?.Invoke();
             UIManager.Instance.ShowNetworkState("룬 데이터를 불러왔습니다.");
             Function.isAsyncOperationComplete = true;
         }, OnDataRequestError);
@@ -208,11 +221,11 @@ public partial class DataManager
     {
         get => crystalShopDatabaseDictionary;
     }
-    public List<Rune> RuneDatabase
+    public List<RuneData> RuneDatabase
     {
         get => runeDatabase;
     }
-    public Dictionary<string, Rune> RuneDatabaseDictionary
+    public Dictionary<string, RuneData> RuneDatabaseDictionary
     {
         get => runeDatabaseDictionary;
     }
